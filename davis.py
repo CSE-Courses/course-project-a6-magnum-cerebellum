@@ -13,6 +13,7 @@ SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
 
 display_width = 1024
 display_height = 768
+pygame.mixer.music.set_volume(1)
  
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Davis Hall Escape Simulator 2020')
@@ -41,6 +42,7 @@ class Button:
         self.buttonText()
         gameDisplay.blit(self.rend, self.rect)
 
+
 def render_text(text, font, color):
     textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
@@ -55,7 +57,9 @@ def check_Hover(button):
 def main_menu():
 
     intro = True
-
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/sound/sandstorm.mp3")
+    pygame.mixer.music.play()
     buttons = [Button("START", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/2))),
     Button("OPTIONS", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.5))),
     Button("QUIT", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.20)))]
@@ -86,10 +90,14 @@ def main_menu():
 
 def options_menu():
     gameDisplay.fill(black)
-
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
+    current_volume = pygame.mixer.music.get_volume()
+    volumeDisplay = Button(str(current_volume), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
+    buttons =[Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60)),
+    Button("<", white, SPOOKY_SMALL_FONT, (display_width/2-150,display_height/2)),
+    Button(">", white, SPOOKY_SMALL_FONT, (display_width/2+150,display_height/2)),
+    Button("MUTE", white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2+100))]
 
-    backButton = Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60))
 
     while True :
         
@@ -99,10 +107,31 @@ def options_menu():
                 pygame.quit()
                 quit()
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and backButton.rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 main_menu()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.mixer.music.set_volume(pygame.mixer.music.get_volume()-0.1)
+                volumeDisplay.text = str(pygame.mixer.music.get_volume())
+                volumeDisplay.buttonText()
+               # volumeDisplay.createButton()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.mixer.music.set_volume(pygame.mixer.music.get_volume()+0.1)
+                volumeDisplay.text = str(pygame.mixer.music.get_volume())
+                volumeDisplay.buttonText()
+               # volumeDisplay.createButton()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "MUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.mixer.music.set_volume(0)
+                volumeDisplay.text = str(pygame.mixer.music.get_volume())
+                buttons[3].text = "UNMUTE"
+                buttons[3].buttonText()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "UNMUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.mixer.music.set_volume(current_volume)
+                volumeDisplay.text = str(current_volume)
+                buttons[3].text = "MUTE"
+                buttons[3].buttonText()
 
-        check_Hover(backButton)
+        for button in buttons:
+            check_Hover(button)
 
         pygame.display.update()
         clock.tick(15)
