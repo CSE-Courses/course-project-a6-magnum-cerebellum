@@ -2,9 +2,12 @@ import time
 import random
 import pygame
 import math
+from assets.music import Music
 
 pygame.init()
- 
+
+
+
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
@@ -52,6 +55,14 @@ def check_Hover(button):
         button.color = white
     button.createButton()
 
+class Checkbox:
+    def __init__(self):
+        self.draw()
+
+    def draw(self):
+        pygame.draw.circle(gameDisplay, white, (150,150), 75)
+
+        
 def main_menu():
 
     intro = True
@@ -66,9 +77,10 @@ def main_menu():
     gameDisplay.blit(TextSurf, TextRect)
 
     while intro:
-        
+        music_player = Music.Music_Player()
+        music_player.play_intro
         for event in pygame.event.get():
-            print(event)
+           
             if (event.type == pygame.QUIT or 
             (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos()))):
                 pygame.quit()
@@ -90,7 +102,7 @@ def options_menu():
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
 
     backButton = Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60))
-
+    
     while True :
         
         for event in pygame.event.get():
