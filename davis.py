@@ -54,6 +54,13 @@ def check_Hover(button):
         button.color = white
     button.createButton()
 
+def reRenderVol(volDisplay, vol, text):
+    volDisplay.text = text
+    volDisplay.buttonText()
+    gameDisplay.fill(black)
+    volDisplay.createButton()
+    vol.createButton()
+
 def main_menu():
 
     intro = True
@@ -92,11 +99,13 @@ def options_menu():
     gameDisplay.fill(black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = pygame.mixer.music.get_volume()
-    volumeDisplay = Button(str(current_volume), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
+    volumeDisplay = Button(str(math.trunc(current_volume * 100)), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
+    volume = Button("VOLUME", white, SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]))
+
     buttons =[Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60)),
-    Button("<", white, SPOOKY_SMALL_FONT, (display_width/2-150,display_height/2)),
-    Button(">", white, SPOOKY_SMALL_FONT, (display_width/2+150,display_height/2)),
-    Button("MUTE", white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2+100))]
+    Button("<", white, SPOOKY_SMALL_FONT, (display_width/2-80,display_height/2)),
+    Button(">", white, SPOOKY_SMALL_FONT, (display_width/2+80,display_height/2)),
+    Button("MUTE", white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2+100)) ]
 
 
     while True :
@@ -109,26 +118,36 @@ def options_menu():
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 main_menu()
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.mixer.music.set_volume(pygame.mixer.music.get_volume()-0.1)
-                volumeDisplay.text = str(pygame.mixer.music.get_volume())
-                volumeDisplay.buttonText()
-               # volumeDisplay.createButton()
+                if (buttons[3].text != "UNMUTE"):
+                    pygame.mixer.music.set_volume(current_volume-0.10)
+                
+                # Subtracting two floats isn't exact so multiply by 100 then truncate
+                if (math.trunc(current_volume*100) != 0):
+                    current_volume -= 0.10
+
+                #Need to re-render button
+                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.mixer.music.set_volume(pygame.mixer.music.get_volume()+0.1)
-                volumeDisplay.text = str(pygame.mixer.music.get_volume())
-                volumeDisplay.buttonText()
-               # volumeDisplay.createButton()
+                if (buttons[3].text != "UNMUTE"):
+                    pygame.mixer.music.set_volume(current_volume + 0.10)
+                if (math.trunc(current_volume*100) != 100):
+                    current_volume += 0.10
+
+                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "MUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.mixer.music.set_volume(0)
-                volumeDisplay.text = str(pygame.mixer.music.get_volume())
+                pygame.mixer.music.set_volume(0.0)
                 buttons[3].text = "UNMUTE"
-                buttons[3].buttonText()
+                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "UNMUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
                 pygame.mixer.music.set_volume(current_volume)
-                volumeDisplay.text = str(current_volume)
                 buttons[3].text = "MUTE"
-                buttons[3].buttonText()
+                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+
 
         for button in buttons:
             check_Hover(button)
