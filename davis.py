@@ -75,10 +75,11 @@ def main_menu():
     TextSurf, TextRect = render_text("Davis Hall", SPOOKY_BIG_FONT, red)
     TextRect.center = ((display_width/2),(display_height/5))
     gameDisplay.blit(TextSurf, TextRect)
-
+    music_player = Music.Music_Player()
+    music_player.play_intro()
+    music_player.set_volume(0.5)
     while intro:
-        music_player = Music.Music_Player()
-        music_player.play_intro
+        
         for event in pygame.event.get():
            
             if (event.type == pygame.QUIT or 
@@ -87,6 +88,7 @@ def main_menu():
                 quit()
             
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
+                music_player.stop()
                 options_menu()
                 
                 
@@ -97,6 +99,10 @@ def main_menu():
         clock.tick(15)
 
 def options_menu():
+    music_player = Music.Music_Player()
+    music_player.play_normal()
+    music_player.increase_volume(0.3)
+
     gameDisplay.fill(black)
 
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
