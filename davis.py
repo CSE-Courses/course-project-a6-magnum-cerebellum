@@ -2,9 +2,12 @@ import time
 import random
 import pygame
 import math
+from assets.music import Music
 
 pygame.init()
- 
+
+
+
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
@@ -54,12 +57,21 @@ def check_Hover(button):
         button.color = white
     button.createButton()
 
+
+class Checkbox:
+    def __init__(self):
+        self.draw()
+
+    def draw(self):
+        pygame.draw.circle(gameDisplay, white, (150,150), 75)
+
 def reRenderVol(volDisplay, vol, text):
     volDisplay.text = text
     volDisplay.buttonText()
     gameDisplay.fill(black)
     volDisplay.createButton()
     vol.createButton()
+
 
 def main_menu():
 
@@ -75,17 +87,20 @@ def main_menu():
     TextSurf, TextRect = render_text("Davis Hall", SPOOKY_BIG_FONT, red)
     TextRect.center = ((display_width/2),(display_height/5))
     gameDisplay.blit(TextSurf, TextRect)
-
+    music_player = Music.Music_Player()
+    music_player.play_intro()
+    music_player.set_volume(0.5)
     while intro:
         
         for event in pygame.event.get():
-            print(event)
+           
             if (event.type == pygame.QUIT or 
             (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos()))):
                 pygame.quit()
                 quit()
             
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
+                music_player.stop()
                 options_menu()
                 
                 
@@ -96,6 +111,10 @@ def main_menu():
         clock.tick(15)
 
 def options_menu():
+    music_player = Music.Music_Player()
+    music_player.play_normal()
+    music_player.increase_volume(0.3)
+
     gameDisplay.fill(black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = pygame.mixer.music.get_volume()
@@ -108,6 +127,8 @@ def options_menu():
     Button("MUTE", white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2+100)) ]
 
 
+    backButton = Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60))
+    
     while True :
         
         for event in pygame.event.get():
