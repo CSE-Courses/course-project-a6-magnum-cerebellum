@@ -2,6 +2,7 @@ import time
 import random
 import pygame
 import math
+from assets.music import music
 
 pygame.init()
  
@@ -13,7 +14,9 @@ SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
 
 display_width = 1024
 display_height = 768
-pygame.mixer.music.set_volume(1)
+music_player = music.Music_Player()
+music_player.set_volume(1)
+
  
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Davis Hall Escape Simulator 2020')
@@ -42,6 +45,8 @@ class Button:
         self.buttonText()
         gameDisplay.blit(self.rend, self.rect)
 
+def roundup(x):
+    return int(math.ceil(x / 10.0)) * 10
 
 def render_text(text, font, color):
     textSurface = font.render(text, True, color)
@@ -64,9 +69,6 @@ def reRenderVol(volDisplay, vol, text):
 def main_menu():
 
     intro = True
-    pygame.mixer.init()
-    pygame.mixer.music.load("assets/sound/sandstorm.mp3")
-    pygame.mixer.music.play()
     buttons = [Button("START", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/2))),
     Button("OPTIONS", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.5))),
     Button("QUIT", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.20)))]
@@ -75,6 +77,7 @@ def main_menu():
     TextSurf, TextRect = render_text("Davis Hall", SPOOKY_BIG_FONT, red)
     TextRect.center = ((display_width/2),(display_height/5))
     gameDisplay.blit(TextSurf, TextRect)
+    music_player.play_intro()
 
     while intro:
         
@@ -96,10 +99,13 @@ def main_menu():
         clock.tick(15)
 
 def options_menu():
+    music_player = music.Music_Player()
+    music_player.play_normal()
+
     gameDisplay.fill(black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
-    current_volume = pygame.mixer.music.get_volume()
-    volumeDisplay = Button(str(math.trunc(current_volume * 100)), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
+    current_volume = music_player.get_volume()
+    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
     volume = Button("VOLUME", white, SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]))
 
     buttons =[Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60)),
@@ -121,32 +127,32 @@ def options_menu():
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 if (buttons[3].text != "UNMUTE"):
-                    pygame.mixer.music.set_volume(current_volume-0.10)
+                    music_player.set_volume(current_volume-0.10)
                 
                 # Subtracting two floats isn't exact so multiply by 100 then truncate
-                if (math.trunc(current_volume*100) != 0):
+                if (math.trunc(current_volume*100) > 0):
                     current_volume -= 0.10
 
                 #Need to re-render button
-                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+                reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume*100))))
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos())):
-                if (buttons[3].text != "UNMUTE"):
-                    pygame.mixer.music.set_volume(current_volume + 0.10)
-                if (math.trunc(current_volume*100) != 100):
+                if (buttons[3].text != "UNMUTE" and current_volume <= 100):
+                    music_player.set_volume(current_volume + 0.10)
+                if (math.trunc(current_volume*100) < 100):
                     current_volume += 0.10
 
-                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+                reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume*100))))
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "MUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.mixer.music.set_volume(0.0)
+                music_player.set_volume(0.0)
                 buttons[3].text = "UNMUTE"
-                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+                reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume*100))))
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].text == "UNMUTE" and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.mixer.music.set_volume(current_volume)
+                music_player.set_volume(current_volume)
                 buttons[3].text = "MUTE"
-                reRenderVol(volumeDisplay, volume, str(math.trunc(current_volume*100)))
+                reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume*100))))
 
 
         for button in buttons:
