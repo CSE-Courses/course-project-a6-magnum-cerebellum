@@ -17,7 +17,7 @@ SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
 display_width = 1024
 display_height = 768
 music_player = music.Music_Player()
-music_player.set_volume(1)
+music_player.set_volume(1.0)
 
  
 gameDisplay = pygame.display.set_mode((display_width, display_height))
@@ -141,7 +141,7 @@ def options_menu():
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 if (buttons[3].text != "UNMUTE"):
-                    music_player.set_volume(current_volume-0.10)
+                    music_player.set_volume(current_volume - 0.10)
                 
                 # Subtracting two floats isn't exact so multiply by 100 then truncate
                 if (math.trunc(current_volume*100) > 0):
