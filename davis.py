@@ -2,11 +2,7 @@ import time
 import random
 import pygame
 import math
-<<<<<<< HEAD
 from assets.music import music
-=======
-from assets.music import Music
->>>>>>> 50102c5b7a4b53e74d9d1ad632d6f71f833b753b
 
 pygame.init()
 
@@ -92,14 +88,8 @@ def main_menu():
     TextSurf, TextRect = render_text("Davis Hall", SPOOKY_BIG_FONT, red)
     TextRect.center = ((display_width/2),(display_height/5))
     gameDisplay.blit(TextSurf, TextRect)
-<<<<<<< HEAD
     music_player.play_intro()
 
-=======
-    music_player = Music.Music_Player()
-    music_player.play_intro()
-    music_player.set_volume(0.5)
->>>>>>> 50102c5b7a4b53e74d9d1ad632d6f71f833b753b
     while intro:
         
         for event in pygame.event.get():
@@ -121,14 +111,8 @@ def main_menu():
         clock.tick(15)
 
 def options_menu():
-<<<<<<< HEAD
     music_player = music.Music_Player()
     music_player.play_normal()
-=======
-    music_player = Music.Music_Player()
-    music_player.play_normal()
-    music_player.increase_volume(0.3)
->>>>>>> 50102c5b7a4b53e74d9d1ad632d6f71f833b753b
 
     gameDisplay.fill(black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
