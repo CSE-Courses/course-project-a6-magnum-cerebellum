@@ -8,17 +8,17 @@ class Music_Player():
 
     ######### event specific play options #########
     def play_intro(self):
-        musicpath = os.path.join(self.filedir, "music_files/intro.ogg")
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/intro.ogg")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops = -1)
 
     def play_scary(self):
-        musicpath = os.path.join(self.filedir, "music_files/scary.ogg")
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/scary.ogg")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops = -1)
     
     def play_normal(self):
-        musicpath = os.path.join(self.filedir, "music_files/fast.ogg")
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/fast.ogg")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops = -1)
 

@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 import math
-from assets.music import music
+import music
 
 pygame.init()
 
