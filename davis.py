@@ -3,49 +3,18 @@ import random
 import pygame
 import math
 import music
+import config
+from button import Button
 
 pygame.init()
 
 
-
-black = (0,0,0)
-white = (255,255,255)
-red = (255,0,0)
-SPOOKY_BIG_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 120)
-SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
-
-display_width = 1024
-display_height = 768
 music_player = music.Music_Player()
 music_player.set_volume(1.0)
 
- 
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 pygame.display.set_caption('Davis Hall Escape Simulator 2020')
 clock = pygame.time.Clock()
-
-class Button:
-
-    def __init__(self, text, color, font, pos):
-        self.text = text
-        self.color = color
-        self.font = font
-        self.pos = pos
-
-        self.set_rect()
-        self.createButton()
-
-    def buttonText(self):
-        self.rend = self.font.render(self.text, True, self.color)
- 
-    def set_rect(self):
-        self.buttonText()
-        self.rect = self.rend.get_rect()
-        self.rect.center = self.pos
-
-    def createButton(self):
-        self.buttonText()
-        gameDisplay.blit(self.rend, self.rect)
 
 def roundup(x):
     return int(math.ceil(x / 10.0)) * 10
@@ -54,44 +23,34 @@ def render_text(text, font, color):
     textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
-def check_Hover(button):
-    if button.rect.collidepoint(pygame.mouse.get_pos()):
-        button.color = red
-    else:
-        button.color = white
-    button.createButton()
-
-
 class Checkbox:
     def __init__(self):
         self.draw()
 
     def draw(self):
-        pygame.draw.circle(gameDisplay, white, (150,150), 75)
+        pygame.draw.circle(gameDisplay, config.white, (150,150), 75)
 
 def reRenderVol(volDisplay, vol, text):
     volDisplay.text = text
     volDisplay.buttonText()
-    gameDisplay.fill(black)
-    volDisplay.createButton()
-    vol.createButton()
-
+    gameDisplay.fill(config.black)
+    volDisplay.createButton(gameDisplay)
+    vol.createButton(gameDisplay)
 
 def main_menu():
 
     intro = True
-    buttons = [Button("START", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/2))),
-    Button("OPTIONS", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.5))),
-    Button("QUIT", white, SPOOKY_SMALL_FONT, ((display_width/2),(display_height/1.20)))]
-    gameDisplay.fill(black)
+    buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/2)), gameDisplay),
+    Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.5)), gameDisplay),
+    Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.20)), gameDisplay)]
+    gameDisplay.fill(config.black)
     
-    TextSurf, TextRect = render_text("Davis Hall", SPOOKY_BIG_FONT, red)
-    TextRect.center = ((display_width/2),(display_height/5))
+    TextSurf, TextRect = render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
+    TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
     gameDisplay.blit(TextSurf, TextRect)
     music_player.play_intro()
 
     while intro:
-        
         for event in pygame.event.get():
            
             if (event.type == pygame.QUIT or 
@@ -105,7 +64,7 @@ def main_menu():
                 
                 
         for button in buttons:
-            check_Hover(button)
+            Button.check_Hover(button, gameDisplay)
 
         pygame.display.update()
         clock.tick(15)
@@ -114,19 +73,19 @@ def options_menu():
     music_player = music.Music_Player()
     music_player.play_normal()
 
-    gameDisplay.fill(black)
+    gameDisplay.fill(config.black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = music_player.get_volume()
-    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2))
-    volume = Button("VOLUME", white, SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]))
+    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2,config.display_height/2),gameDisplay)
+    volume = Button("VOLUME", config.white, config.SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]),gameDisplay)
 
-    buttons =[Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60)),
-    Button("<", white, SPOOKY_SMALL_FONT, (display_width/2-80,display_height/2)),
-    Button(">", white, SPOOKY_SMALL_FONT, (display_width/2+80,display_height/2)),
-    Button("MUTE", white, SPOOKY_SMALL_FONT, (display_width/2,display_height/2+100)) ]
+    buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
+    Button("<", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2-80,config.display_height/2), gameDisplay),
+    Button(">", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2+80,config.display_height/2), gameDisplay),
+    Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2,config.display_height/2+100), gameDisplay) ]
 
 
-    backButton = Button("BACK", white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60))
+    backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
     
     while True :
         
@@ -170,7 +129,7 @@ def options_menu():
 
 
         for button in buttons:
-            check_Hover(button)
+            Button.check_Hover(button, gameDisplay)
 
         pygame.display.update()
         clock.tick(15)
