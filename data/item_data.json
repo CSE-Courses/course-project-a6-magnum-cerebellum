@@ -1,0 +1,9 @@
+{
+    "book" : {
+        "attributes": "book_attr"
+    },
+    "computer": {
+        "attributes": "computer_attr"
+    }
+
+}
