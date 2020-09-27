@@ -1,0 +1,8 @@
+{
+    "study" : {
+        "damage_level" : 10
+    },
+    "not study": {
+        "damage_level" : 5
+    }
+}
