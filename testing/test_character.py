@@ -6,7 +6,11 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 from character import Character
+from actions import Action
+from items import Item
+
 import config
+
 class TestCharacter(unittest.TestCase):
     def test_character_actions(self):
         f = open(os.path.join(parentdir,"data/character_data.json"),"r")
@@ -16,7 +20,11 @@ class TestCharacter(unittest.TestCase):
         for char in characters: 
             new_char = Character(char)
             actions = new_char.actions
-            self.assertEqual(data[char]["actions"], actions)
+            actions_from_data = []
+            for i in data[char]["actions"]:
+                actions_from_data.append(i)
+            for entry in actions:
+                self.assertIn(entry.action_name, actions_from_data)
     
     def test_character_items(self):
         f = open(os.path.join(parentdir,"data/character_data.json"),"r")
@@ -26,7 +34,12 @@ class TestCharacter(unittest.TestCase):
         for char in characters: 
             new_char = Character(char)
             items = new_char.items
-            self.assertEqual(data[char]["items"], items)
+            items_from_data = []
+            for i in data[char]["items"]:
+                items_from_data.append(i)
+            for entry in items:
+                self.assertIn(entry.item_name, items_from_data)
+     
 
 if __name__ == '__main__':
     unittest.main()

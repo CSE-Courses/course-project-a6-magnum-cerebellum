@@ -8,6 +8,6 @@ class Action():
         if type_ not in data.keys():
             raise Exception("Sorry, no action availible") 
         self.action = data[type_]
-        self.type = type_
+        self.action_name = type_
         self.damage_level = self.action["damage_level"]
         

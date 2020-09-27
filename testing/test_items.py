@@ -14,7 +14,7 @@ class TestItem(unittest.TestCase):
         f.close()
         items = data.keys()
         for item in items: 
-            new_item = Item(item,"sprite_placeholders")
+            new_item = Item(item)
             attr = new_item.item_attr
             self.assertEqual(data[item]["attributes"], attr)
             

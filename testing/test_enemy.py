@@ -6,6 +6,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 from enemies import Enemy
+from actions import Action
 import config
 class TestEnemy(unittest.TestCase):
     def test_enemy_actions(self):
@@ -16,7 +17,11 @@ class TestEnemy(unittest.TestCase):
         for enemy in enemies: 
             new_enemy = Enemy(enemy)
             actions = new_enemy.actions
-            self.assertEqual(data[enemy]["actions"], actions)
-
+            actions_from_data = []
+            for i in data[enemy]["actions"]:
+                actions_from_data.append(i)
+            for entry in actions:
+                self.assertIn(entry.action_name, actions_from_data)
+    
 if __name__ == '__main__':
     unittest.main()

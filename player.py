@@ -1,4 +1,5 @@
 from character import Character
+from items import Item
 import config
 
 class Player():
@@ -9,6 +10,10 @@ class Player():
         self.actions = self.character.actions
         self.items = self.character.items
     
+    def add_item(self, item):
+        new_item = Item(item)
+        self.items.append(new_item)
+
     # set character's location #
     # changes self.pos attribute to new position. If position is out of range self.pos is not updated #
     # returns players position self.pos #
