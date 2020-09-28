@@ -88,8 +88,8 @@ def options_menu():
     Button("<", config.white, config.SPOOKY_SMALL_FONT, (w/2-80,h/2), gameDisplay),
     Button(">", config.white, config.SPOOKY_SMALL_FONT, (w/2+80,h/2), gameDisplay),
     Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (w/2,h/2+100), gameDisplay),
-    Button("1280 x 768", white, SPOOKY_SMALL_FONT, (w / 2, h / 2 - 200)),
-    Button("1400 x 1050", white, SPOOKY_SMALL_FONT, (w / 2, h / 2 - 100))]
+    Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 200), gameDisplay),
+    Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 100), gameDisplay)]
 
 
     backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
