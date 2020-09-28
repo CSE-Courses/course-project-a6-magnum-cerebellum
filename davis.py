@@ -5,6 +5,8 @@ import math
 import music
 import config
 from button import Button
+import inventory
+from inventory import inventoryMain
 
 pygame.init()
 
@@ -46,7 +48,8 @@ def main_menu():
     intro = True
     buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/2)), gameDisplay),
     Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.5)), gameDisplay),
-    Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.20)), gameDisplay)]
+    Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.20)), gameDisplay),
+    Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.1)), gameDisplay)]
     gameDisplay.fill(config.black)
     
     TextSurf, TextRect = render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
@@ -65,8 +68,12 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
-                
-                
+
+            #Temporary inventory preview button 
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+                inventoryMain()
+            #Temporary inventory preview button 
+
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
 
