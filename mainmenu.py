@@ -47,11 +47,9 @@ def main_menu():
                 # buttons[:] = []
                 # buttons.append(Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay))
 
+
+                a = options.options_menu()
                 pygame.display.update()
-
-
-                a = options.option()
-                a.options_menu()
                 # pygame.display.update()
 
             # Temporary inventory preview button
