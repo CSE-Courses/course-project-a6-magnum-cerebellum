@@ -3,10 +3,7 @@ import pygame
 import config
 import music
 
-
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
-
-
 
 class funcs:
     def roundup(x):

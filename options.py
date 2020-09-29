@@ -39,7 +39,7 @@ def options_menu():
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
-                main_menu()
+                mainmenu.main_menu()
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(
                     pygame.mouse.get_pos())):

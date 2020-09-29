@@ -44,13 +44,8 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(
                     pygame.mouse.get_pos())):
 
-                # buttons[:] = []
-                # buttons.append(Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay))
-
-
                 a = options.options_menu()
                 pygame.display.update()
-                # pygame.display.update()
 
             # Temporary inventory preview button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(
