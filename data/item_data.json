@@ -1,0 +1,12 @@
+{
+    "book" : {
+        "attributes": "book_attr"
+    },
+    "computer": {
+        "attributes": "computer_attr"
+    },
+    "super awesome computer": {
+        "attributes": "super_awesome_computer_attr"
+    }
+
+}

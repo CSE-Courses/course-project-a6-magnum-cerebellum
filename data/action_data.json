@@ -1,0 +1,14 @@
+{
+    "failing grade" : {
+        "damage_level" : 10
+    },
+    "AI violation": {
+        "damage_level" : 5
+    },
+    "Use Chegg": {
+        "damage_level": 10
+    },
+    "Use assignment extention": {
+        "damage_level"  :8
+    }
+}

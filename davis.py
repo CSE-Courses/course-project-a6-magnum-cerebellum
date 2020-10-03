@@ -39,6 +39,10 @@ def reRenderVol(volDisplay, vol, text):
     volDisplay.createButton(gameDisplay)
     vol.createButton(gameDisplay)
 
+def destroy(self, name_of_class):
+    name_of_class.List.remove(self)
+    del self
+
 def main_menu():
 
     intro = True
@@ -79,17 +83,20 @@ def main_menu():
 def options_menu():
     music_player = music.Music_Player()
     music_player.play_normal()
+    w, h = pygame.display.get_surface().get_size()
 
     gameDisplay.fill(config.black)
     #buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = music_player.get_volume()
-    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2,config.display_height/2),gameDisplay)
+    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT, (w/2,h/2),gameDisplay)
     volume = Button("VOLUME", config.white, config.SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]),gameDisplay)
 
     buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
-    Button("<", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2-80,config.display_height/2), gameDisplay),
-    Button(">", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2+80,config.display_height/2), gameDisplay),
-    Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (config.display_width/2,config.display_height/2+100), gameDisplay) ]
+    Button("<", config.white, config.SPOOKY_SMALL_FONT, (w/2-80,h/2), gameDisplay),
+    Button(">", config.white, config.SPOOKY_SMALL_FONT, (w/2+80,h/2), gameDisplay),
+    Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (w/2,h/2+100), gameDisplay),
+    Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 200), gameDisplay),
+    Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 100), gameDisplay)]
 
 
     backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
@@ -133,7 +140,19 @@ def options_menu():
                 music_player.set_volume(current_volume)
                 buttons[3].text = "MUTE"
                 reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume*100))))
-
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].text == "1280 x 768" and
+                  buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.display.set_mode((1280, 768))
+                pygame.transform.scale(gameDisplay, (1280, 768))
+                pygame.display.update()
+                main_menu()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].text == "1400 x 1050" and
+                  buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.display.set_mode ((1400, 1050))
+                pygame.transform.scale(gameDisplay, (1400, 1050))
+                pygame.display.update()
+                main_menu()
+                pygame.transform.scale(gameDisplay,(1400,1050))
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)

@@ -1,0 +1,11 @@
+{
+    "professor" : {
+        "actions": ["failing grade", "AI violation"],
+        "items": ["book", "computer"]
+    },
+    "student": {
+        "actions": ["Use Chegg", "Use assignment extention"],
+        "items": ["book", "computer"]
+    }
+
+}

@@ -34,7 +34,6 @@ class Music_Player():
             self.musicMixer.set_volume(volume)
             return True
         except:
-            print("unable to set volume")
             self.musicMixer.set_volume(0.0)
             return False
 
@@ -43,7 +42,6 @@ class Music_Player():
         try:
             return self.musicMixer.get_volume()
         except:
-            print("unable to get volume")
             return 0.0
 
     # increment : float [0.0, 1.0]; increases current volume by 'increment' amount
