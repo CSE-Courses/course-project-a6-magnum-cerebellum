@@ -5,13 +5,15 @@ import config
 import important_funcs
 from important_funcs import funcs
 from inventory import inventoryMain
-import options
 
 clock = pygame.time.Clock()
 music_player = music.Music_Player()
 music_player.set_volume(1.0)
 
+
 def main_menu():
+    import options
+
     w, h = pygame.display.get_surface().get_size()
 
     intro = True
@@ -44,7 +46,7 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(
                     pygame.mouse.get_pos())):
 
-                a = options.options_menu()
+                options.options_menu()
                 pygame.display.update()
 
             # Temporary inventory preview button

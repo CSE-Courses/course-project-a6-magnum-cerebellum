@@ -6,17 +6,20 @@ import config
 from button import Button
 import math
 from important_funcs import funcs
-import mainmenu
+import daviscopy
+
+
 
 
 def options_menu():
+    import mainmenu
+
+    daviscopy.gameDisplay.fill(config.black)
 
     music_player = music.Music_Player()
     music_player.play_normal()
     w, h = pygame.display.get_surface().get_size()
 
-    gameDisplay.fill(config.black)
-    # buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = music_player.get_volume()
     volumeDisplay = Button(str(funcs.roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT,
                            (w / 2, h / 2), gameDisplay)
@@ -30,7 +33,6 @@ def options_menu():
                Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 200), gameDisplay),
                Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 100), gameDisplay)]
     while True:
-
         for event in pygame.event.get():
             print(event)
             if (event.type == pygame.QUIT):
