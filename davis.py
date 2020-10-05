@@ -155,6 +155,7 @@ def options_menu():
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
 
+
         pygame.display.update()
         clock.tick(15)
 
