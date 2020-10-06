@@ -8,6 +8,7 @@ from button import Button
 import inventory
 from inventory import inventoryMain
 from important_funcs import funcs
+from level import start_main
 
 imp_funcs = funcs
 
@@ -62,7 +63,8 @@ def main_menu():
             (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos()))):
                 pygame.quit()
                 quit()
-            
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                start_main()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()

@@ -5,7 +5,8 @@ import config
 class Player():
     def __init__(self, character):
         self.pos = (0,0)
-        self.health = 10
+        self.size = (40,60)
+        self.health = 100
         self.character = character
         self.actions = self.character.actions
         self.items = self.character.items
