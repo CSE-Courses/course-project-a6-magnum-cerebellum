@@ -7,7 +7,7 @@ import config
 from button import Button
 import inventory
 from inventory import inventoryMain
-from game import GameMain
+import game
 
 pygame.init()
 
@@ -75,7 +75,7 @@ def main_menu():
                 inventoryMain()
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
-                GameMain(gameDisplay)
+                game.GameMain(gameDisplay)
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)

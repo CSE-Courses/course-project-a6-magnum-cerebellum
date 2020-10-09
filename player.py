@@ -21,7 +21,7 @@ class Player():
     # changes self.pos attribute to new position. If position is out of range self.pos is not updated #
     # returns players position self.pos #
     def set_location(self, x, y):
-        if not (x < 0 or x > display_width or y < 0 or y > display_height):
+        if not (x < 0 or x > render_display_width or y < 0 or y > render_display_height):
             self.pos = (x, y)
         return self.pos
     def draw(self):
