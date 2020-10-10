@@ -13,3 +13,4 @@ class Item():
         self.item_data = data[item_name]
         self.item_name = item_name
         self.item_attr = self.item_data["attributes"]
+        self.damage = self.item_data["damage"]

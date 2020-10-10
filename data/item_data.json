@@ -1,12 +1,15 @@
 {
     "book" : {
-        "attributes": "book_attr"
+        "attributes": "book_attr",
+        "damage": 3
     },
     "computer": {
-        "attributes": "computer_attr"
+        "attributes": "computer_attr",
+        "damage": 2
     },
     "super awesome computer": {
-        "attributes": "super_awesome_computer_attr"
+        "attributes": "super_awesome_computer_attr",
+        "damage": 1
     }
 
 }

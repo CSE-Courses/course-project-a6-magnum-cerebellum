@@ -9,7 +9,17 @@ class Player():
         self.character = character
         self.actions = self.character.actions
         self.items = self.character.items
+        self.hp = 10
     
+    # return False if decrease kills player, true otherwise. Update player hp with decreased ammount
+    def decrease_hp(self, n):
+        if (self.hp - n) <= 0:
+            self.hp = 0
+            return False
+        else:
+            self.hp = self.hp - n
+            return True
+
     def add_item(self, item):
         new_item = Item(item)
         self.items.append(new_item)
