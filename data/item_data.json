@@ -3,10 +3,15 @@
         "attributes": "book_attr"
     },
     "computer": {
-        "attributes": "computer_attr"
+        "attributes": "computer_attr",
+        "description": "The beginning weapon for a Computer Science Major"
     },
     "super awesome computer": {
         "attributes": "super_awesome_computer_attr"
+    },
+    "red bull": {
+        "attributes": "red_bull_attr",
+        "description": "Red Bull gives you wings... and 20 hp"
     }
 
 }

@@ -2,6 +2,10 @@
 # Credits to TheBigKahuna353 on Reddit/Github for his sample inventory system which this is based off #
 #######################################################################################################
 
+#Import random nubmer picker for prototype inventory, remove later
+import random
+####
+
 import pygame
 import config
 import random
@@ -77,8 +81,11 @@ class Inventory:
         if self.items[row][col]:
             #If it's the same item, stack it
             if self.items[row][col][0].item_name == Item[0].item_name:
+                
                 #This is the number of that particular item
+                #Item[1] allows it to stack multiple numbers, not just increase by 1
                 self.items[row][col][1] += Item[1]
+
             #Otherwise swap the two items
             else:
                 heldItem = self.items[row][col]
@@ -88,11 +95,13 @@ class Inventory:
         else:
             self.items[row][col] = Item
 
-    def discardFromInventory(self, Item, position):
+    def discardFromInventory(self, Item, position, discardAmount):
         row, col = position
+
         if self.items[row][col]:
-            if self.items[row][col][1] > 0:
-                self.items[row][col][1] -= Item[1]
+            
+            if self.items[row][col][1] > 1 and discardAmount == "Discard One":
+                self.items[row][col][1] -= 1
             else:
                 self.items[row][col] = None
 
@@ -145,20 +154,27 @@ def inventoryMain():
 
                     #Grabs item from the box as heldItem, then sets box to nothing    
                     elif player_inventory.items[pos[0]][pos[1]]:
+                        #Array of Two
                         heldItem = player_inventory.items[pos[0]][pos[1]]
                         player_inventory.items[pos[0]][pos[1]] = None
 
-            #TEMP: If it's a right click just grab a computer
             #Change this to options menu? Like if right-clicking consumable bring up a Use/Discord option
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+
+                #If it's within a
                 if player_inventory.borderRect.collidepoint(pygame.mouse.get_pos()) and player_inventory.items[pos[0]][pos[1]]:
                     item = player_inventory.items[pos[0]][pos[1]]
-                    optionSelected = itemMenu.itemOptions(item[0].item_type, pos, player_inventory, player_inventory.items[pos[0]][pos[1]])
 
+                    optionSelected = itemMenu.itemOptions(item[0].item_name, item[0].item_desc, item[0].item_type, player_inventory)
+
+                    if ("Discard" in optionSelected):
+                        player_inventory.discardFromInventory(item, pos, optionSelected)
+                
+                #TEMP: If it's a right click just grab a computer
                 #Remove later when putting everything together
                 elif heldItem == None:
-                    
-                    heldItem = [Item("computer", "Equip"), 1]
+                    randomItemPicker = [Item("computer", "Equip"), Item("red bull", "Consumable")]
+                    heldItem = [randomItemPicker[random.randint(0,1)], 1]
 #Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
 inventoryMain()
 quit()

@@ -24,7 +24,7 @@ class itemOptionMenu:
         self.optionsRects = []
     def createOptions(self):
         #draw border box
-        self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 55, (self.box_size + self.border) * self.numberOfBoxes + self.border)
+        self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 77, (self.box_size + self.border) * self.numberOfBoxes + self.border)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
 
@@ -34,7 +34,7 @@ class itemOptionMenu:
             for row in range (self.numberOfBoxes):
                 boxRect = pygame.Rect(  (self.menuX + self.border)
                     , self.menuY + (self.box_size + self.border) * row + self.border
-                    , self.box_size + 50
+                    , self.box_size + 72
                     , self.box_size  )
                 pygame.draw.rect(gameDisplay,config.gray,boxRect)
 
@@ -45,15 +45,17 @@ class itemOptionMenu:
                 gameDisplay.blit(text, text_rect)
 
     def populateOptionsArray(self):
-        self.optionsTextArray = ["Info"]
-        self.numberOfBoxes = 3
+        self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
-            self.optionsTextArray.extend( ["Equip", "Discard"] )
+            self.optionsTextArray.extend( ["Info","Equip", "Discard One", "Discard All"] )
         elif (self.itemType == "Consumable"):
-            self.optionsTextArray.extend( ["Use", "Discard"] )
+            self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
+
+#def displayInfo(itemName, itemDesc, mousePosition, inventory):
+
 
 #Takes in an item type, mouse position, and inventory 
-def itemOptions(itemType, mousePosition, inventory, itemPosition):
+def itemOptions(itemName, itemDesc, itemType, inventory):
     pos = pygame.mouse.get_pos()
     notSelected = True
     
@@ -78,9 +80,25 @@ def itemOptions(itemType, mousePosition, inventory, itemPosition):
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                 if menu.borderRect.collidepoint(pygame.mouse.get_pos()):
                     for i in range( len(optionsRectList) ):
-                    #If an option is being selected
+
+                    #If an option is being selected, return the option selected
+                    #When integrating this w/ rest of UI, EX. equipment add into here too!
+
                         if (optionsRectList[i].collidepoint(pygame.mouse.get_pos())):
-                            if (optionTextList[i] == "Discard"):
-                                return "Discard"
+                            #Implemented Discards
+                            if (optionTextList[i] == "Discard One"):
+                                return "Discard One"
+                            elif (optionTextList[i] == "Discard All"):
+                                return "Discard All"
+                            elif (optionTextList[i] == "Info"):
+                            #    displayInfo(itemDesc)
+                                return "Info"
+                            
+                            #WIP effects to be implemented
+                            elif (optionTextList[i] == "Equip"):
+                                return "Equip"
+                            elif (optionTextList[i] == "Use"):
+                                return "Use"
+                #They clicked outside the menu, should still close it
                 else: 
-                    return
+                    return "No Selection"
