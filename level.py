@@ -1,7 +1,11 @@
 import pygame
 import config
+import math
 from player import Player
+from button import Button
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
+# from davis import options_menu
+# import davis
 
 pygame.init()
 
@@ -10,6 +14,9 @@ score = 0
 clock = pygame.time.Clock()
 lead_x = 300
 lead_y = 300
+paused = False
+
+
 
 # for actions = (115, 545)
 
@@ -26,31 +33,60 @@ def message_to_screen(msg, color):
     textRect.center = ((w/2), (h/2))
     gameDisplay.blit(textSurf,textRect)
 
+
+def render_text(text, font, color):
+    textSurface = font.render(text, True, color)
+    return textSurface, textSurface.get_rect()
+
+def unpause():
+    global paused
+    paused = False
+
+
 def pause():
-    paused = True
-    font = config.SPOOKY_INVENTORY_FONT
-    text = font.render('Pause', True, (0,255,0), (0,0,128))
-    textRect = text.get_rect()
-    textRect.center = (config.display_width/2, config.display_height/2)
-    img = pygame.image.load("pause_menu.jpg")
-    gameDisplay.fill((42,4,1))
-    gameDisplay.blit(img, (1024/4,768/4))
-    # gameDisplay.fill((255, 255, 255))
-    # gameDisplay.blit(text, textRect)
+    font = config.SPOOKY_BIG_FONT
+    gameDisplay.fill(config.black)
+
+    buttons = [Button("Continue", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 2)), gameDisplay),
+               Button("Change Settings", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.5)), gameDisplay),
+               Button("Quit Level", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.20)), gameDisplay),
+               Button("Exit Game", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
+
+    text = font.render('Pause', True, config.red)
+    textrect = text.get_rect()
+    textrect.center = (round(config.display_width/2), round(config.display_height/5))
+
+
+    gameDisplay.blit(text, textrect)
+
 
     while(paused):
         for event in pygame.event.get():
-            # if event.type == pygame.QUIT:
-            #     pygame.quit()
-            #     quit()
+            if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                davis.main_menu()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[1].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                davis.options_menu()
             if event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_c:
-            #         paused = False
+                if event.key == pygame.K_c:
+                    unpause()
                 if event.key == pygame.K_q:
                     pygame.quit()
                     quit()
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+
         pygame.display.update()
         clock.tick(5)
+
+
 
 def health_func():
     text = score_font.render('Health: ' + str(health), 1, (0, 255, 0))
@@ -103,6 +139,7 @@ def start_main():
     player_width = 40
     player_height = 60
     velocity = 25
+    global paused
 
     run = True
 
@@ -113,7 +150,6 @@ def start_main():
         w, h = pygame.display.get_surface().get_size()
         pygame.time.delay(10)
         gameDisplay.blit(bg, (0, 0))
-
 
         # jesse = pygame.image.load("jesse.jpg")
         # gameDisplay.blit(jesse, (100,100))
@@ -154,6 +190,7 @@ def start_main():
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    paused = True
                     pause()
                 if(event.key == pygame.K_BACKSPACE):
                     usr_text = usr_text[0:-1]
@@ -178,29 +215,6 @@ def start_main():
             text_surf = config.SPOOKY_SMALL_FONT.render(usr_text, True ,(0,0,0))
             gameDisplay.blit(text_surf,(0,0))
 
-        # if 100+100 > mouse[0] > 100 and 650 + 50 > mouse [1] > 650 :
-        # pygame.draw.rect(gameDisplay, (0, 255, 0), (100, 650, 100, 50))
-        # pygame.draw.rect(gameDisplay, (0, 150, 0), (240, 650, 100, 50))
-        # pygame.draw.rect(gameDisplay, (0, 255, 0), (170, 580, 100, 50))
-        # pygame.draw.rect(gameDisplay, (0, 255, 0), (170, 715, 100, 50))
-        # if 240 + 100 > mouse[0] > 240 and 650 + 50 > mouse[1] > 650:
-        #     pygame.draw.rect(gameDisplay, (0, 150, 0), (100, 650, 100, 50))
-        #     pygame.draw.rect(gameDisplay, (0, 255, 0), (240, 650, 100, 50))
-        #     pygame.draw.rect(gameDisplay, (0, 255, 0), (170, 580, 100, 50))
-        #     pygame.draw.rect(gameDisplay, (0, 255, 0), (170, 715, 100, 50))
-        #
-        # else:
-        #
-        #
-        #
-        #
-
-
-
-        # gameDisplay.blit(textSurf, textRect)
-        # gameDisplay.blit(textSurf1, textRect1)
-        # gameDisplay.blit(textSurf2, textRect2)
-        # gameDisplay.blit(textSurf3, textRect3)
 
     pygame.display.update()
 
