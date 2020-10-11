@@ -1,19 +1,19 @@
 {
     "char01" : {
         "actions": ["failing grade", "AI violation"],
-        "items": ["book", "computer"]
+        "items": ["Book", "Computer"]
     },
     "char02": {
         "actions": ["Use Chegg", "Use assignment extention"],
-        "items": ["book", "computer"]
+        "items": ["Book", "Computer"]
     },
     "char03" : {
         "actions": ["failing grade", "AI violation"],
-        "items": ["book", "computer"]
+        "items": ["Book", "Computer"]
     },
     "char04": {
         "actions": ["Use Chegg", "Use assignment extention"],
-        "items": ["book", "computer"]
+        "items": ["Book", "Computer"]
     }
 
 }
