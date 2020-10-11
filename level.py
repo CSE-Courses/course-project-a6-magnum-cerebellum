@@ -5,7 +5,7 @@ from player import Player
 from button import Button
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 # from davis import options_menu
-# import davis
+import davis
 
 pygame.init()
 
