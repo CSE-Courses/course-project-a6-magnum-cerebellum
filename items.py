@@ -5,7 +5,7 @@ import pygame
 class Item():
     # initiate Item with an item_name corresponding to an item in item_data.json #
     # and a sprite object #
-    def __init__(self, item_name, item_type):
+    def __init__(self, item_name):
         png = item_name + ".png"
         item_image = pygame.image.load(os.path.join("assets/item_sprites", png)).convert()        
         f = open(os.path.join("data/item_data.json"))
@@ -24,7 +24,7 @@ class Item():
         self.sprite =  item_image
         self.rect = self.sprite.get_rect()
         #Item type, if it's a consumable, equip, etc
-        self.item_type = item_type
+        self.item_type = self.item_data["type"]
 
     #This resizes the object image, mainly for dragging around items
     def resize(self, size):

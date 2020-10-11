@@ -1,19 +1,26 @@
 {
-    "book" : {
+    "Book" : {
+        "type": "Equip",
         "attributes": "book_attr",
+        "description": "When was the last time you read a book?",
         "damage": 3
     },
     "Computer": {
+        "type": "Equip",
         "attributes": "computer_attr",
         "description": "The beginning weapon for a Computer Science Major",
         "damage": 2
     },
-    "super awesome computer": {
+    "Super awesome computer": {
+        "type": "Equip",
         "attributes": "super_awesome_computer_attr",
+        "description": "Bet you wish you had one of these",
         "damage": 1
     },
      "Red Bull": {
+        "type": "Consumable",
         "attributes": "red_bull_attr",
-        "description": "Restores 20 HP (and a pair of wings as a bonus)"
+        "description": "Restores 20 HP (and a pair of wings as a bonus)",
+        "damage": 0
     }
 }
