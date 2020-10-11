@@ -173,7 +173,7 @@ def inventoryMain():
                 #TEMP: If it's a right click just grab a computer
                 #Remove later when putting everything together
                 elif heldItem == None:
-                    randomItemPicker = [Item("computer", "Equip"), Item("red bull", "Consumable")]
+                    randomItemPicker = [Item("Computer", "Equip"), Item("Red Bull", "Consumable")]
                     heldItem = [randomItemPicker[random.randint(0,1)], 1]
 #Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
 inventoryMain()
