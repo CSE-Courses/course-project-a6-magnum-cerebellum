@@ -6,8 +6,8 @@ class Item():
     # initiate Item with an item_name corresponding to an item in item_data.json #
     # and a sprite object #
     def __init__(self, item_name, item_type):
-        
-        item_image = pygame.image.load(os.path.join("assets/item_sprites","computer.png")).convert()        
+        png = item_name + ".png"
+        item_image = pygame.image.load(os.path.join("assets/item_sprites", png)).convert()        
         f = open(os.path.join("data/item_data.json"))
         data = json.load(f)
         
@@ -18,7 +18,6 @@ class Item():
         self.item_attr = self.item_data["attributes"]
         
         #Added sprite and rec
-        #Sprite is defaulted to computer.png!
         self.sprite =  item_image
         self.rect = self.sprite.get_rect()
         #Item type, if it's a consumable, equip, etc

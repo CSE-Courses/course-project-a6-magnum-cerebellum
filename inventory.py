@@ -7,6 +7,7 @@ import config
 import random
 from button import Button
 from items import Item
+import itemMenu
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -45,7 +46,7 @@ class Inventory:
         for x in range(self.col):
             for y in range(self.rows):
                 rect = ( (self.x + (self.box_size + self.border)*x + self.border )  
-                ,  self.x + (self.box_size + self.border)*y + self.border 
+                ,  self.y + (self.box_size + self.border)*y + self.border 
                 , self.box_size 
                 , self.box_size )
                 pygame.draw.rect(gameDisplay,config.gray,rect)
@@ -86,6 +87,14 @@ class Inventory:
         #Nothing in box, so just place the Item
         else:
             self.items[row][col] = Item
+
+    def discardFromInventory(self, Item, position):
+        row, col = position
+        if self.items[row][col]:
+            if self.items[row][col][1] > 0:
+                self.items[row][col][1] -= Item[1]
+            else:
+                self.items[row][col] = None
 
 def inventoryMain():
     #Creates inventory
@@ -142,9 +151,14 @@ def inventoryMain():
             #TEMP: If it's a right click just grab a computer
             #Change this to options menu? Like if right-clicking consumable bring up a Use/Discord option
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                if heldItem == None:
-                    heldItem = [Item("computer", "equip"), 1]
+                if player_inventory.borderRect.collidepoint(pygame.mouse.get_pos()) and player_inventory.items[pos[0]][pos[1]]:
+                    item = player_inventory.items[pos[0]][pos[1]]
+                    optionSelected = itemMenu.itemOptions(item[0].item_type, pos, player_inventory, player_inventory.items[pos[0]][pos[1]])
 
+                #Remove later when putting everything together
+                elif heldItem == None:
+                    
+                    heldItem = [Item("computer", "Equip"), 1]
 #Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
 inventoryMain()
 quit()
