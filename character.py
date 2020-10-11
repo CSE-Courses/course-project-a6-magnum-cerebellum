@@ -20,3 +20,13 @@ class Character():
     
     def __str__(self):
         return self.type
+
+def create_all_characters():
+    return_list = []
+    f = open(os.path.join("data/character_data.json"))
+    data = json.load(f)
+    character_data = data.keys()
+    for char in character_data:
+        c = Character(char)
+        return_list.append(c)
+    return return_list

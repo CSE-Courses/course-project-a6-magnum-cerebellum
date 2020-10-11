@@ -1,9 +1,17 @@
 {
-    "professor" : {
+    "char01" : {
         "actions": ["failing grade", "AI violation"],
         "items": ["book", "computer"]
     },
-    "student": {
+    "char02": {
+        "actions": ["Use Chegg", "Use assignment extention"],
+        "items": ["book", "computer"]
+    },
+    "char03" : {
+        "actions": ["failing grade", "AI violation"],
+        "items": ["book", "computer"]
+    },
+    "char04": {
         "actions": ["Use Chegg", "Use assignment extention"],
         "items": ["book", "computer"]
     }

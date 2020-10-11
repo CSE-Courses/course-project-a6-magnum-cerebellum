@@ -1,17 +1,19 @@
 {
     "book" : {
-        "attributes": "book_attr"
+        "attributes": "book_attr",
+        "damage": 3
     },
     "Computer": {
         "attributes": "computer_attr",
-        "description": "The beginning weapon for a Computer Science Major"
+        "description": "The beginning weapon for a Computer Science Major",
+        "damage": 2
     },
     "super awesome computer": {
-        "attributes": "super_awesome_computer_attr"
+        "attributes": "super_awesome_computer_attr",
+        "damage": 1
     },
-    "Red Bull": {
+     "Red Bull": {
         "attributes": "red_bull_attr",
         "description": "Restores 20 HP (and a pair of wings as a bonus)"
     }
-
 }
