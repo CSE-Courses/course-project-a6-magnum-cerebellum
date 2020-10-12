@@ -4,6 +4,7 @@ import pygame
 import math
 import music
 import config
+from health import Bar
 from button import Button
 import inventory
 from inventory import inventoryMain
@@ -56,6 +57,7 @@ def main_menu():
     
     TextSurf, TextRect = render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
     TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
+    set_image("assets/images/very_scary_davis.jpg", gameDisplay)
     gameDisplay.blit(TextSurf, TextRect)
     music_player.play_intro()
 
@@ -66,7 +68,13 @@ def main_menu():
             (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint(pygame.mouse.get_pos()))):
                 pygame.quit()
                 quit()
-            
+
+            # When START button is selected, begin a new game.
+            # For now, this will load into the mockup image, then we'll place things accordingly.
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                music_player.stop()
+                game_start()
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
@@ -76,6 +84,36 @@ def main_menu():
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay)
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+
+        pygame.display.update()
+        clock.tick(15)
+
+# This function will effectively kick off gameplay - should load into character selection screen first.
+# For now the mockup will serve as a visual placeholder.
+def game_start():
+    music_player = music.Music_Player()
+    music_player.play_normal()
+
+    gameDisplay.fill(config.black)
+    buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
+    Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
+
+    # I imagine we will move this into a larger, separate file for actual gameplay
+
+    # button events
+    while True:
+
+        for event in pygame.event.get():
+            print(event)
+            if (event.type == pygame.QUIT):
+                pygame.quit()
+                quit()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                main_menu()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -162,6 +200,11 @@ def options_menu():
 
         pygame.display.update()
         clock.tick(15)
+
+    # This will load an image and then set it to the passed display.
+def set_image(image, display):
+    image_surface = pygame.image.load(image)
+    display.blit(image_surface, (0, 0))
 
 main_menu()
 
