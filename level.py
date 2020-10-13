@@ -4,8 +4,7 @@ import math
 from player import Player
 from button import Button
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
-# from davis import options_menu
-import davis
+from davis import options_menu, main_menu
 
 pygame.init()
 
@@ -25,13 +24,6 @@ def text_objects(text, font):
     return textSurface, textSurface.get_rect()
 
 score_font = pygame.font.SysFont('comicsans',30, True)
-
-def message_to_screen(msg, color):
-    w, h = pygame.display.get_surface().get_size()
-    screen_text = font.render(msg,True,color)
-    textSurf, textRect = text_objects(msg, color)
-    textRect.center = ((w/2), (h/2))
-    gameDisplay.blit(textSurf,textRect)
 
 
 def render_text(text, font, color):
@@ -70,9 +62,12 @@ def pause():
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
-                davis.main_menu()
+                main_menu()
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[1].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
-                davis.options_menu()
+                options_menu()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                unpause()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
                     unpause()

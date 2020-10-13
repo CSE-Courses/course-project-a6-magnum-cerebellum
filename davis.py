@@ -162,7 +162,7 @@ def options_menu():
         pygame.display.update()
         clock.tick(15)
 
-main_menu()
-
-
-quit()
+# main_menu()
+#
+#
+# quit()
