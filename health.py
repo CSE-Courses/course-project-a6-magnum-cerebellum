@@ -34,19 +34,28 @@ class Bar:
 
     def barText(self):
         if self.currenthealth / self.totalhealth <= .25:
-            bar = "\n" + "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+            bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
         else:
-            bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth) + "\n" + "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+            bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
+            bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+            self.rend2 = self.font.render(bar2, True, self.color)
         self.rend = self.font.render(bar, True, self.color)
+
+
 
     def createBar(self):
         self.barText()
         self.display.blit(self.rend, self.rect)
+        self.display.blit(self.rend2, self.rect2)
 
     def set_rect(self):
         self.barText()
         self.rect = self.rend.get_rect()
+        self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
+        # Calculate offset needed for second bar
+        newpos = ((830, 200))
+        self.rect2.center = newpos
 
     def updateBar(self):
         self.barText()
@@ -54,8 +63,11 @@ class Bar:
         if self.currenthealth / self.totalhealth <= .25:
             healthBar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
             self.display.blit(self.font.render(healthBar, True, config.red), self.rect)
+            self.display.blit(self.rend2, self.rect2)
+        else:
+            self.display.blit(self.rend, self.rect)
+            self.display.blit(self.rend2, self.rect2)
 
-        self.display.blit(self.rend, self.rect)
 
     def subtractHealth(self, lost):
         self.currenthealth -= lost
