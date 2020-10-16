@@ -65,7 +65,7 @@ class Bar:
             self.display.blit(self.font.render(healthBar, True, config.red), self.rect)
             self.display.blit(self.rend2, self.rect2)
         else:
-            # This should overwrite the previous blits? Will need to test 
+            # This should overwrite the previous blits? Will need to test
             self.display.blit(self.rend, self.rect)
             self.display.blit(self.rend2, self.rect2)
 
