@@ -59,7 +59,7 @@ def main_menu():
     TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
     set_image("assets/images/very_scary_davis.jpg", gameDisplay)
     gameDisplay.blit(TextSurf, TextRect)
-    music_player.play_intro()
+    music_player.play_main()
 
     while intro:
         for event in pygame.event.get():
@@ -95,7 +95,7 @@ def main_menu():
 # For now the mockup will serve as a visual placeholder.
 def game_start():
     music_player = music.Music_Player()
-    music_player.play_normal()
+    music_player.play_ambtrack1()
 
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
@@ -123,7 +123,7 @@ def game_start():
 
 def options_menu():
     music_player = music.Music_Player()
-    music_player.play_normal()
+    music_player.play_options()
     w, h = pygame.display.get_surface().get_size()
 
     gameDisplay.fill(config.black)
