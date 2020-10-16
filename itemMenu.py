@@ -1,11 +1,12 @@
 import pygame
 import config
+from items import Item
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
 class itemOptionMenu:
-    def __init__(self, mousePosition, itemType):
-        self.itemType = itemType
+    def __init__(self, mousePosition, item):
+        self.itemType = item.item_type
         
         #size of the box itself
         self.box_size = 30
@@ -52,12 +53,12 @@ class itemOptionMenu:
             self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
 
 class infoBox:
-    def __init__(self, mousePosition, item_desc, item_name):
+    def __init__(self, mousePosition, item_desc, item_name, item_type):
         #size of the box itself
         self.box_size = 30
         self.item_desc = item_desc
         self.item_name = item_name
-
+        self.item_type = item_type
         #x, y position of the inventory
         self.menuX = mousePosition[0]
         self.menuY = mousePosition[1]
@@ -68,7 +69,7 @@ class infoBox:
 
     def createInfo(self):
         #draw border box
-        self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 205, self.box_size + 100  + self.border*2)
+        self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 205, self.box_size + 115  + self.border*2)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
 
@@ -79,18 +80,24 @@ class infoBox:
                     , self.menuY + self.border
                     , self.box_size + 200
                     , self.box_size + 10)
-        
-        itemDescBox = pygame.Rect ( (self.menuX + self.border)
-        , self.menuY + self.box_size + 15
-        , self.box_size + 200
-        , self.box_size + 60 ) 
+        itemTypeBox = pygame.Rect(  (self.menuX + self.border)
+                    , self.menuY + 40
+                    , self.box_size + 200
+                    , self.box_size)
 
-        #drawText wraps from the top left, so create two seperate boxes for the Item Name and Item Description Box
+        itemDescBox = pygame.Rect ( (self.menuX + self.border)
+                    , self.menuY + 60
+                    , self.box_size + 200
+                    , self.box_size + 60 ) 
+
+        #drawText wraps from the top left, so create three separate boxes for the Item Name, Description, Type Box
         pygame.draw.rect(gameDisplay,config.gray,itemNameBox)
+        pygame.draw.rect(gameDisplay,config.gray,itemTypeBox)
         pygame.draw.rect(gameDisplay,config.gray,itemDescBox)
 
         config.SPOOKY_INVENTORY_FONT.set_underline(True)
         drawText(gameDisplay, self.item_name, config.black, itemNameBox, config.SPOOKY_INVENTORY_FONT)
+        drawText(gameDisplay, self.item_type, config.black, itemTypeBox, config.SPOOKY_ITEM_FONT)
         config.SPOOKY_INVENTORY_FONT.set_underline(False)
         drawText(gameDisplay, self.item_desc, config.red, itemDescBox, config.SPOOKY_INVENTORY_FONT)
 
@@ -133,12 +140,12 @@ def drawText(surface, text, color, rect, font, aa=False, bkg=None):
 
     return text
 
-def displayInfo(itemName, itemDesc, mousePosition, inventory):
+def displayInfo(item, mousePosition, inventory):
     while True:
         gameDisplay.fill(config.white)
         inventory.createInventory()
 
-        descBox = infoBox(mousePosition, itemDesc, itemName)
+        descBox = infoBox(mousePosition, item.item_desc, item.item_name, item.item_type)
         descBox.createInfo()
 
         pygame.display.update()
@@ -151,15 +158,14 @@ def displayInfo(itemName, itemDesc, mousePosition, inventory):
                 return
 
 #Takes in an item type, mouse position, and inventory 
-def itemOptions(itemName, itemDesc, itemType, inventory):
+def itemOptions(item, inventory):
     pos = pygame.mouse.get_pos()
-    
     #Render the item menu til an option is selected, or if left clicked somewhere outside, close
     while True:
         gameDisplay.fill(config.white)
         inventory.createInventory()
 
-        menu = itemOptionMenu(pos, itemType)
+        menu = itemOptionMenu(pos, item)
         menu.populateOptionsArray()
         menu.createOptions()
 
@@ -186,10 +192,10 @@ def itemOptions(itemName, itemDesc, itemType, inventory):
                             elif (optionTextList[i] == "Discard All"):
                                 return "Discard All"
                             elif (optionTextList[i] == "Info"):
-                                displayInfo(itemName, itemDesc, pos, inventory)
+                                displayInfo(item, pos, inventory)
                                 return "Info"
                             
-                            #WIP effects to be implemented
+                            #WIP effects to be implemented/integrated with other parts of the game
                             elif (optionTextList[i] == "Equip"):
                                 return "Equip"
                             elif (optionTextList[i] == "Use"):
