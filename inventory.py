@@ -165,7 +165,7 @@ def inventoryMain():
                 if player_inventory.borderRect.collidepoint(pygame.mouse.get_pos()) and player_inventory.items[pos[0]][pos[1]]:
                     item = player_inventory.items[pos[0]][pos[1]]
 
-                    optionSelected = itemMenu.itemOptions(item[0].item_name, item[0].item_desc, item[0].item_type, player_inventory)
+                    optionSelected = itemMenu.itemOptions(item[0], player_inventory)
 
                     if ("Discard" in optionSelected):
                         player_inventory.discardFromInventory(item, pos, optionSelected)
@@ -173,9 +173,9 @@ def inventoryMain():
                 #TEMP: If it's a right click just grab a computer
                 #Remove later when putting everything together
                 elif heldItem == None:
-                    randomItemPicker = [Item("Computer"), Item("Red Bull")]
-                    heldItem = [randomItemPicker[random.randint(0,1)], 1]
+                    randomItemPicker = [Item("Computer"), Item("Red Bull"), Item("Book")]
+                    heldItem = [randomItemPicker[random.randint(0,2)], 1]
 
 #Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
-#inventoryMain()
-#quit()
+inventoryMain()
+quit()
