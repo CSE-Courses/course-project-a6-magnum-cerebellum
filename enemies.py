@@ -1,6 +1,9 @@
 import json
 import os
 from actions import Action
+import pygame
+# must set for items class to work (sprites)
+screen = pygame.display.set_mode((800, 600))
 class Enemy():
     def __init__(self, type_):
         f = open(os.path.join("data/enemy_data.json"))

@@ -1,18 +1,18 @@
 {
     "char01" : {
-        "actions": ["failing grade", "AI violation"],
+        "actions": ["Punch", "Kick","Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
         "items": ["Book", "Computer"]
     },
     "char02": {
-        "actions": ["Use Chegg", "Use assignment extention"],
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
         "items": ["Book", "Computer"]
     },
     "char03" : {
-        "actions": ["failing grade", "AI violation"],
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
         "items": ["Book", "Computer"]
     },
     "char04": {
-        "actions": ["Use Chegg", "Use assignment extention"],
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
         "items": ["Book", "Computer"]
     }
 
