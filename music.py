@@ -1,5 +1,7 @@
 from pygame import mixer
 import os
+
+
 class Music_Player():
     def __init__(self):
         self.musicMixer = mixer.music
@@ -87,7 +89,7 @@ class Music_Player():
     def play_boss5(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/nitemare.it")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops = -1)
+        self.musicMixer.play(loops=-1)
 
     def play_boss6(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/techno_x.s3m")
@@ -110,7 +112,7 @@ class Music_Player():
     def play_enemy3(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/horrorhouse.mod")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops = -1)
+        self.musicMixer.play(loops=-1)
 
     def play_enemy4(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/scary_dreams.xm")

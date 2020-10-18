@@ -4,11 +4,14 @@ import math
 pygame.init()
 
 
+paused = False
 
 SPOOKY_BIG_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 120)
 SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
 SPOOKY_SMALLER_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 25)
 SPOOKY_INVENTORY_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 30)
+SPOOKY_ITEM_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 20)
+RPG_ITEM_TYPE_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
 display_width = 1200
 display_height = 800
 render_display_width = 1200
@@ -54,3 +57,6 @@ dark_gray = (40, 40, 40)
 purple = (120, 0, 120)
 yellow = (220, 220, 0)
 cyan = (0, 186, 255)
+
+
+

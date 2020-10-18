@@ -9,6 +9,9 @@ from player import Player
 from character import Character
 from items import Item
 import config
+import pygame
+# must set for items class to work (sprites)
+screen = pygame.display.set_mode((800, 600))
 class TestPlayer(unittest.TestCase):
 
     # test that player inherits characters actions and items #
