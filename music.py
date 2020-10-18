@@ -1,5 +1,7 @@
 from pygame import mixer
 import os
+
+
 class Music_Player():
     def __init__(self):
         self.musicMixer = mixer.music
@@ -10,17 +12,17 @@ class Music_Player():
     def play_intro(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/intro.ogg")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops = -1)
+        self.musicMixer.play(loops=-1)
 
     def play_scary(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/scary.ogg")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops = -1)
-    
+        self.musicMixer.play(loops=-1)
+
     def play_normal(self):
         musicpath = os.path.join(self.filedir, "assets/music/music_files/fast.ogg")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops = -1)
+        self.musicMixer.play(loops=-1)
 
     def play_victory(self):
         pass

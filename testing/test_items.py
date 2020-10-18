@@ -7,6 +7,9 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 from items import Item
 import config
+import pygame
+# must set for items class to work (sprites)
+screen = pygame.display.set_mode((800, 600))
 class TestItem(unittest.TestCase):
     def test_item_attribute(self):
         f = open(os.path.join(parentdir,"data/item_data.json"),"r")
