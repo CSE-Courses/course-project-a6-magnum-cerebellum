@@ -5,12 +5,13 @@ import math
 
 
 class Player():
-    def __init__(self):
+    def __init__(self, character):
         self.x, self.y = player_pos
         self.angle = player_angle
         self.health = 10
         self.hp = 10
-    
+        
+        self.character = character
    # def add_item(self, item):
    #     new_item = Item(item)
     #    self.items.append(new_item)

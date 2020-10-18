@@ -371,7 +371,7 @@ def set_image_location(image, start_x, start_y):
 def start_game_play(player):
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
-    music_player.play_scary() 
+    music_player.play_ambtrack2()
     gameDisplay.fill(config.black)
     buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     gui = pygame.Surface((w,h))
@@ -399,7 +399,7 @@ def start_game_play(player):
 def character_selection():
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
-    music_player.play_scary()
+    music_player.play_ambtrack2()
     gameDisplay.fill(config.black)
     buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     character_list = create_all_characters()
@@ -455,9 +455,6 @@ def set_image(image, display):
     image_surface = pygame.image.load(image)
     display.blit(image_surface, (0, 0))
 
-main_menu()
-
-
 def get_image_list():
     image_list = []
     character_types = []
@@ -495,7 +492,7 @@ def load(): #should have parameter set to self
 def start_game_play(player):
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
-    music_player.play_scary()
+    music_player.play_ambtrack2()
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     gui = pygame.Surface((w, h))
