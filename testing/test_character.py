@@ -8,10 +8,22 @@ sys.path.insert(0,parentdir)
 from character import Character
 from actions import Action
 from items import Item
-
 import config
+import pygame
+
+# must set for items class to work (sprites)
+screen = pygame.display.set_mode((800, 600))
 
 class TestCharacter(unittest.TestCase):
+    def test_character_name(self):
+        f = open(os.path.join(parentdir,"data/character_data.json"),"r")
+        data = json.load(f)
+        f.close()
+        characters = data.keys()
+        for char in characters: 
+            new_char = Character(char)
+           
+
     def test_character_actions(self):
         f = open(os.path.join(parentdir,"data/character_data.json"),"r")
         data = json.load(f)

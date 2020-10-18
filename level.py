@@ -1,11 +1,12 @@
 import pygame
 import config
 import math
-from player import Player
 from button import Button
-gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
-from davis import options_menu, main_menu
+# import davis
+paused = False
 
+
+gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 pygame.init()
 
 health = 100
@@ -13,7 +14,15 @@ score = 0
 clock = pygame.time.Clock()
 lead_x = 300
 lead_y = 300
-paused = False
+
+buttons = [Button("Continue", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 2)), gameDisplay),
+               Button("Change Settings", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.5)), gameDisplay),
+               Button("Quit Level", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.20)), gameDisplay),
+               Button("Exit Game", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
 
 
 
@@ -30,56 +39,8 @@ def render_text(text, font, color):
     textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
-def unpause():
-    global paused
-    paused = False
 
 
-def pause():
-    font = config.SPOOKY_BIG_FONT
-    gameDisplay.fill(config.black)
-
-    buttons = [Button("Continue", config.white, config.SPOOKY_SMALL_FONT,
-                      ((config.display_width / 2), (config.display_height / 2)), gameDisplay),
-               Button("Change Settings", config.white, config.SPOOKY_SMALL_FONT,
-                      ((config.display_width / 2), (config.display_height / 1.5)), gameDisplay),
-               Button("Quit Level", config.white, config.SPOOKY_SMALL_FONT,
-                      ((config.display_width / 2), (config.display_height / 1.20)), gameDisplay),
-               Button("Exit Game", config.white, config.SPOOKY_SMALL_FONT,
-                      ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
-
-    text = font.render('Pause', True, config.red)
-    textrect = text.get_rect()
-    textrect.center = (round(config.display_width/2), round(config.display_height/5))
-
-
-    gameDisplay.blit(text, textrect)
-
-
-    while(paused):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.quit()
-                quit()
-            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
-                main_menu()
-            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[1].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
-                options_menu()
-            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
-                unpause()
-
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_c:
-                    unpause()
-                if event.key == pygame.K_q:
-                    pygame.quit()
-                    quit()
-
-        for button in buttons:
-            Button.check_Hover(button, gameDisplay)
-
-        pygame.display.update()
-        clock.tick(5)
 
 
 
@@ -117,13 +78,51 @@ def down():
     pygame.draw.rect(gameDisplay, (0, 150, 0), (800, 490, 70, 70))
     gameDisplay.blit(dow, (805, 495))
 
+def unpause():
+    paused = False
 
-# a = Player((50,50), 100, None, None, None )
 
-# def start_main():
-#     left()
-#     while True:
-#         pygame.display.update
+def pause():
+
+    font = config.SPOOKY_BIG_FONT
+    gameDisplay.fill(config.black)
+    text = font.render('Pause', True, config.red)
+    textrect = text.get_rect()
+    textrect.center = (round(config.display_width/2), round(config.display_height/5))
+
+
+    gameDisplay.blit(text, textrect)
+
+
+    # while(config.paused):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+            print(6)
+            pygame.quit()
+            quit()
+        # elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+        #     davis.main_menu()
+        # elif event.type == pygame.MOUSEBUTTONDOWN and buttons[1].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+        #     davis.options_menu()
+        elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+            unpause()
+            print(2)
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_c:
+                print(3)
+                unpause()
+
+            if event.key == pygame.K_q:
+                print(4)
+                pygame.quit()
+                quit()
+
+    for button in buttons:
+        Button.check_Hover(button, gameDisplay)
+
+    pygame.display.update()
+    clock.tick(5)
 
 
 def start_main():
@@ -146,8 +145,7 @@ def start_main():
         pygame.time.delay(10)
         gameDisplay.blit(bg, (0, 0))
 
-        # jesse = pygame.image.load("jesse.jpg")
-        # gameDisplay.blit(jesse, (100,100))
+
         gameDisplay.fill((0, 0, 0), rect = [0,0,670,485])
         pygame.draw.rect(gameDisplay, (255, 0, 0), (x, y, player_width, player_height))
 
@@ -213,6 +211,6 @@ def start_main():
 
     pygame.display.update()
 
-start_main()
-pygame.quit()
-quit()
+# start_main()
+# pygame.quit()
+# quit()

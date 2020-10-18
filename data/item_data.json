@@ -1,12 +1,45 @@
 {
-    "book" : {
-        "attributes": "book_attr"
+    "Book" : {
+        "type": "Equip",
+        "attributes": "book_attr",
+        "description": "When was the last time you read a book?",
+        "damage": 30
     },
-    "computer": {
-        "attributes": "computer_attr"
+    "Computer": {
+        "type": "Equip",
+        "attributes": "computer_attr",
+        "description": "The beginning weapon for a Computer Science Major",
+        "damage": 20
     },
-    "super awesome computer": {
-        "attributes": "super_awesome_computer_attr"
+    "Super Computer": {
+        "type": "Equip",
+        "attributes": "super_awesome_computer_attr",
+        "description": "Bet you wish you had one of these",
+        "damage": 10
+    },
+     "Red Bull": {
+        "type": "Consumable",
+        "attributes": "red_bull_attr",
+        "description": "Restores 20 HP (and a pair of wings as a bonus)",
+        "damage": 20
+    },
+    "Grace Day": {
+        "type": "Consumable",
+        "attributes" : "grace_day_attr",
+        "description": "Restores 10 HP, yayyy grace days!",
+        "damage": 10
+    },
+    "Coffee": {
+        "type": "Consumable",
+        "attributes" : "coffee_day_attr",
+        "description": "Restores 10 HP!",
+        "damage": 10 
+    },
+    "Adderall": {
+        "type": "Consumable",
+        "attributes" : "adderall_day_attr",
+        "description": "Side effects include 40 HP restored!",
+        "damage": 40
     }
-
+    
 }

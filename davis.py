@@ -1,9 +1,9 @@
-
 import time
 import random
 import pygame
 import math
 import music
+import pickle
 import config
 from button import Button
 import inventory
@@ -13,10 +13,11 @@ from player import Player
 from assets import character_images
 from os import listdir
 from os.path import isfile, join
+import level
 
 pygame.init()
 
-
+paused = False
 music_player = music.Music_Player()
 music_player.set_volume(1.0)
 
@@ -50,51 +51,122 @@ def destroy(self, name_of_class):
     del self
 
 def main_menu():
-
     intro = True
-    buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_widt h /2) ,(config.display_heigh t /2)), gameDisplay),
-               Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT, ((config.display_widt h /2) ,(config.display_heigh t /1.5)), gameDisplay),
-               Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_widt h /2) ,(config.display_heigh t /1.20)), gameDisplay),
-               Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT, ((config.display_widt h /2) ,(config.display_heigh t /1.1)), gameDisplay)]
     gameDisplay.fill(config.black)
 
     TextSurf, TextRect = render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
-    TextRect.center = ((round(config.display_widt h /2)) ,(round(config.display_heigh t /5)))
+    TextRect.center = ((round(config.display_width /2)) ,(round(config.display_height /5)))
     gameDisplay.blit(TextSurf, TextRect)
     music_player.play_intro()
+
+    buttons = [
+        Button("START", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width / 2), (config.display_height / 2)),
+               gameDisplay),
+        Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width / 2), (config.display_height / 1.5)), gameDisplay),
+        Button("QUIT", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width / 2), (config.display_height / 1.20)),
+               gameDisplay),
+        Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
 
     while intro:
 
         for event in pygame.event.get():
 
             if (event.type == pygame.QUIT or
-                    (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].rect.collidepoint
+                    (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[2].text == "QUIT" and buttons[2].rect.collidepoint
                         (pygame.mouse.get_pos()))):
                 pygame.quit()
                 quit()
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].text == "OPTIONS" and buttons[1].rect.collidepoint
                     (pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
 
             # Temporary inventory preview button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint
-                    (pygame.mouse.get_pos())):
+                    (pygame.mouse.get_pos()) and buttons[3].text == "inventoryPreview"):
                 inventoryMain()
             # Temporary inventory preview button
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint
-                    (pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].text == "START" and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
 
                 character_selection()
                 music_player.stop()
+            # elif event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_ESCAPE:
+            #         global paused
+            #         paused = True
+            #         pause()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
 
         pygame.display.update()
         clock.tick(15)
+
+def unpause():
+    global paused
+    paused = False
+    # gameDisplay.fill(config.black)
+    print(8)
+
+
+def pause():
+
+    gameDisplay.fill(config.black)
+    font = config.SPOOKY_BIG_FONT
+
+    buttons = [Button("Continue", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 2)), gameDisplay),
+               Button("Change Settings", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.5)), gameDisplay),
+               Button("Quit Level", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.20)), gameDisplay),
+               Button("Exit Game", config.white, config.SPOOKY_SMALL_FONT,
+                      ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
+    text = font.render('Pause', True, config.red)
+    textrect = text.get_rect()
+    textrect.center = (round(config.display_width/2), round(config.display_height/5))
+
+
+    gameDisplay.blit(text, textrect)
+
+
+    while(paused):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+                print(6)
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                main_menu()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[1].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                options_menu()
+            elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
+                # buttons[:] = []
+                unpause()
+                print(2)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_c:
+                    print(3)
+                    unpause()
+
+                if event.key == pygame.K_q:
+                    print(4)
+                    pygame.quit()
+                    quit()
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+
+        pygame.display.update()
+        clock.tick(5)
+
 
 def options_menu():
     music_player = music.Music_Player()
@@ -126,7 +198,11 @@ def options_menu():
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
-                main_menu()
+                if(paused == True):
+                    print(10)
+                    character_selection()
+                elif(paused == False):
+                    main_menu()
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(
                     pygame.mouse.get_pos())):
@@ -200,6 +276,19 @@ def set_image_location(image, start_x, start_y):
     pos = (start_x, start_y)
     return (image, image.get_rect().move(pos))
 
+# def save(): #should have paramter be set to self
+#     with open('savedgame.pkl', 'wb') as file:
+#         print('Saving...')
+#
+#         data = {'player.health':10 }
+#         pickle.dump(data, file)
+#
+# def load(): #should have parameter set to self
+#     with open('savedgame.pkl', 'rb') as file:
+#         print('Loading...')
+#
+#         loaddata = pickle.load(file)
+
 
 # function for demonstration of character selection only
 def start_game_play(player):
@@ -212,13 +301,22 @@ def start_game_play(player):
 
     while True:
         for event in pygame.event.get():
-
-            if (event.type == pygame.QUIT):
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    global paused
+                    paused = True
+                    pause()
+                if event.key == pygame.K_s:
+                    save()
+                if event.key == pygame.K_l:
+                    load()
+            elif (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
                 main_menu()
+
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)

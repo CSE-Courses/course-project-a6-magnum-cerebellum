@@ -1,11 +1,19 @@
 {
-    "professor" : {
-        "actions": ["failing grade", "AI violation"],
-        "items": ["book", "computer"]
+    "char01" : {
+        "actions": ["Punch", "Kick","Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "items": ["Book", "Computer"]
     },
-    "student": {
-        "actions": ["Use Chegg", "Use assignment extention"],
-        "items": ["book", "computer"]
+    "char02": {
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "items": ["Book", "Computer"]
+    },
+    "char03" : {
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "items": ["Book", "Computer"]
+    },
+    "char04": {
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "items": ["Book", "Computer"]
     }
 
 }

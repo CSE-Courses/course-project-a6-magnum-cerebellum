@@ -180,5 +180,5 @@ def inventoryMain():
 
 
 # Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
-inventoryMain()
-quit()
+# inventoryMain()
+# quit()

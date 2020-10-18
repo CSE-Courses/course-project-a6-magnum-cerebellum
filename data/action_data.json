@@ -1,14 +1,32 @@
 {
-    "failing grade" : {
-        "damage_level" : 10
+    "rm -rf /" : {
+        "damage_level" : 80
+    },
+    "Segmentation Fault (core dumped)": {
+        "damage_level": 20
+    }, 
+    "Ask for help on Piazza":{
+        "damage_level" : 30
     },
     "AI violation": {
-        "damage_level" : 5
+        "damage_level" : 50
     },
-    "Use Chegg": {
-        "damage_level": 10
+    "Caught using Chegg": {
+        "damage_level": 20
     },
     "Use assignment extention": {
-        "damage_level"  :8
+        "damage_level"  : 10
+    }, 
+    "Cause connection issues on Zoom" : {
+        "damage_level" : 20
+    },
+    "Consult Stack Overflow": {
+        "damage_level" : 20
+    },
+    "Punch": {
+        "damage_level" : 20
+    },
+    "Kick": {
+        "damage_level" : 20
     }
 }
