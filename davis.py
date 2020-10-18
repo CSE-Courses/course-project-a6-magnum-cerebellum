@@ -276,18 +276,18 @@ def set_image_location(image, start_x, start_y):
     pos = (start_x, start_y)
     return (image, image.get_rect().move(pos))
 
-# def save(): #should have paramter be set to self
-#     with open('savedgame.pkl', 'wb') as file:
-#         print('Saving...')
-#
-#         data = {'player.health':10 }
-#         pickle.dump(data, file)
-#
-# def load(): #should have parameter set to self
-#     with open('savedgame.pkl', 'rb') as file:
-#         print('Loading...')
-#
-#         loaddata = pickle.load(file)
+def save(): #should have paramter be set to self
+    with open('savedgame.pkl', 'wb') as file:
+        print('Saving...')
+
+        data = {'player.health':10 }
+        pickle.dump(data, file)
+
+def load(): #should have parameter set to self
+    with open('savedgame.pkl', 'rb') as file:
+        print('Loading...')
+
+        loaddata = pickle.load(file)
 
 
 # function for demonstration of character selection only
