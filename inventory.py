@@ -2,7 +2,8 @@
 # Credits to TheBigKahuna353 on Reddit/Github for his sample inventory system which this is based off #
 #######################################################################################################
 
-# Import random nubmer picker for prototype inventory, remove later
+#Import random number picker for prototype inventory, remove later
+
 import random
 ####
 
@@ -21,35 +22,37 @@ class Inventory:
         self.rows = 4
         self.col = 8
 
-        # items[x][y][0] is the item
-        # items[x][y][1] is item count
+        #items[x][y][0] is the item
+        #items[x][y][1] is item count
         self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
-
-        # size of the box itself
+        
+        #size of the box itself
         self.box_size = 50
 
-        # x, y position of the inventory
+        #x, y position of the inventory
         self.x = 400
         self.y = 400
 
-        # border thiccness
+        #border thiccness
         self.border = 5
-        self.borderRect = pygame.Rect(self.x, self.y
-                                      , (self.box_size + self.border) * self.col
-                                      , (self.box_size + self.border) * self.rows)
+        self.borderRect = pygame.Rect(self.x,self.y
+        ,(self.box_size + self.border)*self.col
+        ,(self.box_size + self.border)*self.rows)
 
     def createInventory(self):
 
-        # This draws the borders
-        pygame.draw.rect(gameDisplay, (100, 100, 100),
+        #This draws the borders
+        pygame.draw.rect(gameDisplay,(100,100,100),
                          (self.x
-                          , self.y
-                          , (self.box_size + self.border) * self.col + self.border
-                          , (self.box_size + self.border) * self.rows + self.border))
+                         ,self.y
+                         ,(self.box_size + self.border)*self.col + self.border
+                         ,(self.box_size + self.border)*self.rows + self.border))
+
 
         # This draws the inside boxes
         for x in range(self.col):
             for y in range(self.rows):
+
                 rect = ((self.x + (self.box_size + self.border) * x + self.border)
                         , self.y + (self.box_size + self.border) * y + self.border
                         , self.box_size
@@ -69,30 +72,32 @@ class Inventory:
         x = mouse[0] - self.x
         y = mouse[1] - self.y
 
-        # Use // to truncate to int
-        x = x // (self.box_size + self.border)
-        y = y // (self.box_size + self.border)
-        return (x, y)
-
-    # Add the item to the inventory, if there's a item already being selected, swap their positions
+        #Use // to truncate to int
+        x = x//(self.box_size + self.border)
+        y = y//(self.box_size + self.border)
+        return (x,y)
+    
+    #Add the item to the inventory, if there's a item already being selected, swap their positions
     def addToInventory(self, Item, position):
         row, col = position
-
-        # If something contained in that box
+        
+        #If something contained in that box
         if self.items[row][col]:
-            # If it's the same item, stack it
+            #If it's the same item, stack it
             if self.items[row][col][0].item_name == Item[0].item_name:
-
-                # This is the number of that particular item
-                # Item[1] allows it to stack multiple numbers, not just increase by 1
+                
+                #This is the number of that particular item
+                #Item[1] allows it to stack multiple numbers, not just increase by 1
                 self.items[row][col][1] += Item[1]
 
-            # Otherwise swap the two items
+            #Otherwise swap the two items
+
             else:
                 heldItem = self.items[row][col]
                 self.items[row][col] = Item
                 return heldItem
-        # Nothing in box, so just place the Item
+        
+        #Nothing in box, so just place the Item
         else:
             self.items[row][col] = Item
 
@@ -100,7 +105,6 @@ class Inventory:
         row, col = position
 
         if self.items[row][col]:
-
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
                 self.items[row][col][1] -= 1
             else:
@@ -120,6 +124,7 @@ def inventoryMain():
 
         # Draw the inventory
         player_inventory.createInventory()
+
 
         # Get the position of the mouse
         mouseX, mouseY = pygame.mouse.get_pos()

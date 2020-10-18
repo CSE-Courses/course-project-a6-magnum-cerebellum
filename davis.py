@@ -19,7 +19,6 @@ from assets import character_images
 from os import listdir
 from os.path import isfile, join
 import level
-
 pygame.init()
 
 paused = False
@@ -134,7 +133,6 @@ def main_menu():
                ((config.display_width/2),(config.display_height-500)), gameDisplay)]
 
     while intro:
-
         for event in pygame.event.get():
 
             if (event.type == pygame.QUIT or
@@ -159,6 +157,11 @@ def main_menu():
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay)
+
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                
+                character_selection()
+                music_player.stop()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -283,7 +286,6 @@ def options_menu():
     while True:
 
         for event in pygame.event.get():
-
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
@@ -347,6 +349,106 @@ def options_menu():
 
         pygame.display.update()
         clock.tick(15)
+def get_image_list():
+    image_list = []
+    character_types = []
+    path = 'assets/character_images/'
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+    for file in onlyfiles:
+        character_types.append(file.split('.')[0])
+        image_list.append(pygame.image.load(path+file))
+    return image_list, character_types
+
+def transform_image(image, w,h,n):
+    return pygame.transform.scale(image, (int(w/n), int(h/ (0.3*n))))
+
+def set_image_location(image, start_x, start_y):
+    pos = (start_x, start_y)
+    return (image, image.get_rect().move(pos))
+
+
+# function for demonstration of character selection only
+def start_game_play(player):
+    w, h = pygame.display.get_surface().get_size()
+    music_player = music.Music_Player()
+    music_player.play_scary() 
+    gameDisplay.fill(config.black)
+    buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    gui = pygame.Surface((w,h))
+    
+    while True : 
+        for event in pygame.event.get():
+        
+            if (event.type == pygame.QUIT) :
+                pygame.quit()
+                quit()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                main_menu()
+            
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+        pygame.display.update()
+        gui.fill(config.white)
+        
+        gameDisplay.blit(gui, (0,0))
+        TextSurf, TextRect = render_text("You chose %s" %player.character , config.SPOOKY_BIG_FONT, config.red)
+        TextRect.center = ((round(config.display_width/2)),(round(config.display_height /5)))
+        gameDisplay.blit(TextSurf,TextRect)
+        clock.tick(15)
+
+def character_selection():
+    w, h = pygame.display.get_surface().get_size()
+    music_player = music.Music_Player()
+    music_player.play_scary()
+    gameDisplay.fill(config.black)
+    buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    character_list = create_all_characters()
+    selection_gui = pygame.Surface((w,h))
+    image_list , character_types= get_image_list()
+    image_rect_list = []
+    num_of_images = len(image_list)
+    start_x = 0
+    start_y = 0
+    x_offset = int(w/num_of_images)
+    y_offset = int(h/num_of_images)
+    for elem in image_list:
+        transformed_image = transform_image(elem, w,h, num_of_images)
+        image_rect_list.append(set_image_location(transformed_image, start_x, start_y)) 
+        start_x += x_offset
+        
+    while True : 
+        for event in pygame.event.get():
+           
+            if (event.type == pygame.QUIT) :
+                pygame.quit()
+                quit()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                main_menu()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 ):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(event.pos)):
+                        character = Character(character_types[index])
+                        player = Player(character)
+                        start_game_play(player)
+                    index+=1
+
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+        pygame.display.update()
+        selection_gui.fill(config.white)
+        for image, image_rect in image_rect_list:
+            selection_gui.blit(image, image_rect)
+        gameDisplay.blit(selection_gui, (0,0))
+        TextSurf, TextRect = render_text("Choose a Character", config.SPOOKY_BIG_FONT, config.red)
+        TextRect.center = ((round(config.display_width/2)),(round(config.display_height *.9)))
+        gameDisplay.blit(TextSurf,TextRect)
+        clock.tick(15)
+
+
+
+
 
     # This will load an image and then set it to the passed display.
 def set_image(image, display):
