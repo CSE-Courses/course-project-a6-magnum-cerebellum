@@ -9,23 +9,144 @@ class Music_Player():
         self.filedir = os.path.dirname(filepath)
 
     ######### event specific play options #########
-    def play_intro(self):
-        musicpath = os.path.join(self.filedir, "assets/music/music_files/intro.ogg")
+
+    ################################################
+    # The following are ambient area/general map exploration tracks
+
+    def play_ambtrack1(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/5spooky.it")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack2(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/el_topo_-_horror_dub.moc")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack3(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/horror_naturalis.xm")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack4(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/horror_trip.xm")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack5(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/horrorvision_final.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack6(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/jaktar-dungeons-1.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack7(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/jaktar-dungeons-2.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack8(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/jaktar-dungeons-3.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack9(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/scary.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_ambtrack10(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/ambient/techno-time.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    #######################################
+    # The following are tracks for bosses
+
+    def play_boss1(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/ace_de_techno_ii.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_boss2(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/akira.xm")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_boss3(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/firage_-_the_grim_reaper_blows_the_horn.it")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_boss4(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/horror_ist_pissed_2.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_boss5(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/nitemare.it")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops=-1)
 
-    def play_scary(self):
-        musicpath = os.path.join(self.filedir, "assets/music/music_files/scary.ogg")
+    def play_boss6(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/techno_x.s3m")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    ###############################################
+    # The following are tracks for random enemy encounters
+
+    def play_enemy1(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/banana_addiction.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_enemy2(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/goto80-technowonderland-73.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_enemy3(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/horrorhouse.mod")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops=-1)
 
-    def play_normal(self):
-        musicpath = os.path.join(self.filedir, "assets/music/music_files/fast.ogg")
+    def play_enemy4(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/scary_dreams.xm")
         self.musicMixer.load(musicpath)
-        self.musicMixer.play(loops=-1)
+        self.musicMixer.play(loops = -1)
+
+    def play_enemy5(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/enemy_encounter/vision_thing.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    ###########################################
+    # The following are tracks for the main menu and options menu.
+
+    def play_main(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/main_menu/horror_in_slimland.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    def play_options(self):
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/options_menu/horror2_the_revenge.mod")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    ################################################
+    # The following track is a victory tune to be played upon defeating an enemy.
 
     def play_victory(self):
-        pass
+        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/victory/crab_rave.mid")
+        self.musicMixer.load(musicpath)
+        self.musicMixer.play(loops = -1)
+
+    #def play_victory(self):
+    #    pass
 
     ######## Music Utilities ######
 
