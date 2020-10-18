@@ -55,6 +55,56 @@ def destroy(self, name_of_class):
     name_of_class.List.remove(self)
     del self
 
+def character_selection():
+    w, h = pygame.display.get_surface().get_size()
+    music_player = music.Music_Player()
+    music_player.play_ambtrack2()
+    gameDisplay.fill(config.black)
+    buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    character_list = create_all_characters()
+    selection_gui = pygame.Surface((w, h))
+    image_list, character_types = get_image_list()
+    image_rect_list = []
+    num_of_images = len(image_list)
+    start_x = 0
+    start_y = 0
+    x_offset = int(w / num_of_images)
+    y_offset = int(h / num_of_images)
+    for elem in image_list:
+        transformed_image = transform_image(elem, w, h, num_of_images)
+        image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
+        start_x += x_offset
+
+    while True:
+        for event in pygame.event.get():
+
+            if (event.type == pygame.QUIT):
+                pygame.quit()
+                quit()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
+                main_menu()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(event.pos)):
+                        character = Character(character_types[index])
+                        player = Player()
+                        start_game_play(player)
+                    index += 1
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+        pygame.display.update()
+        selection_gui.fill(config.white)
+        for image, image_rect in image_rect_list:
+            selection_gui.blit(image, image_rect)
+        gameDisplay.blit(selection_gui, (0, 0))
+        TextSurf, TextRect = render_text("Choose a Character", config.SPOOKY_BIG_FONT, config.red)
+        TextRect.center = ((round(config.display_width / 2)), (round(config.display_height * .9)))
+        gameDisplay.blit(TextSurf, TextRect)
+        clock.tick(15)    
+
 def main_menu():
     intro = True
     buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/2)), gameDisplay),
@@ -79,7 +129,9 @@ def main_menu():
                ((config.display_width / 2), (config.display_height / 1.20)),
                gameDisplay),
         Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay)]
+               ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay),
+        Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width/2),(config.display_height-500)), gameDisplay)]
 
     while intro:
 
@@ -96,7 +148,7 @@ def main_menu():
             # For now, this will load into the mockup image, then we'll place things accordingly.
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
-                game_start()
+                character_selection()
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
@@ -126,7 +178,7 @@ def game_start():
     Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
     #Instantiating a demo character here since selection screen is not implemented yet
-    demoChar = Character("student")
+    demoChar = Character("char01")
     char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), "Joe Gamer", demoChar, gameDisplay)
 
     # I imagine we will move this into a larger, separate file for actual gameplay
@@ -141,27 +193,6 @@ def game_start():
                 quit()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 main_menu()
-
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].text == "OPTIONS" and buttons[1].rect.collidepoint
-                    (pygame.mouse.get_pos())):
-                music_player.stop()
-                options_menu()
-
-            # Temporary inventory preview button
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint
-                    (pygame.mouse.get_pos()) and buttons[3].text == "inventoryPreview"):
-                inventoryMain()
-            # Temporary inventory preview button
-
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].text == "START" and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-
-                character_selection()
-                music_player.stop()
-            # elif event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_ESCAPE:
-            #         global paused
-            #         paused = True
-            #         pause()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -398,55 +429,6 @@ def start_game_play(player):
         clock.tick(15)
 
 
-def character_selection():
-    w, h = pygame.display.get_surface().get_size()
-    music_player = music.Music_Player()
-    music_player.play_scary()
-    gameDisplay.fill(config.black)
-    buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
-    character_list = create_all_characters()
-    selection_gui = pygame.Surface((w, h))
-    image_list, character_types = get_image_list()
-    image_rect_list = []
-    num_of_images = len(image_list)
-    start_x = 0
-    start_y = 0
-    x_offset = int(w / num_of_images)
-    y_offset = int(h / num_of_images)
-    for elem in image_list:
-        transformed_image = transform_image(elem, w, h, num_of_images)
-        image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
-        start_x += x_offset
-
-    while True:
-        for event in pygame.event.get():
-
-            if (event.type == pygame.QUIT):
-                pygame.quit()
-                quit()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
-                    pygame.mouse.get_pos())):
-                main_menu()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
-                index = 0
-                for char_image, char_rect in image_rect_list:
-                    if (char_rect.collidepoint(event.pos)):
-                        character = Character(character_types[index])
-                        player = Player(character)
-                        start_game_play(player)
-                    index += 1
-
-        for button in buttons:
-            Button.check_Hover(button, gameDisplay)
-        pygame.display.update()
-        selection_gui.fill(config.white)
-        for image, image_rect in image_rect_list:
-            selection_gui.blit(image, image_rect)
-        gameDisplay.blit(selection_gui, (0, 0))
-        TextSurf, TextRect = render_text("Choose a Character", config.SPOOKY_BIG_FONT, config.red)
-        TextRect.center = ((round(config.display_width / 2)), (round(config.display_height * .9)))
-        gameDisplay.blit(TextSurf, TextRect)
-        clock.tick(15)
 
 
 main_menu()
