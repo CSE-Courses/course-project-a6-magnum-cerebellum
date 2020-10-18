@@ -9,10 +9,10 @@ SPOOKY_BIG_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 120)
 SPOOKY_SMALL_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 60)
 SPOOKY_SMALLER_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 25)
 SPOOKY_INVENTORY_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 30)
-display_width = 1024
-display_height = 768
-render_display_width = 1024
-render_display_height = 768
+display_width = 1200
+display_height = 800
+render_display_width = 1200
+render_display_height = 800
 FPS = 60
 TILE = 100
 FPS_POS = (render_display_width - 65, 5)
@@ -37,6 +37,11 @@ DELTA_ANGLE = FOV / NUM_RAYS
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
 PROJ_COEFF = 3 * DIST * TILE
 SCALE = (render_display_width // NUM_RAYS)
+
+# texture settings
+TEXTURE_WIDTH = 100
+TEXTURE_HEIGHT = 100
+TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 
 # colors
 black = (0,0,0)
