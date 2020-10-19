@@ -70,10 +70,17 @@ def start_game_play(player):
                     global paused
                     paused = True
                     pause()
+                #if s button is pressed save the character's stats
                 if event.key == pygame.K_s:
-                    save()
+                    save(player)
+                #if l button is pressed load the character's stats
                 if event.key == pygame.K_l:
                     load()
+                    player.pos = loaddata['pos']
+                    player.health = loaddata['health']
+                    player.actions = loaddata['actions']
+                    player.items = loaddata['items']
+                    player.hp = loaddata['hp']
             elif (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
@@ -103,17 +110,19 @@ def set_image_location(image, start_x, start_y):
     pos = (start_x, start_y)
     return (image, image.get_rect().move(pos))
 
-def save(): #should have paramter be set to self
+#saves the character's stats onto a pickle file at the same directory level
+def save(player1):
     with open('savedgame.pkl', 'wb') as file:
         print('Saving...')
-
-        data = {'player.health':10 }
+        data = {'pos':(3,3), 'health':100, 'actions': ['punch','kick',], 'items':['Computer','Book'],'hp':100}
         pickle.dump(data, file)
+        print('Saved!')
 
-def load(): #should have parameter set to self
+#loads and updates the character's stats based on the most recent pickle file saved
+def load():
     with open('savedgame.pkl', 'rb') as file:
         print('Loading...')
-
+        global loaddata
         loaddata = pickle.load(file)
 
 def get_image_list():
