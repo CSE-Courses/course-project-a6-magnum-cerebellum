@@ -19,7 +19,6 @@ from assets import character_images
 from os import listdir
 from os.path import isfile, join
 import level
-
 pygame.init()
 
 paused = False
@@ -161,7 +160,7 @@ def character_selection():
                 for char_image, char_rect in image_rect_list:
                     if (char_rect.collidepoint(event.pos)):
                         character = Character(character_types[index])
-                        player = Player()
+                        player = Player(character)
                         start_game_play(player)
                     index += 1
 
@@ -206,7 +205,6 @@ def main_menu():
                ((config.display_width/2),(config.display_height-500)), gameDisplay)]
 
     while intro:
-
         for event in pygame.event.get():
 
             if (event.type == pygame.QUIT or
@@ -231,6 +229,11 @@ def main_menu():
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay)
+
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                
+                character_selection()
+                music_player.stop()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -355,7 +358,6 @@ def options_menu():
     while True:
 
         for event in pygame.event.get():
-
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()

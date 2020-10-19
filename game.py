@@ -11,7 +11,7 @@ def GameMain(sc):
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface((display_width // MAP_SCALE, display_height // MAP_SCALE))
     clock = pygame.time.Clock()
-    player = Player()
+    player = Player("char one")
     drawing = Drawing(sc, sc_map)
     while True:
         for event in pygame.event.get():

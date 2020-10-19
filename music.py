@@ -72,7 +72,7 @@ class Music_Player():
         self.musicMixer.play(loops = -1)
 
     def play_boss2(self):
-        musicpath = os.path.join(self.filedir, "assets/music/music_files/in_use/boss/akira.xm")
+        musicpath = os.path.join (self.filedir, "assets/music/music_files/in_use/boss/akira.xm")
         self.musicMixer.load(musicpath)
         self.musicMixer.play(loops = -1)
 
