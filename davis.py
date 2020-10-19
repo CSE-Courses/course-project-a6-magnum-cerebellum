@@ -55,6 +55,78 @@ def destroy(self, name_of_class):
     name_of_class.List.remove(self)
     del self
 
+# function for demonstration of character selection only
+def start_game_play(player):
+    w, h = pygame.display.get_surface().get_size()
+    music_player = music.Music_Player()
+    music_player.play_ambtrack2()
+    gameDisplay.fill(config.black)
+    buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    gui = pygame.Surface((w, h))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    global paused
+                    paused = True
+                    pause()
+                if event.key == pygame.K_s:
+                    save()
+                if event.key == pygame.K_l:
+                    load()
+            elif (event.type == pygame.QUIT):
+                pygame.quit()
+                quit()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
+                main_menu()
+
+
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+        pygame.display.update()
+        gui.fill(config.white)
+
+        gameDisplay.blit(gui, (0, 0))
+        game_start()
+        clock.tick(15)
+
+def set_image(image, display):
+    image_surface = pygame.image.load(image)
+    display.blit(image_surface, (0, 0))
+
+def transform_image(image, w, h, n):
+    return pygame.transform.scale(image, (int(w / n), int(h / (0.3 * n))))
+
+
+def set_image_location(image, start_x, start_y):
+    pos = (start_x, start_y)
+    return (image, image.get_rect().move(pos))
+
+def save(): #should have paramter be set to self
+    with open('savedgame.pkl', 'wb') as file:
+        print('Saving...')
+
+        data = {'player.health':10 }
+        pickle.dump(data, file)
+
+def load(): #should have parameter set to self
+    with open('savedgame.pkl', 'rb') as file:
+        print('Loading...')
+
+        loaddata = pickle.load(file)
+
+def get_image_list():
+    image_list = []
+    character_types = []
+    path = 'assets/character_images/'
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+    for file in onlyfiles:
+        character_types.append(file.split('.')[0])
+        image_list.append(pygame.image.load(path + file))
+    return image_list, character_types
+
 def character_selection():
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
@@ -347,89 +419,6 @@ def options_menu():
 
         pygame.display.update()
         clock.tick(15)
-
-    # This will load an image and then set it to the passed display.
-def set_image(image, display):
-    image_surface = pygame.image.load(image)
-    display.blit(image_surface, (0, 0))
-
-main_menu()
-
-
-def get_image_list():
-    image_list = []
-    character_types = []
-    path = 'assets/character_images/'
-    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
-    for file in onlyfiles:
-        character_types.append(file.split('.')[0])
-        image_list.append(pygame.image.load(path + file))
-    return image_list, character_types
-
-
-def transform_image(image, w, h, n):
-    return pygame.transform.scale(image, (int(w / n), int(h / (0.3 * n))))
-
-
-def set_image_location(image, start_x, start_y):
-    pos = (start_x, start_y)
-    return (image, image.get_rect().move(pos))
-
-def save(): #should have paramter be set to self
-    with open('savedgame.pkl', 'wb') as file:
-        print('Saving...')
-
-        data = {'player.health':10 }
-        pickle.dump(data, file)
-
-def load(): #should have parameter set to self
-    with open('savedgame.pkl', 'rb') as file:
-        print('Loading...')
-
-        loaddata = pickle.load(file)
-
-
-# function for demonstration of character selection only
-def start_game_play(player):
-    w, h = pygame.display.get_surface().get_size()
-    music_player = music.Music_Player()
-    music_player.play_scary()
-    gameDisplay.fill(config.black)
-    buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
-    gui = pygame.Surface((w, h))
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    global paused
-                    paused = True
-                    pause()
-                if event.key == pygame.K_s:
-                    save()
-                if event.key == pygame.K_l:
-                    load()
-            elif (event.type == pygame.QUIT):
-                pygame.quit()
-                quit()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
-                    pygame.mouse.get_pos())):
-                main_menu()
-
-
-        for button in buttons:
-            Button.check_Hover(button, gameDisplay)
-        pygame.display.update()
-        gui.fill(config.white)
-
-        gameDisplay.blit(gui, (0, 0))
-        TextSurf, TextRect = render_text("You chose %s" % player.character, config.SPOOKY_BIG_FONT, config.red)
-        TextRect.center = ((round(config.display_width / 2)), (round(config.display_height / 5)))
-        gameDisplay.blit(TextSurf, TextRect)
-        clock.tick(15)
-
-
-
 
 main_menu()
 
