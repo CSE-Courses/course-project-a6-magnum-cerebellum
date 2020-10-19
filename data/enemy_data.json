@@ -1,11 +1,14 @@
 {
-    "professor" : {
-        "actions": ["failing grade", "AI violation"]
-        
+    "Generic CSE Professor" : {
+        "actions": ["Segmentation Fault (core dumped)", "AI violation"]   
     },
-    "TA": {
-        "actions": ["Use Chegg", "Use assignment extention"]
-       
+    "Unhelpful Undergrad TA": {
+        "actions": ["AI violation", "Caught using Chegg"]    
+    },
+    "Graduate TA" : {
+        "actions" : ["Cause connection issues on Zoom", "Caught using Chegg" ]
+    },
+    "Ultimate CSE Professor" : {
+        "actions" : ["AI violation", "Caught using Chegg" , "Segmentation Fault (core dumped)", "rm -rf /"]
     }
-
 }
