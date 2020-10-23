@@ -3,7 +3,7 @@ from enemies import Enemy
 from items import Item
 
 class Battle():
-    def __init__(self, player:Player, enemy:Enemy):
+    def __init__(self, player: Player, enemy: Enemy):
         self.player = player
         self.enemy = enemy
 
@@ -23,10 +23,9 @@ class Battle():
             print("player has died")
             return False
     # enemy attacks player, inflicit items damage, return true if attack was successful, false if player was destroyed
-    def attack_player(self,item:Item) -> bool:
+    def attack_player(self, item: Item) -> bool:
         damage = item.damage
         if self.player.decrease_hp(damage):
-          
             print("player has been hit")
             return True
         else:

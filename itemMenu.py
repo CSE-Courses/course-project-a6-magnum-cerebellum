@@ -39,6 +39,7 @@ class itemOptionMenu:
                     , self.box_size  )
                 pygame.draw.rect(gameDisplay,config.gray,boxRect)
 
+
                 text = config.SPOOKY_INVENTORY_FONT.render(self.optionsTextArray[row], True, config.red)
                 text_rect = text.get_rect(center=boxRect.center)
                 self.optionsRects.append(text_rect)
@@ -103,6 +104,7 @@ class infoBox:
 
 #Provides wrap-around text into the rect provided
 #https://www.pygame.org/wiki/TextWrap
+
 def drawText(surface, text, color, rect, font, aa=False, bkg=None):
     y = rect.top
     lineSpacing = -2
@@ -161,6 +163,7 @@ def displayInfo(item, mousePosition, inventory):
 def itemOptions(item, inventory):
     pos = pygame.mouse.get_pos()
     #Render the item menu til an option is selected, or if left clicked somewhere outside, close
+
     while True:
         gameDisplay.fill(config.white)
         inventory.createInventory()
@@ -187,15 +190,16 @@ def itemOptions(item, inventory):
 
                         if (optionsRectList[i].collidepoint(pygame.mouse.get_pos())):
                             #Implemented Discards
+
                             if (optionTextList[i] == "Discard One"):
                                 return "Discard One"
                             elif (optionTextList[i] == "Discard All"):
                                 return "Discard All"
                             elif (optionTextList[i] == "Info"):
                                 displayInfo(item, pos, inventory)
-                                return "Info"
-                            
+                                return "Info"                            
                             #WIP effects to be implemented/integrated with other parts of the game
+
                             elif (optionTextList[i] == "Equip"):
                                 return "Equip"
                             elif (optionTextList[i] == "Use"):
