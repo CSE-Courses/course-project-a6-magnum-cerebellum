@@ -135,6 +135,31 @@ def get_image_list():
         image_list.append(pygame.image.load(path + file))
     return image_list, character_types
 
+def get_player_stats(character, size):
+    temp_surface = pygame.Surface(size)
+    temp_surface.fill((192, 192, 192))
+    vertical_offset = 0
+    text, rect = render_text("Character : " + character.__str__(), config.CHAR_DETAIL_FONT_LARGE, config.red)
+    temp_surface.blit(text, (0, vertical_offset))
+    vertical_offset += 50
+    text , rect = render_text( "Actions -> " , config.CHAR_DETAIL_FONT_LARGE, config.red)
+    temp_surface.blit(text, (0, vertical_offset))
+    vertical_offset += 30
+    for action in character.actions:
+        text , rect = render_text( action.__str__() , config.CHAR_DETAIL_FONT_SMALL, config.red)
+        temp_surface.blit(text, (0, vertical_offset))
+        vertical_offset += 15
+    vertical_offset += 30
+    text , rect = render_text( "Items -> " , config.CHAR_DETAIL_FONT_LARGE, config.red)
+    temp_surface.blit(text, (0, vertical_offset))
+    vertical_offset += 30
+    for item in character.items:
+        text , rect = render_text( item.__str__() , config.CHAR_DETAIL_FONT_SMALL, config.red)
+        temp_surface.blit(text, (0, vertical_offset))
+        vertical_offset += 15
+    
+    return temp_surface
+
 def character_selection():
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
@@ -145,22 +170,33 @@ def character_selection():
     selection_gui = pygame.Surface((w, h))
     image_list, character_types = get_image_list()
     image_rect_list = []
-    num_of_images = len(image_list)
+    num_of_images = len(image_list) + 1
     start_x = 0
     start_y = 0
-    x_offset = int(w / num_of_images)
-    y_offset = int(h / num_of_images)
+    x_offset = int(w / num_of_images) 
+    
+    char_detail_surf, char_detail_rect = None, None
     for elem in image_list:
         transformed_image = transform_image(elem, w, h, num_of_images)
         image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
         start_x += x_offset
-
+    char_detail_offset = start_x
     while True:
         for event in pygame.event.get():
 
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
+            elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(pygame.mouse.get_pos())):
+                        character = Character(character_types[index])
+                        size = (x_offset, h)
+                        char_detail_surf = get_player_stats(character, size)
+                        break
+                    index += 1
+
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
                 main_menu()
@@ -177,6 +213,7 @@ def character_selection():
             Button.check_Hover(button, gameDisplay)
         pygame.display.update()
         selection_gui.fill(config.white)
+        selection_gui.blit(char_detail_surf, (char_detail_offset, 10))
         for image, image_rect in image_rect_list:
             selection_gui.blit(image, image_rect)
         gameDisplay.blit(selection_gui, (0, 0))

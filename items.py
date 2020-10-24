@@ -30,3 +30,5 @@ class Item():
     def resize(self, size):
         return pygame.transform.scale(self.sprite,(size,size))
 
+    def __str__(self):
+        return self.item_name
