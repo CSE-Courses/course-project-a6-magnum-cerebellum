@@ -10,4 +10,7 @@ class Action():
         self.action = data[type_]
         self.action_name = type_
         self.damage_level = self.action["damage_level"]
+
+    def __str__(self):
+        return self.action_name
         

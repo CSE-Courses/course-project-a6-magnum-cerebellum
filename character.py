@@ -22,7 +22,6 @@ class Character():
     def __str__(self):
         return self.type
 
-
 def create_all_characters():
     return_list = []
     f = open(os.path.join("data/character_data.json"))

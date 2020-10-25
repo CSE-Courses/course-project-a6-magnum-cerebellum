@@ -1,18 +1,18 @@
 {
     "char01" : {
-        "actions": ["Punch", "Kick","Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
-        "items": ["Book", "Computer"]
+        "actions": ["Kick","Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "items": [ "Computer"]
     },
     "char02": {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
-        "items": ["Book", "Computer"]
+        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "rm -rf /"],
+        "items": ["Book"]
     },
     "char03" : {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "actions": ["Punch", "Consult Stack Overflow", "Ask for help on Piazza", "rm -rf /"],
         "items": ["Book", "Computer"]
     },
     "char04": {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+        "actions": ["Punch", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza"],
         "items": ["Book", "Computer"]
     }
 
