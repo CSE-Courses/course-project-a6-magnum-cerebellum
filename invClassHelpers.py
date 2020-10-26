@@ -62,15 +62,17 @@ class Inventory:
                 # Render the items
                 if self.items[x][y]:
                     gameDisplay.blit(self.items[x][y][0].resize(self.box_size), rect)
-                    obj = config.SPOOKY_INVENTORY_FONT.render(str(self.items[x][y][1]), True, (0, 0, 0))
-                    gameDisplay.blit(obj, (rect[0] + self.box_size // 2, rect[1] + self.box_size // 2))
+                    obj = config.SPOOKY_INVENTORY_FONT.render(str(self.items[x][y][1]), True, config.white)
+                    outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(self.items[x][y][1]), True, config.black)
+                    gameDisplay.blit(outline, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
+                    gameDisplay.blit(obj, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
 
     def createItemMenu(self, boxPos, currentItem, mousePos):
         self.itemBox = boxPos
         self.currentItem = currentItem
         self.itemMousePos = mousePos
         self.itemMenuClicked = True
-
+        
     # Get the box position that the mouse is over
     def boxPos(self):
         mouse = pygame.mouse.get_pos()
@@ -148,15 +150,18 @@ class itemOptionMenu:
         for col in range(1):
 
             for row in range (self.numberOfBoxes):
-                boxRect = pygame.Rect(  (self.menuX + self.border), self.menuY + (self.box_size + self.border) * row + self.border, self.box_size + 72, self.box_size  )
-                
+                boxRect = pygame.Rect(  (self.menuX + self.border), self.menuY + (self.box_size + self.border) * row + self.border, self.box_size + 72, self.box_size)
+                self.optionsRects.append(boxRect)
+
                 pygame.draw.rect(gameDisplay,config.gray,boxRect)
 
                 text = config.SPOOKY_INVENTORY_FONT.render(self.optionsTextArray[row], True, config.red)
+                
+                outline = config.SPOOKY_INVENTORY_FONT.render(self.optionsTextArray[row], True, config.black)
                 text_rect = text.get_rect(center=boxRect.center)
-                self.optionsRects.append(boxRect)
-
-                gameDisplay.blit(text, text_rect)
+                
+                #def outlineText(text, font, color, outlineColor, outlineSize):
+                gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
 
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
@@ -200,19 +205,22 @@ class infoBox:
         pygame.draw.rect(gameDisplay,config.gray,itemDescBox)
 
         config.SPOOKY_INVENTORY_FONT.set_underline(True)
-        drawText(gameDisplay, self.item_name, config.black, itemNameBox, config.SPOOKY_INVENTORY_FONT)
-        drawText(gameDisplay, self.item_type, config.black, itemTypeBox, config.SPOOKY_ITEM_FONT)
+        
+        drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
+        drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
+
         config.SPOOKY_INVENTORY_FONT.set_underline(False)
-        drawText(gameDisplay, self.item_desc, config.red, itemDescBox, config.SPOOKY_INVENTORY_FONT)
+
+        drawText(gameDisplay, self.item_desc, config.red, itemDescBox, config.SPOOKY_INVENTORY_FONT, 1, config.black)
 
 #CLASSES END HERE
 
-#Helper Below
+#HELPERS BELOW
 
 #Provides wrap-around text into the rect provided
 #https://www.pygame.org/wiki/TextWrap
 
-def drawText(surface, text, color, rect, font, aa=False, bkg=None):
+def drawText(surface, text, color, rect, font, outlineSize, outlineColor):
     y = rect.top
     lineSpacing = -2
 
@@ -221,6 +229,7 @@ def drawText(surface, text, color, rect, font, aa=False, bkg=None):
 
     while text:
         i = 1
+        image = None
 
         # determine if the row of text will be outside our area
         if y + fontHeight > rect.bottom:
@@ -234,14 +243,9 @@ def drawText(surface, text, color, rect, font, aa=False, bkg=None):
         if i < len(text): 
             i = text.rfind(" ", 0, i) + 1
 
-        # render the line and blit it to the surface
-        if bkg:
-            image = font.render(text[:i], 1, color, bkg)
-            image.set_colorkey(bkg)
-        else:
-            image = font.render(text[:i], aa, color)
-
-        surface.blit(image, (rect.left, y))
+        # Render the line and blit it to the surface
+        image = font.render(text[:i], True, color)
+        surface.blit(outlineText(text, font, color, outlineColor, outlineSize, True, i), (rect.left, y))
         y += fontHeight + lineSpacing
 
         # remove the text we just blitted
@@ -259,3 +263,53 @@ def blitInfoBox(inventory):
     inventory.infoBox = infoBox(inventory.itemMousePos, inventory.currentItem[0].item_desc, inventory.currentItem[0].item_name, inventory.currentItem[0].item_type)
     inventory.infoBox.createInfo()
     pygame.display.update()
+
+###This is to give the text an outline since pygame doesn't actually have a support for it
+#Condensed version of outline code on https://github.com/lordmauve/pgzero
+
+def outlineText(text, font, color, outlineColor, outlineSize, wraparound, limit):
+    textsurface = font.render(text, True, color).convert_alpha()
+    outline = font.render(text,True, outlineColor)
+
+    if wraparound :
+        textsurface = font.render(text[:limit], True, color).convert_alpha()
+        outline = font.render(text[:limit],True, outlineColor)
+
+    w = textsurface.get_width() + 2 * outlineSize
+    h = font.get_height()
+
+    outlineSurface = pygame.Surface((w, h + 2 * outlineSize)).convert_alpha()
+    outlineSurface.fill((0, 0, 0, 0))
+
+    surf = outlineSurface.copy()
+
+    outlineSurface.blit(outline, (0, 0))
+
+    #Blit the outline on
+    for dx, dy in calculateOutline(outlineSize):
+        surf.blit(outlineSurface, (dx + outlineSize, dy + outlineSize))
+
+    surf.blit(textsurface, (outlineSize, outlineSize))
+    return surf
+
+#Helps calculate the outline to blit around for outlineText
+outlineList = {}
+def calculateOutline(r):
+    r = int(round(r))
+    if r in outlineList:
+        return outlineList[r]
+    x, y, e = r, 0, 1 - r
+    outlineList[r] = points = []
+    while x >= y:
+        points.append((x, y))
+        y += 1
+        if e < 0:
+            e += 2 * y - 1
+        else:
+            x -= 1
+            e += 2 * (y - x) - 1
+    points += [(y, x) for x, y in points if x > y]
+    points += [(-x, y) for x, y in points if x]
+    points += [(x, -y) for x, y in points if y]
+    points.sort()
+    return points
