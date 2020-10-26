@@ -32,8 +32,11 @@ def inventoryMain():
         # If an item is selected, hold it
         if heldItem:
             gameDisplay.blit(heldItem[0].resize(30), (mouseX, mouseY))
-            obj = config.SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, (0, 0, 0))
-            gameDisplay.blit(obj, (mouseX + 15, mouseY + 15))
+
+            obj = config.SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, config.white)
+            outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, config.black)
+            gameDisplay.blit(outline, (mouseX + 20, mouseY + 20))
+            gameDisplay.blit(obj, (mouseX + 20, mouseY + 20))
 
         if inventory.itemMenuClicked:
             invClassHelpers.blitItemMenu(inventory)
