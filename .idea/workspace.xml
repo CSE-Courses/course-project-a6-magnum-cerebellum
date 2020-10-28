@@ -54,7 +54,7 @@
       <recent name="C:\Users\dazar\Downloads\course-project-a6-magnum-cerebellum-master" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.davis">
+  <component name="RunManager" selected="Python.intro_screen">
     <configuration name="activites" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="course-project-a6-magnum-cerebellum-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -99,6 +99,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="intro_screen" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\dazar\AppData\Local\Programs\Python\Python36-32\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/intro_screen.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="intro_screen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="course-project-a6-magnum-cerebellum-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,28 +135,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="C:\Users\dazar\Downloads\course-project-a6-magnum-cerebellum-master\intro_screen.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="level" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="course-project-a6-magnum-cerebellum-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\dazar\AppData\Local\Programs\Python\Python36-32\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/level.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -166,7 +166,6 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.level" />
       <item itemvalue="Python.davis" />
       <item itemvalue="Python.intro_screen" />
       <item itemvalue="Python.testing" />
@@ -174,11 +173,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.intro_screen" />
         <item itemvalue="Python.davis" />
         <item itemvalue="Python.testing" />
         <item itemvalue="Python.activites" />
         <item itemvalue="Python.intro_screen" />
-        <item itemvalue="Python.level" />
       </list>
     </recent_temporary>
   </component>
@@ -227,7 +226,7 @@
       <workItem from="1603784930740" duration="723000" />
       <workItem from="1603805620400" duration="1399000" />
       <workItem from="1603810858792" duration="1533000" />
-      <workItem from="1603842175841" duration="3463000" />
+      <workItem from="1603842175841" duration="5192000" />
     </task>
     <servers />
   </component>
@@ -254,6 +253,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="42" width="1105" height="955" key="#davis/0.0.1920.1040@0.0.1920.1040" timestamp="1603861945113" />
+    <state x="660" y="41" key="#intro_screen_(1)" timestamp="1603863676949">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="660" y="41" key="#intro_screen_(1)/0.0.1920.1040@0.0.1920.1040" timestamp="1603863676949" />
     <state x="447" y="41" key="CommitChangelistDialog2" timestamp="1600669290643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -263,30 +266,30 @@
     </state>
     <state x="763" y="280" key="FileChooserDialogImpl/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600704770910" />
     <state x="763" y="280" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602980605432" />
-    <state width="1756" height="215" key="GridCell.Tab.0.bottom" timestamp="1603862062878">
+    <state width="1756" height="215" key="GridCell.Tab.0.bottom" timestamp="1603863711164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="215" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603862062878" />
-    <state width="1756" height="215" key="GridCell.Tab.0.center" timestamp="1603862062877">
+    <state width="1756" height="215" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603863711164" />
+    <state width="1756" height="215" key="GridCell.Tab.0.center" timestamp="1603863711163">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.center/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.center/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="215" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603862062877" />
-    <state width="1756" height="215" key="GridCell.Tab.0.left" timestamp="1603862062876">
+    <state width="1756" height="215" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603863711163" />
+    <state width="1756" height="215" key="GridCell.Tab.0.left" timestamp="1603863711162">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.left/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.left/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="215" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603862062876" />
-    <state width="1756" height="215" key="GridCell.Tab.0.right" timestamp="1603862062877">
+    <state width="1756" height="215" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603863711162" />
+    <state width="1756" height="215" key="GridCell.Tab.0.right" timestamp="1603863711164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.right/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.right/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="215" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603862062877" />
+    <state width="1756" height="215" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603863711164" />
     <state width="1865" height="171" key="GridCell.Tab.1.bottom" timestamp="1603729140949">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -324,11 +327,11 @@
       <screen x="3840" y="659" width="1920" height="1040" />
     </state>
     <state x="4565" y="1075" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601281574426" />
-    <state x="576" y="181" width="1082" height="678" key="find.popup" timestamp="1603684317703">
+    <state x="576" y="181" width="1082" height="678" key="find.popup" timestamp="1603862427844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="4416" y="682" width="768" height="1017" key="find.popup/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601276762153" />
-    <state x="576" y="181" width="1082" height="678" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603684317703" />
+    <state x="576" y="181" width="1082" height="678" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603862427844" />
     <state x="642" y="94" key="refactoring.ChangeSignatureDialog" timestamp="1603010609194">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -341,7 +344,8 @@
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$copy.coverage" NAME="intro_screen Coverage Results" MODIFIED="1603686626552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$level1.coverage" NAME="level1 Coverage Results" MODIFIED="1601792706712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$daviscopy.coverage" NAME="daviscopy Coverage Results" MODIFIED="1603673165764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$davis.coverage" NAME="davis Coverage Results" MODIFIED="1603862062837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$davis.coverage" NAME="davis Coverage Results" MODIFIED="1603863520914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$intro_screen.coverage" NAME="intro_screen Coverage Results" MODIFIED="1603863711146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$Basics.coverage" NAME="Basics Coverage Results" MODIFIED="1600666485287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
