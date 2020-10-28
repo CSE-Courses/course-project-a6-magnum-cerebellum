@@ -9,16 +9,13 @@ import davis
 pygame.init()
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
-
 buttons = []
-
 def changing_term(string):
     font = config.SPOOKY_SMALL_FONT
     space = font.size(' ')[0]
     word_counter = 0
     words = [word.split(' ') for word in string.splitlines()]
     x, y = (config.display_width / 7, config.display_height / 5)
-    # a = x
     time = 100
     term = ''
     gameDisplay.fill(config.black)

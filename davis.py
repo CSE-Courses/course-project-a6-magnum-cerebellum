@@ -331,7 +331,6 @@ def unpause():
     global paused
     paused = False
     # gameDisplay.fill(config.black)
-    print(8)
 
 
 def pause():
@@ -358,7 +357,6 @@ def pause():
     while(paused):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                print(6)
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
@@ -368,15 +366,10 @@ def pause():
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
                 # buttons[:] = []
                 unpause()
-                print(2)
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
-                    print(3)
                     unpause()
-
                 if event.key == pygame.K_q:
-                    print(4)
                     pygame.quit()
                     quit()
 
@@ -404,7 +397,6 @@ def options_menu():
                Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 + 100), gameDisplay),
                Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 200), gameDisplay),
                Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 100), gameDisplay)]
-
     backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
 
     while True:
