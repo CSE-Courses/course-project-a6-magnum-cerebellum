@@ -264,6 +264,7 @@ def main_menu():
             # For now, this will load into the mockup image, then we'll place things accordingly.
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
+
                 character_selection()
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
