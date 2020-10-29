@@ -109,7 +109,7 @@ class Inventory:
         else:
             self.items[row][col] = Item
 
-    def discardFromInventory(self, Item, position, discardAmount):
+    def discardFromInventory(self,position, discardAmount):
         row, col = position
 
         if self.items[row][col]:

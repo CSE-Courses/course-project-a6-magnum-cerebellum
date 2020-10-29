@@ -7,6 +7,7 @@ import random
 from button import Button
 from items import Item
 import invClassHelpers
+import equipClassHelpers
 import time
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
@@ -14,7 +15,7 @@ gameDisplay = pygame.display.set_mode((config.display_width, config.display_heig
 def inventoryMain():
     # Creates inventory
     inventory = invClassHelpers.Inventory()
-
+    equipment = equipClassHelpers.Equipment()
     # The item the cursor is holding
     heldItem = None
 
@@ -22,10 +23,9 @@ def inventoryMain():
         # Re-fills display everytime
         gameDisplay.fill(config.white)
 
-        # Draw the inventory
+        # Draw the inventory and Equipment GUI
         inventory.createInventory()
-
-
+        equipment.createEquip()
         # Get the position of the mouse
         mouseX, mouseY = pygame.mouse.get_pos()
 
@@ -70,7 +70,7 @@ def inventoryMain():
                         if (menu.optionsRects[i].collidepoint(mouse)):
                             #Implemented Discards
                             if ("Discard" in menu.optionsTextArray[i]):
-                                inventory.discardFromInventory(inventory.currentItem, inventory.itemBox, menu.optionsTextArray[i])
+                                inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
                                 break
                             elif (menu.optionsTextArray[i] == "Info"):
                                 inventory.infoBoxClicked = True
@@ -78,8 +78,16 @@ def inventoryMain():
                             
                             #WIP effects to be implemented/integrated with other parts of the game
 
-                            #elif (menu.optionsTextArray[i] == "Equip"):
-                            #    break
+                            elif (menu.optionsTextArray[i] == "Equip"):
+                                swappedItem = equipment.equipItem(inventory.currentItem)
+
+                                if (swappedItem == None):
+                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
+
+                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                    inventory.addToInventory(swappedItem, inventory.itemBox)
+                                break
                             #elif (menu.optionsTextArray[i] == "Use"):
                             #    break
                     inventory.itemMenuClicked = False
@@ -111,12 +119,12 @@ def inventoryMain():
                 # TEMP: If it's a right click just grab a computer
                 # Remove later when putting everything together
                 elif heldItem == None:
-                    randomItemPicker = [Item("Computer"), Item("Red Bull"), Item("Book")]
-                    heldItem = [randomItemPicker[random.randint(0, 2)], 1]
+                    randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
+                    heldItem = [randomItemPicker[random.randint(0, 1)], 1]
         
         # Update display
         pygame.display.update()
 
 # Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
-#inventoryMain()
-#quit()
+inventoryMain()
+quit()

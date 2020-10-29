@@ -1,18 +1,21 @@
 {
     "Book" : {
         "type": "Equip",
+        "equipType": "Weapon",
         "attributes": "book_attr",
         "description": "When was the last time you read a book?",
         "damage": 30
     },
     "Computer": {
         "type": "Equip",
+        "equipType": "Weapon",
         "attributes": "computer_attr",
         "description": "The beginning weapon for a Computer Science Major",
         "damage": 20
     },
     "Super Computer": {
         "type": "Equip",
+        "equipType": "Weapon",
         "attributes": "super_awesome_computer_attr",
         "description": "Bet you wish you had one of these",
         "damage": 10
