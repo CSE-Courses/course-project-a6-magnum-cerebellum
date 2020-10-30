@@ -81,11 +81,11 @@ class Player():
         if keys[pygame.K_ESCAPE]:
             exit()
 
-        if keys[pygame.K_w]:
+        if keys[pygame.K_UP]:
             dx = player_speed * cos_a
             dy = player_speed * sin_a
             self.detect_collision(dx, dy)
-        if keys[pygame.K_s]:
+        if keys[pygame.K_DOWN]:
             dx = -player_speed * cos_a
             dy = -player_speed * sin_a
             self.detect_collision(dx, dy)

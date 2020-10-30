@@ -29,7 +29,7 @@ player_angle = 0
 player_speed = 2
 
 # mini-map settings
-MINIMAP_SCALE = 4
+MINIMAP_SCALE = 5
 MINIMAP_RES = (display_width// MINIMAP_SCALE, display_height // MINIMAP_SCALE)
 MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
