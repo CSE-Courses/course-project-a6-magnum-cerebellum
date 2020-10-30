@@ -23,7 +23,7 @@
      "Red Bull": {
         "type": "Consumable",
         "attributes": "red_bull_attr",
-        "description": "Restores 20 HP (and a pair of wings as a bonus)",
+        "description": "Restores 20 HP (get a pair of wings as a bonus)",
         "damage": 20
     },
     "Grace Day": {

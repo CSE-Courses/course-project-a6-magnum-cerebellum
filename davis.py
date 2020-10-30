@@ -187,15 +187,7 @@ def character_selection():
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
-            elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):
-                index = 0
-                for char_image, char_rect in image_rect_list:
-                    if (char_rect.collidepoint(pygame.mouse.get_pos())):
-                        character = Character(character_types[index])
-                        size = (x_offset, h)
-                        char_detail_surf = get_player_stats(character, size)
-                        break
-                    index += 1
+            
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
@@ -207,6 +199,15 @@ def character_selection():
                         character = Character(character_types[index])
                         player = Player(character)
                         start_game_play(player)
+                    index += 1
+            elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(pygame.mouse.get_pos())):
+                        character = Character(character_types[index])
+                        size = (x_offset, h)
+                        char_detail_surf = get_player_stats(character, size)
+                        break
                     index += 1
 
         for button in buttons:
@@ -296,11 +297,7 @@ def game_start():
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
-    Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-
-    #Instantiating a demo character here since selection screen is not implemented yet
-    demoChar = Character("char01")
-    char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), "Joe Gamer", demoChar, gameDisplay)
+    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
     # I imagine we will move this into a larger, separate file for actual gameplay
 

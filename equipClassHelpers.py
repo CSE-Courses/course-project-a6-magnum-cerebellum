@@ -1,6 +1,8 @@
 import pygame
 import config
 from items import Item
+from invClassHelpers import itemOptionMenu
+from invClassHelpers import infoBox
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -8,23 +10,16 @@ class Equipment:
     def __init__(self):
         self.rows = 2
         self.col = 3
-        
-        '''
-        #For Menu that shows when right-click item
+
+        #For Menu that shows when right-click equip
         self.itemMenuClicked = False
         self.itemMousePos = None
         self.itemMenu = None
-        self.currentItem = None
         self.itemBox = None
 
         #For Description box that shows when clicking Info Option
         self.infoBoxClicked = False
         self.infoBox = None
-
-        #items[x][y][0] is the item
-        #items[x][y][1] is item count
-        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
-        '''     
 
         #Set this to an item!
         self.equipment = {
@@ -74,11 +69,25 @@ class Equipment:
 
                     if self.equipment[(x,y)]:
                         gameDisplay.blit(self.equipment[(x,y)][0].resize(self.box_size), rect)
-                        obj = config.SPOOKY_INVENTORY_FONT.render("1", True, config.white)
-                        outline = config.SPOOKY_INVENTORY_OUTLINE.render("1", True, config.black)
-                        gameDisplay.blit(outline, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
-                        gameDisplay.blit(obj, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))  
 
+    def createEquipItemMenu(self, boxPos, mousePos):
+        self.itemBox = boxPos
+        self.itemMousePos = mousePos
+        self.itemMenuClicked = True
+
+    # Get the box position that the mouse is over
+    def boxPos(self):
+        mouse = pygame.mouse.get_pos()
+
+        x = mouse[0] - self.x
+        y = mouse[1] - self.y
+
+        #Use // to truncate to int
+        x = x//(self.box_size + self.border)
+        y = y//(self.box_size + self.border)
+        return (x,y)
+
+    #To be Implemented : Decreasing player's stats after equip/unequip
     def equipItem(self, item):
         old_item = None
         if (item[0].equip_type == "Weapon"):
@@ -86,3 +95,23 @@ class Equipment:
             self.equipment[(1,1)] = item                
             return old_item
         return old_item
+    '''
+    Need to make sure here you return the equipped item to the first inventory slot free
+    If none free, don't unequip.
+
+    def unEquipItem(self):
+
+    '''
+def blitEquipItemMenu(equipment):
+    equipment.itemMenu = itemOptionMenu(equipment.itemMousePos, equipment.equipment[equipment.itemBox][0])
+    equipment.itemMenu.populateEquipOptions()
+    equipment.itemMenu.createOptions()
+    pygame.display.update()
+
+
+def blitEquipInfoBox(equipment):
+    currentItem = equipment.equipment[equipment.itemBox]
+    equipment.infoBox = infoBox(equipment.itemMousePos, currentItem[0])
+
+    equipment.infoBox.createInfo()
+    pygame.display.update()

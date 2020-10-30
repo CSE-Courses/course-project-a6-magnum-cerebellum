@@ -5,8 +5,6 @@ import math
 import music
 import config
 from button import Button
-import inventory
-from inventory import inventoryMain
 import game
 
 #####################################################################################
