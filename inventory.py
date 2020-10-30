@@ -21,7 +21,8 @@ def inventoryMain():
     # The item the cursor is holding
     heldItem = None
     healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)
-    
+    healthBar.createBar()
+
     while True:
         # Get the position of the mouse
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -36,7 +37,7 @@ def inventoryMain():
             
             # Re-fills display everytime
             gameDisplay.fill(config.white)
-            healthBar.createBar()
+            healthBar.updateBar()
             # Draw the inventory and Equipment GUI
             inventory.createInventory()
             equipment.createEquip()
@@ -104,6 +105,9 @@ def inventoryMain():
                                 break
                             elif (menu.optionsTextArray[i] == "Use"):
                                 healthBar.addHealth(inventory.currentItem[0].damage)
+                                #healthBar.subtractHealth(inventory.currentItem[0].damage)
+                                #healthBar.subtractMana(inventory.currentItem[0].damage)
+
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                                 break
                     inventory.itemMenuClicked = False
@@ -116,7 +120,7 @@ def inventoryMain():
                                 equipment.infoBoxClicked = True
                                 break
                             elif (menu.optionsTextArray[i] == "Unequip"):
-                                #Add Unequip function here
+                                equipment.unequipItem(equipment, inventory)
                                 break
                     equipment.itemMenuClicked = False
 
@@ -151,7 +155,7 @@ def inventoryMain():
                 # Remove later when putting everything together
                 elif heldItem == None:
                     randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
-                    heldItem = [randomItemPicker[random.randint(0, 2)], 1]
+                    heldItem = [randomItemPicker[random.randint(2, 2)], 1]
  
         # Update display
         pygame.display.update()
