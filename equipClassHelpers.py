@@ -98,10 +98,17 @@ class Equipment:
     '''
     Need to make sure here you return the equipped item to the first inventory slot free
     If none free, don't unequip.
+    '''    
+    #Later on, include the player so can edit the player's items
+    def unequipItem(self, equipment, inventory):
+        equippedItem = equipment.equipment[equipment.itemBox]
+        for x in range(self.rows):
+            for y in range(self.col):
+                if inventory.items[y][x] == None:
+                    inventory.items[y][x] = equippedItem
+                    equipment.equipment[equipment.itemBox] = None
+                    return
 
-    def unEquipItem(self):
-
-    '''
 def blitEquipItemMenu(equipment):
     equipment.itemMenu = itemOptionMenu(equipment.itemMousePos, equipment.equipment[equipment.itemBox][0])
     equipment.itemMenu.populateEquipOptions()
