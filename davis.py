@@ -297,11 +297,7 @@ def game_start():
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
-    Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-
-    #Instantiating a demo character here since selection screen is not implemented yet
-    demoChar = Character("char01")
-    char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), "Joe Gamer", demoChar, gameDisplay)
+    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
     # I imagine we will move this into a larger, separate file for actual gameplay
 

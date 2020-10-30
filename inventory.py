@@ -7,55 +7,69 @@ import random
 from button import Button
 from items import Item
 import invClassHelpers
+import equipClassHelpers
 import time
-
+from health import Bar
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
 def inventoryMain():
     # Creates inventory
-    inventory = invClassHelpers.Inventory()
+    gameDisplay.fill(config.white)
 
+    inventory = invClassHelpers.Inventory()
+    equipment = equipClassHelpers.Equipment()
     # The item the cursor is holding
     heldItem = None
-
+    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)
+    
     while True:
-        # Re-fills display everytime
-        gameDisplay.fill(config.white)
-
-        # Draw the inventory
-        inventory.createInventory()
-
-
         # Get the position of the mouse
         mouseX, mouseY = pygame.mouse.get_pos()
 
-        # If an item is selected, hold it
-        if heldItem:
-            gameDisplay.blit(heldItem[0].resize(30), (mouseX, mouseY))
-
-            obj = config.SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, config.white)
-            outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, config.black)
-            gameDisplay.blit(outline, (mouseX + 20, mouseY + 20))
-            gameDisplay.blit(obj, (mouseX + 20, mouseY + 20))
-
-        if inventory.itemMenuClicked:
-            invClassHelpers.blitItemMenu(inventory)
-
-        elif inventory.infoBoxClicked:
-            invClassHelpers.blitInfoBox(inventory)
-
         #So everytime mouse moves this is called
         for event in pygame.event.get():
-            mouse = pygame.mouse.get_pos()
 
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
                 quit()
+            
+            # Re-fills display everytime
+            gameDisplay.fill(config.white)
+            healthBar.createBar()
+            # Draw the inventory and Equipment GUI
+            inventory.createInventory()
+            equipment.createEquip()
+
+            #Get Current Position of the Mouse
+            mouse = pygame.mouse.get_pos()
+
+            # If an item is selected, hold it
+            if heldItem:
+                gameDisplay.blit(heldItem[0].resize(30), (mouseX, mouseY))
+
+                if (heldItem[0].item_type != "Equip"):
+                    obj = config.SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, config.white)
+                    outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, config.black)
+                    gameDisplay.blit(outline, (mouseX + 20, mouseY + 20))
+                    gameDisplay.blit(obj, (mouseX + 20, mouseY + 20))
+                
+            if inventory.itemMenuClicked:
+                invClassHelpers.blitItemMenu(inventory)
+
+            elif inventory.infoBoxClicked:
+                invClassHelpers.blitInfoBox(inventory)
+
+            elif equipment.infoBoxClicked:
+                equipClassHelpers.blitEquipInfoBox(equipment)
+
+            elif equipment.itemMenuClicked:
+                equipClassHelpers.blitEquipItemMenu(equipment)
 
             # Get the player's mouse position
             pos = inventory.boxPos()
-
+            equipPos = equipment.boxPos()
+            #print(equipPos)
             # If it's a LEFT-CLICK
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 
@@ -70,7 +84,7 @@ def inventoryMain():
                         if (menu.optionsRects[i].collidepoint(mouse)):
                             #Implemented Discards
                             if ("Discard" in menu.optionsTextArray[i]):
-                                inventory.discardFromInventory(inventory.currentItem, inventory.itemBox, menu.optionsTextArray[i])
+                                inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
                                 break
                             elif (menu.optionsTextArray[i] == "Info"):
                                 inventory.infoBoxClicked = True
@@ -78,17 +92,38 @@ def inventoryMain():
                             
                             #WIP effects to be implemented/integrated with other parts of the game
 
-                            #elif (menu.optionsTextArray[i] == "Equip"):
-                            #    break
-                            #elif (menu.optionsTextArray[i] == "Use"):
-                            #    break
+                            elif (menu.optionsTextArray[i] == "Equip"):
+                                swappedItem = equipment.equipItem(inventory.currentItem)
+
+                                if (swappedItem == None):
+                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
+
+                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                    inventory.addToInventory(swappedItem, inventory.itemBox)
+                                break
+                            elif (menu.optionsTextArray[i] == "Use"):
+                                healthBar.addHealth(inventory.currentItem[0].damage)
+                                inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                break
                     inventory.itemMenuClicked = False
+
+                elif equipment.itemMenuClicked and equipment.itemMenu.borderRect.collidepoint(mouse):
+                    menu = equipment.itemMenu
+                    for i in range(len(menu.optionsRects)):
+                        if (menu.optionsRects[i].collidepoint(mouse)):
+                            if (menu.optionsTextArray[i] == "Info"):
+                                equipment.infoBoxClicked = True
+                                break
+                            elif (menu.optionsTextArray[i] == "Unequip"):
+                                #Add Unequip function here
+                                break
+                    equipment.itemMenuClicked = False
 
                 #This means they clicked elsewhere, should still close the item options menu
-                elif inventory.itemMenuClicked or inventory.infoBoxClicked :
-                    inventory.itemMenuClicked = False
-                    inventory.infoBoxClicked = False
-
+                elif (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
+                    inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
+                
                 # Only if mouse position is within the inventory, do stuff with Item
                 elif inventory.borderRect.collidepoint(pygame.mouse.get_pos()):
 
@@ -107,16 +142,20 @@ def inventoryMain():
                 # If it's a right-click on a box, intitialize things for Item Menu inside Inventory Class
                 if inventory.borderRect.collidepoint(mouse) and inventory.items[pos[0]][pos[1]]:
                     inventory.createItemMenu(pos, inventory.items[pos[0]][pos[1]], mouse)
-                    
+
+                elif (equipment.borderRect.collidepoint(mouse) 
+                and equipPos != (2,0) and equipPos != (0,0) and equipment.equipment[equipPos]):
+                    equipment.createEquipItemMenu(equipPos, mouse)
+
                 # TEMP: If it's a right click just grab a computer
                 # Remove later when putting everything together
                 elif heldItem == None:
-                    randomItemPicker = [Item("Computer"), Item("Red Bull"), Item("Book")]
+                    randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                     heldItem = [randomItemPicker[random.randint(0, 2)], 1]
-        
+ 
         # Update display
         pygame.display.update()
 
 # Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
-#inventoryMain()
-#quit()
+inventoryMain()
+quit()
