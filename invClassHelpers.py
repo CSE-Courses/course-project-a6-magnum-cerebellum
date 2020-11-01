@@ -1,5 +1,6 @@
 import pygame
 import config
+from items import Item
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -62,10 +63,11 @@ class Inventory:
                 # Render the items
                 if self.items[x][y]:
                     gameDisplay.blit(self.items[x][y][0].resize(self.box_size), rect)
-                    obj = config.SPOOKY_INVENTORY_FONT.render(str(self.items[x][y][1]), True, config.white)
-                    outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(self.items[x][y][1]), True, config.black)
-                    gameDisplay.blit(outline, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
-                    gameDisplay.blit(obj, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
+                    if self.items[x][y][0].item_type != "Equip":
+                        obj = config.SPOOKY_INVENTORY_FONT.render(str(self.items[x][y][1]), True, config.white)
+                        outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(self.items[x][y][1]), True, config.black)
+                        gameDisplay.blit(outline, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
+                        gameDisplay.blit(obj, (rect[0] + self.box_size // 2 + 10, rect[1] + self.box_size // 2 + 2))
 
     def createItemMenu(self, boxPos, currentItem, mousePos):
         self.itemBox = boxPos
@@ -92,7 +94,8 @@ class Inventory:
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if self.items[row][col][0].item_name == Item[0].item_name:
+            if (self.items[row][col][0].item_name == Item[0].item_name
+                and self.items[row][col][0].item_type != "Equip"):
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
@@ -109,7 +112,7 @@ class Inventory:
         else:
             self.items[row][col] = Item
 
-    def discardFromInventory(self, Item, position, discardAmount):
+    def discardFromInventory(self,position, discardAmount):
         row, col = position
 
         if self.items[row][col]:
@@ -169,16 +172,21 @@ class itemOptionMenu:
             self.optionsTextArray.extend( ["Info","Equip", "Discard One", "Discard All"] )
         elif (self.itemType == "Consumable"):
             self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
+    
+    def populateEquipOptions(self):
+        self.numberOfBoxes = 2
+        self.optionsTextArray.extend( ["Info", "Unequip"])
 
 ###Below for info options box
 
 class infoBox:
-    def __init__(self, mousePosition, item_desc, item_name, item_type):
+    def __init__(self, mousePosition, item):
         #size of the box itself
         self.box_size = 30
-        self.item_desc = item_desc
-        self.item_name = item_name
-        self.item_type = item_type
+        self.item = item
+        self.item_desc = item.item_desc
+        self.item_name = item.item_name
+        self.item_type = item.item_type
         #x, y position of the inventory
         self.menuX = mousePosition[0]
         self.menuY = mousePosition[1]
@@ -206,6 +214,11 @@ class infoBox:
 
         config.SPOOKY_INVENTORY_FONT.set_underline(True)
         
+        if (self.item_type == "Equip"):
+            if (self.item.equip_type == "Weapon"):
+                self.item_type += ": " + "Deals " + str(self.item.damage) + " damage"
+        elif (self.item_type == "Consumable"):
+            self.item_type += ": " + "Heals " + str(self.item.damage) + " hp"
         drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
         drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
 
@@ -260,7 +273,7 @@ def blitItemMenu(inventory):
     pygame.display.update()
 
 def blitInfoBox(inventory):
-    inventory.infoBox = infoBox(inventory.itemMousePos, inventory.currentItem[0].item_desc, inventory.currentItem[0].item_name, inventory.currentItem[0].item_type)
+    inventory.infoBox = infoBox(inventory.itemMousePos, inventory.currentItem[0])
     inventory.infoBox.createInfo()
     pygame.display.update()
 

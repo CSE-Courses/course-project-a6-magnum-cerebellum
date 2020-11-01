@@ -299,6 +299,7 @@ def game_start(player):
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
         ]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
+<<<<<<< HEAD
 
     #display.blit(image_surface, (w-60, 0))
     Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
@@ -306,6 +307,9 @@ def game_start(player):
     #Instantiating a demo character here since selection screen is not implemented yet
     
     char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character , player.character, gameDisplay)
+=======
+    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
+>>>>>>> 0005ebd8f3c486a89108cf7bdf3be394152c36d0
 
     # I imagine we will move this into a larger, separate file for actual gameplay
     map = map_blit.Map("View Map", (700,0))
