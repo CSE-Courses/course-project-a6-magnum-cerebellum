@@ -10,7 +10,6 @@ class Player():
         self.angle = player_angle
         self.health = 10
         self.hp = 10
-        
         self.character = character
    # def add_item(self, item):
    #     new_item = Item(item)
