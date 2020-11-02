@@ -175,7 +175,7 @@ def character_selection():
     start_y = 0
     x_offset = int(w / num_of_images) 
     
-    char_detail_surf, char_detail_rect = None, None
+    char_detail_surf, char_detail_rect = pygame.Surface((0,0)), pygame.Surface((0,0)) # init to random surface to avoid crash on line 2016
     for elem in image_list:
         transformed_image = transform_image(elem, w, h, num_of_images)
         image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
