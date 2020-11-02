@@ -22,7 +22,6 @@ import level
 import map_blit
 import transitions
 pygame.init()
-
 paused = False
 music_player = music.Music_Player()
 music_player.set_volume(1.0)
@@ -486,7 +485,5 @@ def options_menu():
         clock.tick(15)
 
 if __name__ == "__main__":
-
     main_menu()
     quit()
-
