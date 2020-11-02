@@ -9,6 +9,7 @@ from drawing import Drawing
 def GameMain(sc): 
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
+
     clock = pygame.time.Clock()
     sprites = Sprites()
     player = Player("char one")

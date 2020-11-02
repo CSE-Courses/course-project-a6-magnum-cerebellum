@@ -5,8 +5,6 @@ import math
 import music
 import config
 from button import Button
-import inventory
-from inventory import inventoryMain
 import game
 
 #####################################################################################
@@ -72,18 +70,22 @@ class Bar:
 
     def subtractHealth(self, lost):
         self.currenthealth -= lost
+        if (self.currenthealth < 0): self.currenthealth = 0
         self.updateBar()
 
     def addHealth(self, gain):
         self.currenthealth += gain
+        if (self.currenthealth > 100): self.currenthealth = 100
         self.updateBar()
 
     def subtractMana(self, lost):
         self.currentmana -= lost
+        if (self.currentmana < 0): self.currentmana = 0
         self.updateBar()
 
     def addMana(self, gain):
         self.currentmana += gain
+        if (self.currentmana > 100): self.currentmana = 0
         self.updateBar()
 
 
