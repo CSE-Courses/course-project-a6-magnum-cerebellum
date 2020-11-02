@@ -28,5 +28,51 @@
     },
     "Kick": {
         "damage_level" : 20
+    },
+    "Take a shot": {
+        "damage_level" : 20
+    },
+    "Show up late": {
+        "damage_level" : 20
+    },
+    "Haze": {
+        "damage_level" : 20
+    },
+    "Hydrate": {
+        "damage_level" : 20
+    },
+    "Throw class materials" : {
+        "damage_level" : 20
+    },
+    "Study" : {
+        "damage_level" : 20
+    },
+    "Caffienate" : {
+        "damage_level" : 20
+    },
+    "Cry" : {
+        "damage_level" : 20
+    },
+    "Humble brag" : {
+        "damage_level" : 20
+    },
+    "Snarky remark" : {
+        "damage_level" : 20
+    },
+    "Adjust tie": {
+        "damage_level" : 20
+    },
+    "Bite" : {
+        "damage_level" : 20
+    },
+    "Honk" : {
+        "damage_level" : 20
+    },
+    "Screech" : {
+        "damage_level" : 20
+    },
+    "Poop" : {
+        "damage_level" : 20
     }
+
 }

@@ -15,7 +15,7 @@ from inventory import inventoryMain
 import game
 from character import Character, create_all_characters
 from player import Player
-from assets import character_images
+#from assets import character_images
 from os import listdir
 from os.path import isfile, join
 import level
