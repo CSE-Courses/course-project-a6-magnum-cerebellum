@@ -26,14 +26,16 @@ FPS_POS = (render_display_width - 65, 5)
 
 
 # player settings
-player_pos = (render_display_width//2, render_display_height//2)
+player_pos = ((render_display_width//2)//4, (render_display_height//2)-50)
 player_angle = 0
 player_speed = 2
 
 # mini-map settings
-MAP_SCALE = 4
+MINIMAP_SCALE = 5
+MINIMAP_RES = (display_width// MINIMAP_SCALE, display_height // MINIMAP_SCALE)
+MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
-MAP_POS = ((display_width // MAP_SCALE) + 400, (display_height // MAP_SCALE) - 120)
+MAP_POS = (0, display_height-display_height//MINIMAP_SCALE)
 
 # ray casting settings
 FOV = math.pi / 3 
@@ -49,6 +51,12 @@ SCALE = (render_display_width // NUM_RAYS)
 TEXTURE_WIDTH = 100
 TEXTURE_HEIGHT = 100
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
+
+# sprite settings
+DOUBLE_PI = math.pi * 2
+CENTER_RAY = NUM_RAYS // 2 - 1
+FAKE_RAYS = 100
+FAKE_RAYS_RANGE = NUM_RAYS - 1 + 2 * FAKE_RAYS
 
 # colors
 black = (0,0,0)

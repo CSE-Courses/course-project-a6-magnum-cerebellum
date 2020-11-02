@@ -15,7 +15,7 @@ from inventory import inventoryMain
 import game
 from character import Character, create_all_characters
 from player import Player
-from assets import character_images
+#from assets import character_images
 from os import listdir
 from os.path import isfile, join
 import level
@@ -177,7 +177,7 @@ def character_selection():
     start_y = 0
     x_offset = int(w / num_of_images) 
     
-    char_detail_surf, char_detail_rect = None, None
+    char_detail_surf, char_detail_rect = pygame.Surface((0,0)), pygame.Surface((0,0)) # init to random surface to avoid crash on line 2016
     for elem in image_list:
         transformed_image = transform_image(elem, w, h, num_of_images)
         image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
@@ -185,12 +185,20 @@ def character_selection():
     char_detail_offset = start_x
     while True:
         for event in pygame.event.get():
-
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
-                    pygame.mouse.get_pos())):
+            elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(pygame.mouse.get_pos())):
+                        character = Character(character_types[index])
+                        size = (x_offset, h)
+                        char_detail_surf = get_player_stats(character, size)
+                        break
+                    index += 1
+
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 main_menu()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                 index = 0
@@ -299,7 +307,6 @@ def game_start(player):
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
         ]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
-<<<<<<< HEAD
 
     #display.blit(image_surface, (w-60, 0))
     Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
@@ -307,9 +314,8 @@ def game_start(player):
     #Instantiating a demo character here since selection screen is not implemented yet
     
     char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character , player.character, gameDisplay)
-=======
+
     healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
->>>>>>> 0005ebd8f3c486a89108cf7bdf3be394152c36d0
 
     # I imagine we will move this into a larger, separate file for actual gameplay
     map = map_blit.Map("View Map", (700,0))
@@ -482,5 +488,5 @@ def options_menu():
 if __name__ == "__main__":
 
     main_menu()
-
     quit()
+
