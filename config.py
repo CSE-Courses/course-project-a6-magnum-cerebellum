@@ -62,3 +62,9 @@ purple = (120, 0, 120)
 yellow = (220, 220, 0)
 cyan = (0, 186, 255)
 
+#for activities
+text1 = []
+scroll_y = 0
+y_val = 20
+counter = 1
+

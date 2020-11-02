@@ -4,9 +4,11 @@ from queue import LifoQueue
 from character import Character, create_all_characters
 import config
 from button import Button
-import davis
+# import davis
+
 
 pygame.init()
+# pygame.display.init()
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
 buttons = []
@@ -31,9 +33,8 @@ def changing_term(string):
         w = term_width
 
         if word_counter >= len(words[0]) - 1 and string[letters] == words[0][len(words[0]) - 1][-1]:
-            buttons.append(Button("Next", config.white, config.SPOOKY_SMALL_FONT,
-               (1000, 700),
-               gameDisplay))
+            buttons.append(Button("Next", config.white, config.SPOOKY_SMALL_FONT, (1000, 700), gameDisplay))
+            print(buttons[0].text)
 
         if string[
             letters] == ' ':  # if there is a space between words then check if the next word will fit onto the screen
@@ -45,6 +46,11 @@ def changing_term(string):
                 y = y + term_height
 
         for event in pygame.event.get():
+
+            # if word_counter >= len(words[0]) - 1 and string[letters] == words[0][len(words[0]) - 1][-1]:
+                # if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                #         print(2)
+                #         # davis.character_selection()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_c:  # if c button is not pressed text will appear on screen with default settings
                     time = 100
@@ -54,6 +60,7 @@ def changing_term(string):
                 if event.key == pygame.K_q:
                     pygame.quit()
                     quit()
+
 
         gameDisplay.blit(term_surface, (config.display_width / 7, y))
         pygame.display.update()
@@ -75,19 +82,31 @@ def prev():
 
 
 def main():
+    bool = True
     changing_term(
-        'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some '
-        'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
-        'and this is our story. It is up to you to save us and several others to escape.')
-    # character_selection()
-    while True:
+        'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some.'
+        # 'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
+        # 'and this is our story. It is up to you to save us and several others to escape.'
+    )
+    # davis.character_selection()
+    while bool:
         for event in pygame.event.get():
+            Button.check_Hover(buttons[0], gameDisplay)
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                print(pygame.mouse.get_pos())
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
+                print(4)
+                bool = False
+                break
+                # pygame.display.quit()
+
+                # davis.character_selection()
+
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 pygame.quit()
                 sys.exit()
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
-                pygame.mouse.get_pos())):
-                    davis.character_selection()
 
-main() #uncomment this to run this file separaetly from the main davis file
+
+# main() #uncomment this to run this file separaetly from the main davis file

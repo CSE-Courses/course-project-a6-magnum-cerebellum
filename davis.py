@@ -16,10 +16,9 @@ import game
 from character import Character, create_all_characters
 from player import Player
 from assets import character_images
-from os import listdir
+# from os import listdirtes
 from os.path import isfile, join
-import level
-# import intro_screen
+import intro_screen
 
 pygame.init()
 
@@ -266,9 +265,11 @@ def main_menu():
             # For now, this will load into the mockup image, then we'll place things accordingly.
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
-                # intro_screen.main()
-                # if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and intro_screen.buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                intro_screen.main()
                 character_selection()
+                # if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and intro_screen.buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+                #     print(14)
+                #     character_selection()
 
 
 
@@ -282,10 +283,10 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay)
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-                
-                character_selection()
-                music_player.stop()
+            # elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+            #
+            #     character_selection()
+            #     music_player.stop()
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -470,6 +471,6 @@ def options_menu():
         pygame.display.update()
         clock.tick(15)
 
-# main_menu()
-
-# quit()
+main_menu()
+#
+quit()
