@@ -13,7 +13,8 @@ from character_UI import char_ui
 import inventory
 from inventory import inventoryMain
 import game
-from character import Character, create_all_characters
+from character import Character, create_all_characters, random_character
+from enemies import Enemy, random_enemy
 from player import Player
 #from assets import character_images
 from os import listdir
@@ -21,6 +22,8 @@ from os.path import isfile, join
 import level
 import map_blit
 import transitions
+import battle_blit
+
 pygame.init()
 paused = False
 music_player = music.Music_Player()
@@ -232,17 +235,19 @@ def character_selection():
 
 def main_menu():
     intro = True
-    buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/2)), gameDisplay),
-    Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.5)), gameDisplay),
-    Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.20)), gameDisplay),
-    Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.1)), gameDisplay),
-    Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height-500)), gameDisplay)]
+    # buttons = [Button("START", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/2)), gameDisplay),
+    # Button("OPTIONS", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.5)), gameDisplay),
+    # Button("QUIT", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.20)), gameDisplay),
+    # Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.1)), gameDisplay),
+    # Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height-500)), gameDisplay),
+    # Button("Battle Demo", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width/2),(config.display_height/1.3)), gameDisplay),]
     gameDisplay.fill(config.black)
     TextSurf, TextRect = render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
     TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
     set_image("assets/images/very_scary_davis.jpg", gameDisplay)
     gameDisplay.blit(TextSurf, TextRect)
     music_player.play_main()
+   
 
     buttons = [
         Button("START", config.white, config.SPOOKY_SMALL_FONT,
@@ -256,7 +261,9 @@ def main_menu():
         Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT,
                ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay),
         Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width/2),(config.display_height-500)), gameDisplay)]
+               ((config.display_width/2),(config.display_height-500)), gameDisplay),
+        Button("Battle Demo", config.white, config.SPOOKY_SMALL_FONT, 
+                ((config.display_width/2),(config.display_height/1.3)), gameDisplay),]
 
     while intro:
         for event in pygame.event.get():
@@ -284,10 +291,12 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay)
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-                
-                character_selection()
-                music_player.stop()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
+                music_player.stop() 
+                dummy_player = Player(random_character())
+                dummy_enemy = Enemy(random_enemy())
+
+                battle_blit.battleMain(dummy_player, dummy_enemy, gameDisplay)
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -368,7 +377,6 @@ def pause():
     while(paused):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                print(6)
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[2].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:

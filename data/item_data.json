@@ -11,7 +11,7 @@
         "equipType": "Weapon",
         "attributes": "computer_attr",
         "description": "The beginning weapon for a Computer Science Major",
-        "damage": 20
+        "damage": 40
     },
     "Super Computer": {
         "type": "Equip",

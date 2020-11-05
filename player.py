@@ -9,8 +9,8 @@ class Player():
     def __init__(self, character):
         self.x, self.y = player_pos
         self.angle = player_angle
-        self.health = 10
-        self.hp = 10
+        #self.health = 10
+        self.hp = 100
         self.character = character
          # collision parameters
         self.side = 50

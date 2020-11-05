@@ -30,16 +30,23 @@ class Bar:
         self.set_rect()
         self.createBar()
 
+
     def barText(self):
-        if self.currenthealth / self.totalhealth <= .25:
-            bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
-        else:
-            bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
-            bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
-            self.rend2 = self.font.render(bar2, True, self.color)
+        bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
+        bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+        self.rend2 = self.font.render(bar2, True, self.color)
+        # if self.currenthealth / self.totalhealth <= .25:
+        #     bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+        # else:
+        #     bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
+        #     bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+        #     self.rend2 = self.font.render(bar2, True, self.color)
         self.rend = self.font.render(bar, True, self.color)
 
 
+    def set_health(self, health):
+        self.currenthealth = health
+        #self.updateBar()
 
     def createBar(self):
         self.barText()
@@ -52,8 +59,12 @@ class Bar:
         self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
         # Calculate offset needed for second bar
-        newpos = ((830, 200))
+        newpos = ((self.pos[0], self.pos[1] + 50))
         self.rect2.center = newpos
+
+    def clearBar(self, color):
+        self.rend.fill((color))
+        self.rend2.fill((color))
 
     def updateBar(self):
         self.barText()

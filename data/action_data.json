@@ -9,7 +9,7 @@
         "damage_level" : 30
     },
     "AI violation": {
-        "damage_level" : 50
+        "damage_level" : 10
     },
     "Caught using Chegg": {
         "damage_level": 20

@@ -1,9 +1,9 @@
 {
     "Generic CSE Professor" : {
-        "actions": ["Segmentation Fault (core dumped)", "AI violation"]   
+        "actions": ["Segmentation Fault (core dumped)", "AI violation"]  
     },
     "Unhelpful Undergrad TA": {
-        "actions": ["AI violation", "Caught using Chegg"]    
+        "actions": ["AI violation", "Caught using Chegg"]   
     },
     "Graduate TA" : {
         "actions" : ["Cause connection issues on Zoom", "Caught using Chegg" ]

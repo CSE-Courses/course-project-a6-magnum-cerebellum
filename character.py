@@ -48,3 +48,9 @@ def create_all_characters():
         c = Character(char)
         return_list.append(c)
     return return_list
+
+def random_character() -> Character:
+    f = open(os.path.join("data/character_data.json"))
+    data = json.load(f)
+    for k in data.keys():
+        return Character(k)
