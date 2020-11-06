@@ -6,13 +6,13 @@ from render import ray_casting
 from drawing import Drawing
 
 
-def GameMain(sc): 
+def GameMain(sc, playername): 
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
 
     clock = pygame.time.Clock()
     sprites = Sprites()
-    player = Player("char one")
+    player = Player(playername)
     drawing = Drawing(sc, sc_map)
     while True:
         for event in pygame.event.get():
@@ -24,5 +24,6 @@ def GameMain(sc):
         walls = ray_casting(player, drawing.textures)
         drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
         drawing.mini_map(player)
+        drawing.ui_elements(player,sc)
         pygame.display.flip()
         clock.tick()

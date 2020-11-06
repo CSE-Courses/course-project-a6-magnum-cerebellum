@@ -5,7 +5,6 @@ import math
 import music
 import config
 from button import Button
-import game
 
 #####################################################################################
 #This provides the functions for computing and displaying health/mana bars.

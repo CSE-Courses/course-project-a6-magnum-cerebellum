@@ -289,7 +289,7 @@ def main_menu():
                 inventoryMain()
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
-                game.GameMain(gameDisplay)
+                game.GameMain(gameDisplay, "RENDERING_DEMO")
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop() 
@@ -327,7 +327,7 @@ def game_start(player):
 
     # I imagine we will move this into a larger, separate file for actual gameplay
     map = map_blit.Map("View Map", (700,0))
-    map.blit( gameDisplay)
+    map.blit(gameDisplay)
     # button events
     while True:
 

@@ -2,6 +2,7 @@ import pygame
 from config import *
 from render import ray_casting
 from map import mini_map
+from character_UI import char_ui
 
 class Drawing:
     def __init__(self, sc, sc_map):
@@ -35,3 +36,6 @@ class Drawing:
         for x, y in mini_map:
             pygame.draw.rect(self.sc_map, dark_gray, (x, y, MAP_TILE, MAP_TILE))
         self.sc.blit(self.sc_map, MAP_POS)
+    
+    def ui_elements(self, player, gameDisplay):
+        elements = char_ui(CHAR_DETAIL_FONT_LARGE, player_pos, player.character, player.character, gameDisplay)
