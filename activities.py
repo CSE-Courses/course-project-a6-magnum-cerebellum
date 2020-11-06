@@ -35,25 +35,18 @@ def iterate_over_input(intermediate,y):
     for elems in config.text1:
         intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
         y += 40
-        # storage.append([l])
+        config.storage.append([elems])
         if (y > 300 and len(config.text1) >= 8 and config. counter == 1):
             setup(intermediate)
             config.text1 = config.text1[6:7]
-            y = 20
+            # iterate_over_input(intermediate,40)
+        # if (config.scroll_y < -20):   `
+        #     setup(intermediate)
+
         # if(config.scroll_y < ):
         #     setup(intermediate)
         #     min_val = max(y,-config.scroll_y)
         #     y = min_val
         #     config.text1 = config.text1[:(7-((y-20)/40))]
         #     print(y)
-
             # pygame.time.delay(20)
-
-
-# 60 = 6 40
-# 100 = 5 80
-# 140 = 4 120
-# 180 = 3 160
-# 220 = 2 200
-# 260 = 1 240
-# 300 = 0 280

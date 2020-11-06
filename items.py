@@ -25,6 +25,9 @@ class Item():
         self.rect = self.sprite.get_rect()
         #Item type, if it's a consumable, equip, etc
         self.item_type = self.item_data["type"]
+        self.equip_type = None
+        if (self.item_type == "Equip"):
+            self.equip_type = self.item_data["equipType"]
 
     #This resizes the object image, mainly for dragging around items
     def resize(self, size):

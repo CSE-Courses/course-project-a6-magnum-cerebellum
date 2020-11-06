@@ -2,16 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb34440e-0f6b-4af8-a3a6-1acf330948e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/activities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/course-project-a6-magnum-cerebellum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/course-project-a6-magnum-cerebellum.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/equipClassHelpers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/format_text.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory_ui.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map_blit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transitions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activities.py" beforeDir="false" afterPath="$PROJECT_DIR$/activities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/character.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/character_UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/character_UI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/davis.py" beforeDir="false" afterPath="$PROJECT_DIR$/davis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/drawing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intro_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/intro_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/item_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/item_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/health.py" beforeDir="false" afterPath="$PROJECT_DIR$/health.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invClassHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/invClassHelpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -200,6 +205,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.intro_screen" />
       <item itemvalue="Python.davis" />
       <item itemvalue="Python.testing" />
       <item itemvalue="Python.new" />
@@ -264,7 +270,8 @@
       <workItem from="1603842175841" duration="6190000" />
       <workItem from="1603905631797" duration="17503000" />
       <workItem from="1604204546167" duration="4893000" />
-      <workItem from="1604270867982" duration="23632000" />
+      <workItem from="1604270867982" duration="24392000" />
+      <workItem from="1604331715998" duration="2319000" />
     </task>
     <servers />
   </component>
@@ -308,63 +315,63 @@
     </state>
     <state x="763" y="280" key="FileChooserDialogImpl/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600704770910" />
     <state x="763" y="280" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602980605432" />
-    <state width="1756" height="216" key="GridCell.Tab.0.bottom" timestamp="1604307215238">
+    <state width="1756" height="216" key="GridCell.Tab.0.bottom" timestamp="1604337885930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="216" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604307215238" />
-    <state width="1756" height="216" key="GridCell.Tab.0.center" timestamp="1604307215237">
+    <state width="1756" height="216" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604337885930" />
+    <state width="1756" height="216" key="GridCell.Tab.0.center" timestamp="1604337885930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.center/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.center/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="216" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604307215237" />
-    <state width="1756" height="216" key="GridCell.Tab.0.left" timestamp="1604307215237">
+    <state width="1756" height="216" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604337885930" />
+    <state width="1756" height="216" key="GridCell.Tab.0.left" timestamp="1604337885930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.left/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.left/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="216" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604307215237" />
-    <state width="1756" height="216" key="GridCell.Tab.0.right" timestamp="1604307215237">
+    <state width="1756" height="216" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604337885930" />
+    <state width="1756" height="216" key="GridCell.Tab.0.right" timestamp="1604337885930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="271" key="GridCell.Tab.0.right/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600723349471" />
     <state width="1866" height="270" key="GridCell.Tab.0.right/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601287234912" />
-    <state width="1756" height="216" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604307215237" />
-    <state width="1756" height="354" key="GridCell.Tab.1.bottom" timestamp="1604303509086">
+    <state width="1756" height="216" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604337885930" />
+    <state width="1756" height="354" key="GridCell.Tab.1.bottom" timestamp="1604307977160">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="332" key="GridCell.Tab.1.bottom/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600660389227" />
     <state width="1866" height="331" key="GridCell.Tab.1.bottom/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601286601619" />
-    <state width="1756" height="354" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604303509086" />
-    <state width="1756" height="354" key="GridCell.Tab.1.center" timestamp="1604303509086">
+    <state width="1756" height="354" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604307977160" />
+    <state width="1756" height="354" key="GridCell.Tab.1.center" timestamp="1604307977160">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="332" key="GridCell.Tab.1.center/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600660389227" />
     <state width="1866" height="331" key="GridCell.Tab.1.center/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601286601619" />
-    <state width="1756" height="354" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604303509086" />
-    <state width="1756" height="354" key="GridCell.Tab.1.left" timestamp="1604303509086">
+    <state width="1756" height="354" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604307977160" />
+    <state width="1756" height="354" key="GridCell.Tab.1.left" timestamp="1604307977160">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="332" key="GridCell.Tab.1.left/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600660389227" />
     <state width="1866" height="331" key="GridCell.Tab.1.left/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601286601619" />
-    <state width="1756" height="354" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604303509086" />
-    <state width="1756" height="354" key="GridCell.Tab.1.right" timestamp="1604303509086">
+    <state width="1756" height="354" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604307977160" />
+    <state width="1756" height="354" key="GridCell.Tab.1.right" timestamp="1604307977160">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1866" height="332" key="GridCell.Tab.1.right/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600660389227" />
     <state width="1866" height="331" key="GridCell.Tab.1.right/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601286601619" />
-    <state width="1756" height="354" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604303509086" />
+    <state width="1756" height="354" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604307977160" />
     <state x="-1" y="78" width="1839" height="888" key="SettingsEditor" timestamp="1603905739094">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="345" y="76" width="1504" height="886" key="SettingsEditor/0.0.1920.1040/3840.659.1920.1040@0.0.1920.1040" timestamp="1600660448141" />
     <state x="-1" y="78" width="1839" height="888" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603905739094" />
-    <state x="580" y="301" key="com.intellij.ide.util.TipDialog" timestamp="1604270868657">
+    <state x="580" y="301" key="com.intellij.ide.util.TipDialog" timestamp="1604331716228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="580" y="301" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604270868657" />
+    <state x="580" y="301" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604331716228" />
     <state x="4565" y="1075" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601281574426">
       <screen x="3840" y="659" width="1920" height="1040" />
     </state>
@@ -373,11 +380,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="436" y="208" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1604214604574" />
-    <state x="576" y="181" width="1082" height="678" key="find.popup" timestamp="1604305655510">
+    <state x="576" y="181" width="1082" height="678" key="find.popup" timestamp="1604332196026">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="4416" y="682" width="768" height="1017" key="find.popup/0.0.1920.1040/3840.659.1920.1040@3840.659.1920.1040" timestamp="1601276762153" />
-    <state x="576" y="181" width="1082" height="678" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604305655510" />
+    <state x="576" y="181" width="1082" height="678" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604332196026" />
     <state x="642" y="94" key="refactoring.ChangeSignatureDialog" timestamp="1603010609194">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -404,7 +411,7 @@
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$game.coverage" NAME="game Coverage Results" MODIFIED="1604271016663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$level1.coverage" NAME="level1 Coverage Results" MODIFIED="1601792706712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$daviscopy.coverage" NAME="daviscopy Coverage Results" MODIFIED="1603673165764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$davis.coverage" NAME="davis Coverage Results" MODIFIED="1604307215225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$davis.coverage" NAME="davis Coverage Results" MODIFIED="1604337839980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$intro_screen.coverage" NAME="intro_screen Coverage Results" MODIFIED="1603914053318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/course_project_a6_magnum_cerebellum_master$Basics.coverage" NAME="Basics Coverage Results" MODIFIED="1600666485287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

@@ -29,20 +29,20 @@ class char_ui:
 
     def genText(self):
         name = str(self.name)
-        clas = str(self.type)
+        #clas = str(self.type)
         self.rend = self.font.render(name, True, config.black)
-        self.rend2 = self.font.render(clas, True, config.black)
+        #self.rend2 = self.font.render(clas, True, config.black)
 
     def setRect(self):
         self.genText()
         self.rect = self.rend.get_rect()
-        self.rect2 = self.rend.get_rect()
+        #self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
         #Calculate offset needed for Major/class text
         newpos = ((930, 70))
-        self.rect2.center = newpos
+        #self.rect2.center = newpos
 
     def blitText(self):
         self.genText()
         self.display.blit(self.rend, self.rect)
-        self.display.blit(self.rend2, self.rect2)
+        #self.display.blit(self.rend2, self.rect2)
