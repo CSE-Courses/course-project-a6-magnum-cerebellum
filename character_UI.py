@@ -25,24 +25,31 @@ class char_ui:
         self.name = name
         self.setRect()
         self.blitText()
-        health.Bar(config.red, config.CHAR_DETAIL_FONT_LARGE, (config.display_height-200, config.display_width-200), gameDisplay)
+        self.blitPortrait()
+        self.bar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), gameDisplay)
 
     def genText(self):
         name = str(self.name)
-        #clas = str(self.type)
-        self.rend = self.font.render(name, True, config.black)
-        #self.rend2 = self.font.render(clas, True, config.black)
+        clas = str(self.type)
+        self.rend = self.font.render(name, True, config.red)
+        self.rend2 = self.font.render(clas, True, config.red)
 
     def setRect(self):
         self.genText()
         self.rect = self.rend.get_rect()
-        #self.rect2 = self.rend.get_rect()
+        self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
         #Calculate offset needed for Major/class text
-        newpos = ((930, 70))
-        #self.rect2.center = newpos
+        newpos = ((1280, 450))
+        self.rect2.center = newpos
 
     def blitText(self):
         self.genText()
-        self.display.blit(self.rend, self.rect)
-        #self.display.blit(self.rend2, self.rect2)
+        # Commented out the below blit because we don't have naming the character implemented yet.
+        #self.display.blit(self.rend, self.rect)
+        self.display.blit(self.rend2, self.rect2)
+
+    def blitPortrait(self):
+        image = "assets/portraits/" + self.type + ".png"
+        image_surface = pygame.image.load(image)
+        self.display.blit(image_surface, (1380, 420))

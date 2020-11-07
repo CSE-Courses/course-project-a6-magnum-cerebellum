@@ -317,13 +317,11 @@ def game_start(player):
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
 
     #display.blit(image_surface, (w-60, 0))
-    Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-
-    #Instantiating a demo character here since selection screen is not implemented yet
+    #Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
     
-    char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character , player.character, gameDisplay)
+    #char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character , player.character, gameDisplay)
 
-    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
+    #healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
     # I imagine we will move this into a larger, separate file for actual gameplay
     map = map_blit.Map("View Map", (700,0))
