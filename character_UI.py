@@ -5,11 +5,9 @@ import math
 import music
 import config
 from button import Button
-import inventory
 import health
 from player import Player
 from character import Character
-from inventory import inventoryMain
 
 #####################################################################################
 #This provides the function for blitting the character name and Major

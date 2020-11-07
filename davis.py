@@ -10,8 +10,6 @@ from button import Button
 from player import Player
 from character import Character
 from character_UI import char_ui
-import inventory
-from inventory import inventoryMain
 import game
 from character import Character, create_all_characters, random_character
 from enemies import Enemy, random_enemy
