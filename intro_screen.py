@@ -46,11 +46,6 @@ def changing_term(string):
                 y = y + term_height
 
         for event in pygame.event.get():
-
-            # if word_counter >= len(words[0]) - 1 and string[letters] == words[0][len(words[0]) - 1][-1]:
-                # if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-                #         print(2)
-                #         # davis.character_selection()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_c:  # if c button is not pressed text will appear on screen with default settings
                     time = 100
@@ -66,17 +61,6 @@ def changing_term(string):
         pygame.display.update()
         pygame.time.wait(time)
 
-
-# def next():
-#     font = config.SPOOKY_SMALL_FONT
-#     term = "Next"
-#     term_surface = font.render(term, True, config.red)
-#     next_val = LifoQueue()
-#     term_rect = term_surface.get_rect()
-#     term_rect.center = (1000, 700)
-#     gameDisplay.blit(term_surface, (800, 700))
-
-
 def prev():
     prev_val = LifoQueue()
 
@@ -85,8 +69,8 @@ def main():
     bool = True
     changing_term(
         'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some.'
-        #'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
-        #c'and this is our story. It is up to you to save us and several others to escape.'
+        'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
+        'and this is our story. It is up to you to save us and several others to escape.'
     )
     # davis.character_selection()
     while bool:
