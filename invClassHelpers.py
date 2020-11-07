@@ -165,6 +165,7 @@ class itemOptionMenu:
         for col in range(1):
 
             for row in range (self.numberOfBoxes):
+                
                 boxRect = pygame.Rect(  (self.menuX + self.border), self.menuY + (self.box_size + self.border) * row + self.border, self.box_size + 72, self.box_size)
                 self.optionsRects.append(boxRect)
 
@@ -177,10 +178,12 @@ class itemOptionMenu:
                 
                 #def outlineText(text, font, color, outlineColor, outlineSize):
                 gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
+                
 
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
+            self.numberOfBoxes = 3
             self.optionsTextArray.extend( ["Info","Equip", "Discard One"] )
         elif (self.itemType == "Consumable"):
             self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
