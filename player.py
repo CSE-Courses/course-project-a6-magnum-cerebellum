@@ -3,9 +3,12 @@ from items import Item
 from config import * 
 from map import collision_walls
 import math
-
+import config
+# import testing_delete
 
 class Player():
+    old_pos = player_pos
+
     def __init__(self, character):
         self.x, self.y = player_pos
         self.angle = player_angle
@@ -101,5 +104,15 @@ class Player():
             self.angle -= 0.02
         if keys[pygame.K_RIGHT]:
             self.angle += 0.02
+
+        if keys[pygame.K_UP] == False and keys[pygame.K_DOWN] == False: #and keys[pygame.K_LEFT] == False and keys[pygame.K_RIGHT] == False:
+            if self.pos != self.old_pos:
+                self.old_pos = self.pos
+                printtuple = tuple(int(num) for num in self.pos)
+                # print(printtuple)
+                config.text1.append(printtuple)
+
+                # testing_delete.text1.append(printtuple)
+
 
 
