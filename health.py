@@ -34,12 +34,12 @@ class Bar:
         bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
         bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
         self.rend2 = self.font.render(bar2, True, self.color)
-        # if self.currenthealth / self.totalhealth <= .25:
-        #     bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
-        # else:
-        #     bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
-        #     bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
-        #     self.rend2 = self.font.render(bar2, True, self.color)
+        if self.currenthealth / self.totalhealth <= .25:
+             bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+        else:
+            bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
+            bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+            self.rend2 = self.font.render(bar2, True, self.color)
         self.rend = self.font.render(bar, True, self.color)
 
 
