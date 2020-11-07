@@ -14,13 +14,21 @@ import game
 from character import Character, create_all_characters, random_character
 from enemies import Enemy, random_enemy
 from player import Player
+
 #from assets import character_images
 from os import listdir
 from os.path import isfile, join
-import level
 import map_blit
 import transitions
 import battle_blit
+
+from assets import character_images
+# from os import listdirtes
+# from os.path import isfile, join
+import intro_screen
+
+
+
 
 pygame.init()
 paused = False
@@ -198,7 +206,8 @@ def character_selection():
                         break
                     index += 1
 
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
                 main_menu()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                 index = 0
@@ -275,8 +284,8 @@ def main_menu():
             # For now, this will load into the mockup image, then we'll place things accordingly.
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
+                intro_screen.main()
                 character_selection()
-
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
@@ -290,6 +299,8 @@ def main_menu():
                 dummy_enemy = Enemy(random_enemy())
 
                 battle_blit.battleMain(dummy_player, dummy_enemy, gameDisplay)
+
+
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -306,19 +317,24 @@ def game_start(player):
     gameDisplay = transitions.transistion_character_selection_gameplay(pygame.display.get_surface(), player)
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
-        ]
+               ]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
+
 
     #display.blit(image_surface, (w-60, 0))
     #Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-    
-    #char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character , player.character, gameDisplay)
+
+    # char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character, player.character, gameDisplay)
+
 
     #healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
+
     # I imagine we will move this into a larger, separate file for actual gameplay
+
     map = map_blit.Map("View Map", (700,0))
     map.blit(gameDisplay)
+
     # button events
     while True:
 
@@ -326,9 +342,11 @@ def game_start(player):
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
                 main_menu()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and map.rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and map.rect.collidepoint(
+                    pygame.mouse.get_pos())):
                 map.enter(gameDisplay)
 
         for button in buttons:
@@ -341,7 +359,6 @@ def unpause():
     global paused
     paused = False
     # gameDisplay.fill(config.black)
-    print(8)
 
 
 def pause():
@@ -377,15 +394,10 @@ def pause():
             elif event.type == pygame.MOUSEBUTTONDOWN and buttons[0].rect.collidepoint(pygame.mouse.get_pos()) and event.button == 1:
                 # buttons[:] = []
                 unpause()
-                print(2)
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
-                    print(3)
                     unpause()
-
                 if event.key == pygame.K_q:
-                    print(4)
                     pygame.quit()
                     quit()
 
@@ -404,16 +416,15 @@ def options_menu():
     gameDisplay.fill(config.black)
     # buttons = [Button("BACK", white, SPOOKY_SMALL_FONT, (0,0))]
     current_volume = music_player.get_volume()
-    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT, ( w /2 , h /2) ,gameDisplay)
+    volumeDisplay = Button(str(roundup(math.trunc(current_volume * 100))), config.white, config.SPOOKY_SMALL_FONT, (config.display_width  /2 , config.display_height /2) ,gameDisplay)
     volume = Button("VOLUME", config.white, config.SPOOKY_SMALL_FONT, (volumeDisplay.pos[0] - 200, volumeDisplay.pos[1]) ,gameDisplay)
 
     buttons =[Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
-               Button("<", config.white, config.SPOOKY_SMALL_FONT, (w / 2 - 80, h / 2), gameDisplay),
-               Button(">", config.white, config.SPOOKY_SMALL_FONT, (w / 2 + 80, h / 2), gameDisplay),
-               Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 + 100), gameDisplay),
-               Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 200), gameDisplay),
-               Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (w / 2, h / 2 - 100), gameDisplay)]
-
+               Button("<", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2 - 80, config.display_height / 2), gameDisplay),
+               Button(">", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2 + 80, config.display_height / 2), gameDisplay),
+               Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 + 100), gameDisplay),
+               Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 200), gameDisplay),
+               Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 100), gameDisplay)]
     backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
 
     while True:
@@ -465,17 +476,21 @@ def options_menu():
                 reRenderVol(volumeDisplay, volume, str(roundup(math.trunc(current_volume * 100))))
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].text == "1280 x 768" and
                   buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.display.set_mode((1280, 768))
-                pygame.transform.scale(gameDisplay, (1280, 768))
+                config.display_width = 1280
+                config.display_height = 768
+                pygame.display.set_mode((config.display_width, config.display_height))
+                pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
                 pygame.display.update()
                 main_menu()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].text == "1400 x 1050" and
                   buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
-                pygame.display.set_mode((1400, 1050))
-                pygame.transform.scale(gameDisplay, (1400, 1050))
+                config.display_height = 1400
+                config.display_height = 1050
+                pygame.display.set_mode((config.display_width, config.display_height))
+                pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
                 pygame.display.update()
                 main_menu()
-                pygame.transform.scale(gameDisplay, (1400, 1050))
+                pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
@@ -486,3 +501,4 @@ def options_menu():
 if __name__ == "__main__":
     main_menu()
     quit()
+

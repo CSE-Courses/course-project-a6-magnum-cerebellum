@@ -3,6 +3,10 @@ import random
 from config import *
 from render import ray_casting
 from map import mini_map
+
+import activities
+import config
+
 from character_UI import char_ui
 from invClassHelpers import *
 from equipClassHelpers import  *
@@ -33,13 +37,22 @@ class Drawing:
 
     def mini_map(self, player):
         self.sc_map.fill(black)
+
+
         map_x, map_y = player.x // MAP_SCALE, player.y // MAP_SCALE
+
         pygame.draw.line(self.sc_map, yellow, (map_x, map_y), (map_x + 12 * math.cos(player.angle),
                                                  map_y + 12 * math.sin(player.angle)), 2)
         pygame.draw.circle(self.sc_map, red, (int(map_x), int(map_y)), 5)
         for x, y in mini_map:
+
             pygame.draw.rect(self.sc_map, dark_gray, (x, y, MAP_TILE, MAP_TILE))
         self.sc.blit(self.sc_map, MAP_POS)
+
+
+    def activities_panel(self,second_screen):
+
+        activities.setup(second_screen)#player_pos)
     
     def ui_elements(self, player, gameDisplay):
         elements = char_ui(CHAR_DETAIL_FONT_LARGE, player_pos, player.character, player.character, gameDisplay)
