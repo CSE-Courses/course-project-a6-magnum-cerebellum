@@ -113,12 +113,9 @@ def blitEquipItemMenu(equipment):
     equipment.itemMenu = itemOptionMenu(equipment.itemMousePos, equipment.equipment[equipment.itemBox][0])
     equipment.itemMenu.populateEquipOptions()
     equipment.itemMenu.createOptions()
-    pygame.display.update()
 
 
 def blitEquipInfoBox(equipment):
     currentItem = equipment.equipment[equipment.itemBox]
     equipment.infoBox = infoBox(equipment.itemMousePos, currentItem[0])
-
     equipment.infoBox.createInfo()
-    pygame.display.update()

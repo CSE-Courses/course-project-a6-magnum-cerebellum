@@ -1,11 +1,15 @@
 import pygame
+import random
 from config import *
 from render import ray_casting
 from map import mini_map
 from character_UI import char_ui
+from invClassHelpers import *
+from equipClassHelpers import  *
+from items import Item
 
 class Drawing:
-    def __init__(self, sc, sc_map):
+    def __init__(self, sc, sc_map, heldItem):
         self.sc = sc
         self.sc_map = sc_map
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
@@ -13,7 +17,7 @@ class Drawing:
                          '2': pygame.image.load("assets/textures/wall2.png").convert(),
                          'S': pygame.image.load("assets/textures/sky.png").convert()
                          }
-    
+
     def background(self, angle):
         sky_offset = -5 * math.degrees(angle) % render_display_width
         self.sc.blit(self.textures['S'], (sky_offset, 0))
@@ -39,3 +43,136 @@ class Drawing:
     
     def ui_elements(self, player, gameDisplay):
         elements = char_ui(CHAR_DETAIL_FONT_LARGE, player_pos, player.character, player.character, gameDisplay)
+
+    def blitHeldItem(self, heldItem, mouseX, mouseY):
+        if heldItem:
+
+                self.sc.blit(heldItem[0].resize(30), (mouseX, mouseY))
+
+                if (heldItem[0].item_type != "Equip"):
+                    obj = SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, white)
+                    outline = SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, black)
+                    self.sc.blit(outline, (mouseX + 20, mouseY + 20))
+                    self.sc.blit(obj, (mouseX + 20, mouseY + 20))
+
+    def blitMenuInfoBoxes(self, inventory, equipment):
+
+        if inventory.itemMenuClicked:
+            blitItemMenu(inventory)
+
+        if equipment.itemMenuClicked:
+            blitEquipItemMenu(equipment)
+
+        if inventory.infoBoxClicked:
+            blitInfoBox(inventory)
+
+        if equipment.infoBoxClicked:
+            blitEquipInfoBox(equipment)
+        return
+
+    #Big chunk below
+    def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem):
+        inventory.createInventory()
+        equipment.createEquip()
+        mouse = pygame.mouse.get_pos()
+        
+        self.blitHeldItem(heldItem, mouseX, mouseY)
+        self.blitMenuInfoBoxes(inventory, equipment)
+
+        # Get the player's mouse position
+        pos = inventory.boxPos()
+        equipPos = equipment.boxPos()
+        # If it's a LEFT-CLICK
+        if eventType == pygame.MOUSEBUTTONDOWN and eventButton == 1:
+
+            #If the an item was already right-clicked on, detect if player clicks on an option or outside the option list. Close the menu either way.
+            if inventory.itemMenuClicked and inventory.itemMenu.borderRect.collidepoint(mouse):
+                menu = inventory.itemMenu
+                for i in range(len(menu.optionsRects)):
+                #If an option is being selected, do the effect then break out
+                #When integrating this w/ rest of UI, EX. equipment add into here too!
+                #When fully integrating into the actual main screen, do effect
+
+                    if (menu.optionsRects[i].collidepoint(mouse)):
+                        #Implemented Discards
+                        if ("Discard" in menu.optionsTextArray[i]):
+                            inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
+                            print ("Discard")
+                            break
+                        elif (menu.optionsTextArray[i] == "Info"):
+                            inventory.infoBoxClicked = True
+                            print ("Info")
+                            return                         
+                            
+                        #WIP effects to be implemented/integrated with other parts of the game
+
+                        elif (menu.optionsTextArray[i] == "Equip"):
+                            swappedItem = equipment.equipItem(inventory.currentItem)
+
+                            if (swappedItem == None):
+                                inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                            elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
+                                inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                                inventory.addToInventory(swappedItem, inventory.itemBox)
+                                break
+                            #elif (menu.optionsTextArray[i] == "Use"):
+                            #    healthBar.addHealth(inventory.currentItem[0].damage)
+
+                            #    inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                            #    break
+                    inventory.itemMenuClicked = False
+
+            elif equipment.itemMenuClicked and equipment.itemMenu.borderRect.collidepoint(mouse):
+                menu = equipment.itemMenu
+                for i in range(len(menu.optionsRects)):
+                    if (menu.optionsRects[i].collidepoint(mouse)):
+                        if (menu.optionsTextArray[i] == "Info"):
+                            equipment.infoBoxClicked = True
+                            break
+                        elif (menu.optionsTextArray[i] == "Unequip"):
+                            equipment.unequipItem(equipment, inventory)
+                            break
+                equipment.itemMenuClicked = False
+
+            #This means they clicked elsewhere, should still close the item options menu
+            elif (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
+                inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
+                
+            # Only if mouse position is within the inventory, do stuff with Item
+            elif inventory.borderRect.collidepoint(pygame.mouse.get_pos()):
+
+                # If item being held use addToInventory
+                if heldItem:
+                    heldItem = inventory.addToInventory(heldItem, pos)
+
+                # Grabs item from the box as heldItem, then sets box to nothing
+                elif inventory.items[pos[0]][pos[1]]:
+                    # Array of Two
+                    heldItem = inventory.items[pos[0]][pos[1]]
+                    inventory.items[pos[0]][pos[1]] = None
+
+            return heldItem
+
+        ### If it's a right-click
+        elif eventType == pygame.MOUSEBUTTONDOWN and eventButton == 3:
+            
+            #This means they clicked elsewhere, should still close the item options menu
+            if (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
+                inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
+
+            # If it's a right-click on a box, intitialize things for Item Menu inside Inventory Class
+            if inventory.borderRect.collidepoint(mouse) and inventory.items[pos[0]][pos[1]]:
+                inventory.createItemMenu(pos, inventory.items[pos[0]][pos[1]], mouse)
+
+            elif (equipment.borderRect.collidepoint(mouse) 
+            and equipPos != (2,0) and equipPos != (0,0) and equipment.equipment[equipPos]):
+                equipment.createEquipItemMenu(equipPos, mouse)
+
+            # TEMP: If it's a right click just grab a computer
+            # Remove later when putting everything together
+            elif heldItem == None:
+                randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
+                heldItem = [randomItemPicker[random.randint(1, 2)], 1]
+            return heldItem
+
+        return heldItem
