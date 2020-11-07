@@ -1,21 +1,30 @@
 import pygame
+import invClassHelpers
+import equipClassHelpers
 from config import *
 import config
 from player import Player
 from sprites import *
 from render import ray_casting
 from drawing import Drawing
-import activities
 
-def GameMain(sc): 
+import activities
+from items import Item
+
+def GameMain(sc, playername):
+
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
 
     clock = pygame.time.Clock()
     sprites = Sprites()
 
-    player = Player("char one")
-    drawing = Drawing(sc, sc_map)
+    player = Player(playername)
+    inventory = invClassHelpers.Inventory()
+    equipment = equipClassHelpers.Equipment()
+
+    drawing = Drawing(sc, sc_map, None)
+    heldItem = None
 
     config.text1.append(player.pos)
     second_screen = pygame.Surface((400, 300))
@@ -38,12 +47,36 @@ def GameMain(sc):
         sc.fill(black)
 
         drawing.background(player.angle)
-        walls = ray_casting(player, drawing.textures)
-        drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
+
+
+
+    while True:
+        mouseX, mouseY = pygame.mouse.get_pos()
+
+        sc.fill(black)
+        player.movement()
         drawing.mini_map(player)
+        walls = ray_casting(player, drawing.textures)
+        drawing.background(player.angle)
+        drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
 
         sc.blit(second_screen, (0, config.scroll_y))
         activities.iterate_over_input(second_screen, 20)
+
+        drawing.ui_elements(player,sc)
+        inventory.createInventory()
+        equipment.createEquip()
+
+        drawing.blitHeldItem(heldItem, mouseX, mouseY)
+        drawing.blitMenuInfoBoxes(inventory, equipment)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
+                drawing.blitMenuInfoBoxes(inventory, equipment)
+
 
         pygame.display.flip()
         clock.tick(30)

@@ -54,7 +54,7 @@ class SpriteObject:
 
         fake_ray = current_ray + FAKE_RAYS
         if 0 <= fake_ray <= FAKE_RAYS_RANGE and distance_to_sprite > 30:
-            proj_height = min(int(PROJ_COEFF / distance_to_sprite * self.scale), display_height*2)
+            proj_height = min(int(PROJ_COEFF / distance_to_sprite * self.scale), render_display_height*2)
             half_proj_height = proj_height // 2
             shift = half_proj_height * self.shift
             # choosing sprite for angle
@@ -79,7 +79,7 @@ class SpriteObject:
                     self.animation_count = 0
 
             # sprite scale and pos
-            sprite_pos = (current_ray * SCALE - half_proj_height, display_height//2 - half_proj_height + shift)
+            sprite_pos = (current_ray * SCALE - half_proj_height, render_display_height//2 - half_proj_height + shift)
             sprite = pygame.transform.scale(sprite_object, (proj_height, proj_height))
             return (distance_to_sprite, sprite, sprite_pos)
         else:

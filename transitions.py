@@ -2,6 +2,7 @@ import config
 import pygame
 from button import Button
 import format_text
+import game
 clock = pygame.time.Clock()
 
 
@@ -23,7 +24,8 @@ def transistion_character_selection_gameplay(gameDisplay, player):
                 pygame.quit()
                 quit()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-                return gameDisplay
+                game.GameMain(gameDisplay, player.character)
+
         
         for button in buttons:
             Button.check_Hover(button, gameDisplay)

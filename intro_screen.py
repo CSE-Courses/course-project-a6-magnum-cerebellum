@@ -33,7 +33,7 @@ def changing_term(string):
         w = term_width
 
         if word_counter >= len(words[0]) - 1 and string[letters] == words[0][len(words[0]) - 1][-1]:
-            buttons.append(Button("Next", config.white, config.SPOOKY_SMALL_FONT, (1000, 700), gameDisplay))
+            buttons.append(Button("Next", config.white, config.SPOOKY_SMALL_FONT, (1290, 530), gameDisplay))
             print(buttons[0].text)
 
         if string[
@@ -84,7 +84,7 @@ def prev():
 def main():
     bool = True
     changing_term(
-        'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some.'
+        'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some '
         'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
         'and this is our story. It is up to you to save us and several others to escape.'
     )

@@ -5,7 +5,6 @@ import math
 import music
 import pickle
 import config
-import player
 from health import Bar
 from button import Button
 from player import Player
@@ -108,7 +107,7 @@ def start_game_play(player):
         gui.fill(config.white)
 
         gameDisplay.blit(gui, (0, 0))
-        game_start()
+        game_start(player)
         clock.tick(15)
 
 def set_image(image, display):
@@ -209,9 +208,8 @@ def character_selection():
                         break
                     index += 1
 
-
-            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
                 main_menu()
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                 index = 0
@@ -220,6 +218,15 @@ def character_selection():
                         character = Character(character_types[index])
                         player = Player(character)
                         start_game_play(player)
+                    index += 1
+            elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):
+                index = 0
+                for char_image, char_rect in image_rect_list:
+                    if (char_rect.collidepoint(pygame.mouse.get_pos())):
+                        character = Character(character_types[index])
+                        size = (x_offset, h)
+                        char_detail_surf = get_player_stats(character, size)
+                        break
                     index += 1
 
         for button in buttons:
@@ -283,12 +290,6 @@ def main_menu():
                 music_player.stop()
                 intro_screen.main()
                 character_selection()
-                # if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and intro_screen.buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
-                #     print(14)
-                #     character_selection()
-
-
-
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
@@ -297,7 +298,7 @@ def main_menu():
                 inventoryMain()
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
-                game.GameMain(gameDisplay)
+                game.GameMain(gameDisplay, "RENDERING_DEMO")
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop() 
@@ -316,41 +317,48 @@ def main_menu():
 
 # This function will effectively kick off gameplay - should load into character selection screen first.
 # For now the mockup will serve as a visual placeholder.
-def game_start():
+def game_start(player):
     music_player = music.Music_Player()
     music_player.play_ambtrack1()
-
+    w, h = pygame.display.get_surface().get_size()
+    gameDisplay = transitions.transistion_character_selection_gameplay(pygame.display.get_surface(), player)
     gameDisplay.fill(config.black)
-    buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
+    buttons = [Button("BACK", config.blue, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay),
+               ]
     set_image("assets/images/Menu_Mockup_1.1.jpg", gameDisplay)
 
 
     #display.blit(image_surface, (w-60, 0))
-    Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
+    #Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
-    #Instantiating a demo character here since selection screen is not implemented yet
-    
-    char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character, player.character, gameDisplay)
+    # char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character, player.character, gameDisplay)
 
-    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
+
+    #healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
 
 
     # I imagine we will move this into a larger, separate file for actual gameplay
+
+    map = map_blit.Map("View Map", (700,0))
+    map.blit(gameDisplay)
 
     # button events
     while True:
 
         for event in pygame.event.get():
-            print(event)
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                    pygame.mouse.get_pos())):
                 main_menu()
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and map.rect.collidepoint(
+                    pygame.mouse.get_pos())):
+                map.enter(gameDisplay)
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
-
+        map.check_hover()
         pygame.display.update()
         clock.tick(15)
 

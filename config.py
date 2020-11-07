@@ -16,8 +16,8 @@ SPOOKY_ITEM_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 20)
 RPG_ITEM_TYPE_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
 CHAR_DETAIL_FONT_LARGE = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
 CHAR_DETAIL_FONT_SMALL = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 20)
-display_width = 1200
-display_height = 800
+display_width = 1600
+display_height = 700  #from 1200
 render_display_width = 1200
 render_display_height = 800
 FPS = 60
@@ -31,11 +31,11 @@ player_angle = 0
 player_speed = 2
 
 # mini-map settings
-MINIMAP_SCALE = 5
-MINIMAP_RES = (display_width// MINIMAP_SCALE, display_height // MINIMAP_SCALE)
+MINIMAP_SCALE = 3
+MINIMAP_RES = (render_display_width// MINIMAP_SCALE, render_display_height // MINIMAP_SCALE)
 MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
-MAP_POS = (0, display_height-display_height//MINIMAP_SCALE)
+MAP_POS = (display_height, (display_height/MINIMAP_SCALE)-400)
 
 # ray casting settings
 FOV = math.pi / 3 
