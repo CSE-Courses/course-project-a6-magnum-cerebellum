@@ -31,24 +31,6 @@ def GameMain(sc, playername):
 
     second_screen.fill(black)
     drawing.activities_panel(second_screen)
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 4:
-                    config.scroll_y = min(config.scroll_y + 20, 0)
-                    print('up')
-                if event.button == 5:
-                    config.scroll_y = max(config.scroll_y - 20, -300)
-                    print('down')
-                    print(config.scroll_y)
-        player.movement()
-        sc.fill(black)
-
-        drawing.background(player.angle)
-
-
 
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -76,6 +58,13 @@ def GameMain(sc, playername):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
+                if event.button == 4:
+                    config.scroll_y = min(config.scroll_y + 20, 0)
+                    print('up')
+                if event.button == 5:
+                    config.scroll_y = max(config.scroll_y - 20, -300)
+                    print('down')
+                    print(config.scroll_y)
 
 
         pygame.display.flip()

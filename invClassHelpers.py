@@ -100,26 +100,38 @@ class Inventory:
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
                 self.items[row][col][1] += Item[1]
+                config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
             #Otherwise swap the two items
 
             else:
                 heldItem = self.items[row][col]
                 self.items[row][col] = Item
+                config.text1 = config.text1 + ["swapped items"]
+
                 return heldItem
+
         
         #Nothing in box, so just place the Item
         else:
             self.items[row][col] = Item
+            config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
     def discardFromInventory(self,position, discardAmount):
         row, col = position
 
         if self.items[row][col]:
+            #get rid of 1 item
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
+                config.text1 = config.text1 + ["discarded a " + str(self.items[row][col][0].item_name)]
                 self.items[row][col][1] -= 1
+
+            #get rid of all items
             else:
+                config.text1 = config.text1 + ["discarded all " + str(self.items[row][col][0].item_name) + "s from inventory"]
                 self.items[row][col] = None
+
+
 
 ###Below for right-clicking item menu
 
@@ -202,7 +214,8 @@ class infoBox:
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
 
         #Left, Top, Width, Height
-        #draw the inside 
+        #draw the inside
+
         itemNameBox = pygame.Rect(  (self.menuX + self.border), self.menuY + self.border, self.box_size + 200, self.box_size + 10)
         itemTypeBox = pygame.Rect(  (self.menuX + self.border), self.menuY + 40, self.box_size + 200, self.box_size)
         itemDescBox = pygame.Rect ( (self.menuX + self.border), self.menuY + 60, self.box_size + 200, self.box_size + 60 ) 

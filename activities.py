@@ -38,14 +38,15 @@ def iterate_over_input(intermediate,y):
     global first_time #626
     for elems in config.text1:
         # if pygame.time.get_ticks() - first_time >= holding_time:
-
-        intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
-        intermediate.blit(config.SPOOKY_SMALLER_FONT.render("You have items: " + str(elems), True, config.white), (10, y+40))
+        if(type(elems) == tuple):
+            intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
+        elif(type(elems) != tuple):
+            intermediate.blit(config.SPOOKY_SMALLER_FONT.render("You have " + str(elems), True, config.white), (10, y))
 
         y += 40
         config.storage.append([elems])
             # first_time = pygame.time.get_ticks()
         if (y > 300 and len(config.text1) >= 8 and config.counter == 1):
             setup(intermediate)
-            config.text1 = config.text1[6:7]
+            config.text1 = config.text1[6:8]
 

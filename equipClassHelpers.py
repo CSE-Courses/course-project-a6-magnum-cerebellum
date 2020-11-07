@@ -91,6 +91,7 @@ class Equipment:
     def equipItem(self, item):
         old_item = None
         if (item[0].equip_type == "Weapon"):
+            config.text1.append("equipped a " + str(item[0].item_name))
             old_item = self.equipment[(1,1)]
             self.equipment[(1,1)] = item                
             return old_item
