@@ -37,7 +37,6 @@ def GameMain(sc, playername):
 
         sc.fill(black)
         player.movement()
-        drawing.mini_map(player)
         walls = ray_casting(player, drawing.textures)
         drawing.background(player.angle)
         drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
@@ -48,7 +47,7 @@ def GameMain(sc, playername):
         drawing.ui_elements(player,sc)
         inventory.createInventory()
         equipment.createEquip()
-
+        drawing.mini_map(player)
         drawing.blitHeldItem(heldItem, mouseX, mouseY)
         drawing.blitMenuInfoBoxes(inventory, equipment)
         for event in pygame.event.get():
@@ -65,7 +64,6 @@ def GameMain(sc, playername):
                     config.scroll_y = max(config.scroll_y - 20, -300)
                     print('down')
                     print(config.scroll_y)
-
 
         pygame.display.flip()
         clock.tick(30)

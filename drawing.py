@@ -55,7 +55,7 @@ class Drawing:
         activities.setup(second_screen)#player_pos)
     
     def ui_elements(self, player, gameDisplay):
-        elements = char_ui(CHAR_DETAIL_FONT_LARGE, player_pos, player.character, player.character, gameDisplay)
+        char_ui(CHAR_DETAIL_FONT_LARGE, player_pos, player.character, player.character, gameDisplay)
 
     def blitHeldItem(self, heldItem, mouseX, mouseY):
         if heldItem:

@@ -291,7 +291,7 @@ def main_menu():
                 options_menu()
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                game.GameMain(gameDisplay, "RENDERING_DEMO")
+                game.GameMain(gameDisplay, "Techie")
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop() 
