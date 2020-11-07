@@ -31,8 +31,8 @@ class Inventory:
         self.box_size = 50
 
         #x, y position of the inventory
-        self.x = 400
-        self.y = 400
+        self.x = 500
+        self.y = 550
 
         #border thiccness
         self.border = 5
@@ -181,7 +181,7 @@ class itemOptionMenu:
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
-            self.optionsTextArray.extend( ["Info","Equip", "Discard One", "Discard All"] )
+            self.optionsTextArray.extend( ["Info","Equip", "Discard One"] )
         elif (self.itemType == "Consumable"):
             self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
     

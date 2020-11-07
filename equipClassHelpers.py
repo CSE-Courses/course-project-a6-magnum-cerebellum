@@ -33,8 +33,8 @@ class Equipment:
         self.box_size = 65
 
         #x, y position of the inventory
-        self.x = 200
-        self.y = 200
+        self.x = 1250
+        self.y = 630
 
         #border thiccness
         self.border = 10
