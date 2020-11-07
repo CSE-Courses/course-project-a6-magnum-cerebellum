@@ -270,12 +270,12 @@ def blitItemMenu(inventory):
     inventory.itemMenu = itemOptionMenu(inventory.itemMousePos, inventory.currentItem[0])
     inventory.itemMenu.populateOptionsArray()
     inventory.itemMenu.createOptions()
-    pygame.display.update()
 
 def blitInfoBox(inventory):
-    inventory.infoBox = infoBox(inventory.itemMousePos, inventory.currentItem[0])
+    currentItem = inventory.currentItem[0]
+
+    inventory.infoBox = infoBox(inventory.itemMousePos, currentItem)
     inventory.infoBox.createInfo()
-    pygame.display.update()
 
 ###This is to give the text an outline since pygame doesn't actually have a support for it
 #Condensed version of outline code on https://github.com/lordmauve/pgzero
