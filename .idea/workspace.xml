@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb34440e-0f6b-4af8-a3a6-1acf330948e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/equipClassHelpers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/format_text.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory_ui.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map_blit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transitions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activities.py" beforeDir="false" afterPath="$PROJECT_DIR$/activities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/character.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/character_UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/character_UI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/item_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/item_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/health.py" beforeDir="false" afterPath="$PROJECT_DIR$/health.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invClassHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/invClassHelpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,6 +257,7 @@
       <workItem from="1604204546167" duration="4893000" />
       <workItem from="1604270867982" duration="24392000" />
       <workItem from="1604331715998" duration="2319000" />
+      <workItem from="1604766502403" duration="1230000" />
     </task>
     <servers />
   </component>
