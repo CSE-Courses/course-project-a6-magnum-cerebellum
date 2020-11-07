@@ -256,8 +256,6 @@ def main_menu():
         Button("QUIT", config.white, config.SPOOKY_SMALL_FONT,
                ((config.display_width / 2), (config.display_height / 1.20)),
                gameDisplay),
-        Button("inventoryPreview", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay),
         Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
                ((config.display_width/2),(config.display_height-500)), gameDisplay),
         Button("Battle Demo", config.white, config.SPOOKY_SMALL_FONT, 
@@ -282,14 +280,11 @@ def main_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
-            #Temporary inventory preview button 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                inventoryMain()
             #Temporary game rendering prototype Button
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay, "RENDERING_DEMO")
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop() 
                 dummy_player = Player(random_character())
                 dummy_enemy = Enemy(random_enemy())
