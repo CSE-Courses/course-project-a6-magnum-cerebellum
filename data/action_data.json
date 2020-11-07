@@ -73,6 +73,29 @@
     },
     "Poop" : {
         "damage_level" : 20
+    },
+    "End whole career" : {
+        "damage_level" : 40
+    },
+    "Cause stress" : {
+        "damage_level" : 20
+    },
+    "Read the handout!" : {
+        "damage_level" : 20
+    },
+    "We da best music" : {
+        "damage_level" : 20
+    },
+    "Anotha one" : {
+        "damage_level" : 10
+    },
+    "DJ KHALED" : {
+        "damage_level" : 50
+    },
+    "Slip" : {
+        "damage_level" : 10
+    },
+    "Fall over" : {
+        "damage_level" : 0
     }
-
 }
