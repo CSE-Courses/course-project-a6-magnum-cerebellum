@@ -5,11 +5,9 @@ import math
 import music
 import config
 from button import Button
-import inventory
+import health
 from player import Player
 from character import Character
-from inventory import inventoryMain
-import game
 
 #####################################################################################
 #This provides the function for blitting the character name and Major
@@ -23,15 +21,16 @@ class char_ui:
         self.char = character
         self.type = character.__str__()
         self.name = name
-
         self.setRect()
         self.blitText()
+        self.blitPortrait()
+        self.bar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), gameDisplay)
 
     def genText(self):
         name = str(self.name)
         clas = str(self.type)
-        self.rend = self.font.render(name, True, config.black)
-        self.rend2 = self.font.render(clas, True, config.black)
+        self.rend = self.font.render(name, True, config.red)
+        self.rend2 = self.font.render(clas, True, config.red)
 
     def setRect(self):
         self.genText()
@@ -39,10 +38,16 @@ class char_ui:
         self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
         #Calculate offset needed for Major/class text
-        newpos = ((930, 70))
+        newpos = ((1280, 450))
         self.rect2.center = newpos
 
     def blitText(self):
         self.genText()
-        self.display.blit(self.rend, self.rect)
+        # Commented out the below blit because we don't have naming the character implemented yet.
+        #self.display.blit(self.rend, self.rect)
         self.display.blit(self.rend2, self.rect2)
+
+    def blitPortrait(self):
+        image = "assets/portraits/" + self.type + ".png"
+        image_surface = pygame.image.load(image)
+        self.display.blit(image_surface, (1380, 420))

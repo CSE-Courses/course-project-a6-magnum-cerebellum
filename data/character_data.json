@@ -1,18 +1,18 @@
 {
-    "char01" : {
-        "actions": ["Punch", "Kick","Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+    "Fratboy" : {
+        "actions": ["Take a shot","Show up late", "Haze", "Hydrate"],
+        "items": [ "Computer"]
+    },
+    "CSESophomore": {
+        "actions": ["Throw class materials", "Study", "Caffienate", "Cry"],
+        "items": ["Book"]
+    },
+    "Techie" : {
+        "actions": ["Humble brag", "Consult Stack Overflow", "Snarky remark", "Adjust tie"],
         "items": ["Book", "Computer"]
     },
-    "char02": {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
-        "items": ["Book", "Computer"]
-    },
-    "char03" : {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
-        "items": ["Book", "Computer"]
-    },
-    "char04": {
-        "actions": ["Punch", "Kick", "Consult Stack Overflow", "Use assignment extention", "Ask for help on Piazza", "rm -rf /"],
+    "Terror": {
+        "actions": ["Bite", "Honk", "Screech", "Poop"],
         "items": ["Book", "Computer"]
     }
 

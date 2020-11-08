@@ -1,14 +1,17 @@
 {
-    "Generic CSE Professor" : {
-        "actions": ["Segmentation Fault (core dumped)", "AI violation"]   
+    "220 Student" : {
+        "actions": ["Segmentation Fault (core dumped)", "AI violation"]  
     },
-    "Unhelpful Undergrad TA": {
-        "actions": ["AI violation", "Caught using Chegg"]    
+    "AI Violation Email": {
+        "actions": ["End whole career", "Cause stress"]
     },
-    "Graduate TA" : {
-        "actions" : ["Cause connection issues on Zoom", "Caught using Chegg" ]
+    "Deadline" : {
+        "actions" : ["Read the handout!", "Cause stress"]
     },
-    "Ultimate CSE Professor" : {
-        "actions" : ["AI violation", "Caught using Chegg" , "Segmentation Fault (core dumped)", "rm -rf /"]
+    "DJ Khaled" : {
+        "actions" : ["We da best music", "Anotha one", "DJ KHALED"]
+    },
+    "Wet Floor Sign" : {
+        "actions" : ["Slip", "Fall over", "Cause stress"]
     }
 }

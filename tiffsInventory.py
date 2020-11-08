@@ -6,22 +6,20 @@ import config
 import random
 from button import Button
 from items import Item
+from player import Player
 import invClassHelpers
 import equipClassHelpers
 import time
-from health import Bar
-gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
-def inventoryMain():
+import tiffInvHelpers
+
+def inventoryMain(gameDisplay, player:Player, pos:tuple, box_size:int ):
     # Creates inventory
-    gameDisplay.fill(config.white)
+    
+    inventory = tiffInvHelpers.Inventory(gameDisplay, player, pos, box_size)
 
-    inventory = invClassHelpers.Inventory()
-    equipment = equipClassHelpers.Equipment()
     # The item the cursor is holding
     heldItem = None
-    healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)
-    healthBar.createBar()
 
     while True:
         # Get the position of the mouse
@@ -34,13 +32,12 @@ def inventoryMain():
                 running = False
                 pygame.quit()
                 quit()
-            
-            # Re-fills display everytime
-            gameDisplay.fill(config.white)
-            healthBar.updateBar()
+            #gameDisplay.fill(config.white)
             # Draw the inventory and Equipment GUI
-            inventory.createInventory()
-            equipment.createEquip()
+
+            
+            inventory.createInventory(gameDisplay)
+ 
 
             #Get Current Position of the Mouse
             mouse = pygame.mouse.get_pos()
@@ -61,15 +58,8 @@ def inventoryMain():
             elif inventory.infoBoxClicked:
                 invClassHelpers.blitInfoBox(inventory)
 
-            elif equipment.infoBoxClicked:
-                equipClassHelpers.blitEquipInfoBox(equipment)
-
-            elif equipment.itemMenuClicked:
-                equipClassHelpers.blitEquipItemMenu(equipment)
-
             # Get the player's mouse position
             pos = inventory.boxPos()
-            equipPos = equipment.boxPos()
             #print(equipPos)
             # If it's a LEFT-CLICK
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -90,43 +80,14 @@ def inventoryMain():
                             elif (menu.optionsTextArray[i] == "Info"):
                                 inventory.infoBoxClicked = True
                                 break                         
-                            
-                            #WIP effects to be implemented/integrated with other parts of the game
-
-                            elif (menu.optionsTextArray[i] == "Equip"):
-                                swappedItem = equipment.equipItem(inventory.currentItem)
-
-                                if (swappedItem == None):
-                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
-                                elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
-
-                                    inventory.discardFromInventory(inventory.itemBox, "Discard One")
-                                    inventory.addToInventory(swappedItem, inventory.itemBox)
-                                break
-                            elif (menu.optionsTextArray[i] == "Use"):
-                                healthBar.addHealth(inventory.currentItem[0].damage)
-                                #healthBar.subtractHealth(inventory.currentItem[0].damage)
-                                #healthBar.subtractMana(inventory.currentItem[0].damage)
-
-                                inventory.discardFromInventory(inventory.itemBox, "Discard One")
-                                break
+     
+                       
                     inventory.itemMenuClicked = False
 
-                elif equipment.itemMenuClicked and equipment.itemMenu.borderRect.collidepoint(mouse):
-                    menu = equipment.itemMenu
-                    for i in range(len(menu.optionsRects)):
-                        if (menu.optionsRects[i].collidepoint(mouse)):
-                            if (menu.optionsTextArray[i] == "Info"):
-                                equipment.infoBoxClicked = True
-                                break
-                            elif (menu.optionsTextArray[i] == "Unequip"):
-                                equipment.unequipItem(equipment, inventory)
-                                break
-                    equipment.itemMenuClicked = False
 
                 #This means they clicked elsewhere, should still close the item options menu
-                elif (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
-                    inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
+                elif (inventory.itemMenuClicked or inventory.infoBoxClicked ) :
+                    inventory.itemMenuClicked = inventory.infoBoxClicked = False
                 
                 # Only if mouse position is within the inventory, do stuff with Item
                 elif inventory.borderRect.collidepoint(pygame.mouse.get_pos()):
@@ -147,9 +108,6 @@ def inventoryMain():
                 if inventory.borderRect.collidepoint(mouse) and inventory.items[pos[0]][pos[1]]:
                     inventory.createItemMenu(pos, inventory.items[pos[0]][pos[1]], mouse)
 
-                elif (equipment.borderRect.collidepoint(mouse) 
-                and equipPos != (2,0) and equipPos != (0,0) and equipment.equipment[equipPos]):
-                    equipment.createEquipItemMenu(equipPos, mouse)
 
                 # TEMP: If it's a right click just grab a computer
                 # Remove later when putting everything together
@@ -161,7 +119,4 @@ def inventoryMain():
         pygame.display.update()
 
 # Uncomment these if you want to directly launch from inventory.py for faster debugging/testing
-
-# inventoryMain()
-# quit()
 

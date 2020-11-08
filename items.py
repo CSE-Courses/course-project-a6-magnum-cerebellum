@@ -11,8 +11,7 @@ class Item():
         item_image = pygame.image.load(os.path.join("assets/item_sprites", png)).convert()        
         f = open(os.path.join("data/item_data.json"))
         data = json.load(f)
-        
-
+       
         if item_name not in data.keys():
             raise Exception("Sorry, no item availible")
         self.item_data = data[item_name]
@@ -26,8 +25,13 @@ class Item():
         self.rect = self.sprite.get_rect()
         #Item type, if it's a consumable, equip, etc
         self.item_type = self.item_data["type"]
+        self.equip_type = None
+        if (self.item_type == "Equip"):
+            self.equip_type = self.item_data["equipType"]
 
     #This resizes the object image, mainly for dragging around items
     def resize(self, size):
         return pygame.transform.scale(self.sprite,(size,size))
 
+    def __str__(self):
+        return self.item_name

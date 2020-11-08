@@ -5,9 +5,6 @@ import math
 import music
 import config
 from button import Button
-import inventory
-from inventory import inventoryMain
-import game
 
 #####################################################################################
 #This provides the functions for computing and displaying health/mana bars.
@@ -32,9 +29,13 @@ class Bar:
         self.set_rect()
         self.createBar()
 
+
     def barText(self):
+        bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
+        bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+        self.rend2 = self.font.render(bar2, True, self.color)
         if self.currenthealth / self.totalhealth <= .25:
-            bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
+             bar = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
         else:
             bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
             bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)
@@ -42,6 +43,9 @@ class Bar:
         self.rend = self.font.render(bar, True, self.color)
 
 
+    def set_health(self, health):
+        self.currenthealth = health
+        #self.updateBar()
 
     def createBar(self):
         self.barText()
@@ -54,8 +58,12 @@ class Bar:
         self.rect2 = self.rend.get_rect()
         self.rect.center = self.pos
         # Calculate offset needed for second bar
-        newpos = ((830, 200))
+        newpos = ((self.pos[0], self.pos[1] + 50))
         self.rect2.center = newpos
+
+    def clearBar(self, color):
+        self.rend.fill((color))
+        self.rend2.fill((color))
 
     def updateBar(self):
         self.barText()
@@ -72,18 +80,22 @@ class Bar:
 
     def subtractHealth(self, lost):
         self.currenthealth -= lost
+        if (self.currenthealth < 0): self.currenthealth = 0
         self.updateBar()
 
     def addHealth(self, gain):
         self.currenthealth += gain
+        if (self.currenthealth > 100): self.currenthealth = 100
         self.updateBar()
 
     def subtractMana(self, lost):
         self.currentmana -= lost
+        if (self.currentmana < 0): self.currentmana = 0
         self.updateBar()
 
     def addMana(self, gain):
         self.currentmana += gain
+        if (self.currentmana > 100): self.currentmana = 0
         self.updateBar()
 
 
