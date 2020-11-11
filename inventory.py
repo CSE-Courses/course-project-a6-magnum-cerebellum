@@ -82,7 +82,7 @@ def inventoryMain():
                     #When integrating this w/ rest of UI, EX. equipment add into here too!
                     #When fully integrating into the actual main screen, do effect
 
-                        if (menu.optionsRects[i].collidepoint(mouse)):
+                        if (menu.optionsRects[alli].collidepoint(mouse)):
                             #Implemented Discards
                             if ("Discard" in menu.optionsTextArray[i]):
                                 inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])

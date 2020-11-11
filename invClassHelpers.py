@@ -1,6 +1,7 @@
 import pygame
 import config
 from items import Item
+from activities import messages_to_add
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -90,45 +91,51 @@ class Inventory:
     #Add the item to the inventory, if there's a item already being selected, swap their positions
     def addToInventory(self, Item, position):
         row, col = position
-        
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if (self.items[row][col][0].item_name == Item[0].item_name
+            if (self.items[row][col][0].item_name == Item[0].item_name #if the item in the column and row we are switching into has the same name as the item being held
                 and self.items[row][col][0].item_type != "Equip"):
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
                 self.items[row][col][1] += Item[1]
-                config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
+                messages_to_add(1, 1, row, col, self.items[row][col])
+
 
             #Otherwise swap the two items
 
             else:
-                heldItem = self.items[row][col]
-                self.items[row][col] = Item
-                config.text1 = config.text1 + ["swapped items"]
 
+                heldItem = self.items[row][col]
+                # print(heldItem[0].item_name) #item that was already there in the column and row we are switching to
+                self.items[row][col] = Item
+                messages_to_add(1, 2, row, col, self.items[row][col])
                 return heldItem
 
-        
         #Nothing in box, so just place the Item
         else:
             self.items[row][col] = Item
-            config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
+            if(self.items[row][col][1] > 1):
+                messages_to_add(3, 0, row, col, self.items[row][col])
+
+            elif(self.items[row][col][1] == 1):
+                messages_to_add(1, 0, row, col, self.items[row][col])
 
     def discardFromInventory(self,position, discardAmount):
         row, col = position
-
+        number_of_items = ""
         if self.items[row][col]:
             #get rid of 1 item
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
-                config.text1 = config.text1 + ["discarded a " + str(self.items[row][col][0].item_name)]
+                messages_to_add(1, -1, row, col, self.items[row][col])
                 self.items[row][col][1] -= 1
 
             #get rid of all items
             else:
-                config.text1 = config.text1 + ["discarded all " + str(self.items[row][col][0].item_name) + "s from inventory"]
+                if self.items[row][col][1] > 1:
+                    number_of_items = "s"
+                messages_to_add(3, -2, row, col, self.items[row][col])
                 self.items[row][col] = None
 
 
