@@ -13,6 +13,7 @@ from player import Player
 from character_selection import character_selection
 import intro_screen
 from options_menu import options_menu
+import battle_blit
 clock = pygame.time.Clock()
 
 def main_menu(gameDisplay, music_player):
@@ -22,7 +23,7 @@ def main_menu(gameDisplay, music_player):
     # TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
     # utilities.set_image("assets/images/very_scary_davis.jpg", gameDisplay)
     # gameDisplay.blit(TextSurf, TextRect)
-    # music_player.play_main()
+    music_player.play_main()
     buttons = [
         Button("START", config.white, config.SPOOKY_SMALL_FONT,
                ((config.display_width / 2), (config.display_height / 2)),
@@ -43,7 +44,7 @@ def main_menu(gameDisplay, music_player):
         TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
         utilities.set_image("assets/images/very_scary_davis.jpg", gameDisplay)
         gameDisplay.blit(TextSurf, TextRect)
-        music_player.play_main()
+        
 
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or
