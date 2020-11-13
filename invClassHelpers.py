@@ -232,9 +232,9 @@ class infoBox:
         
         if (self.item_type == "Equip"):
             if (self.item.equip_type == "Weapon"):
-                self.item_type += ": " + "Deals " + str(self.item.damage) + " damage"
+                self.item_type += ": " + "Deals " + str(self.item.amount) + " damage"
         elif (self.item_type == "Consumable"):
-            self.item_type += ": " + "Heals " + str(self.item.damage) + " hp"
+            self.item_type += ": " + "Heals " + str(self.item.amount) + " hp"
         drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
         drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
 

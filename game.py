@@ -7,7 +7,7 @@ from player import Player
 from sprites import *
 from render import ray_casting
 from drawing import Drawing
-
+import health
 import activities
 from items import Item
 
@@ -31,7 +31,8 @@ def GameMain(sc, playername):
 
     second_screen.fill(black)
     drawing.activities_panel(second_screen)
-
+    healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
+    
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
 
@@ -43,8 +44,8 @@ def GameMain(sc, playername):
 
         sc.blit(second_screen, (0, config.scroll_y))
         activities.iterate_over_input(second_screen, 20)
-
         drawing.ui_elements(player,sc)
+        healthBar.updateBar()
         inventory.createInventory()
         equipment.createEquip()
         drawing.mini_map(player)
@@ -55,7 +56,7 @@ def GameMain(sc, playername):
                 exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
+                heldItem, healthBar = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
                 if event.button == 4:
                     config.scroll_y = min(config.scroll_y + 20, 0)

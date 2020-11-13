@@ -14,20 +14,30 @@ class Item():
        
         if item_name not in data.keys():
             raise Exception("Sorry, no item availible")
-        self.item_data = data[item_name]
         self.item_name = item_name
+        self.item_data = data[item_name]
         self.item_attr = self.item_data["attributes"]
-        self.damage = self.item_data["damage"]
-        
         self.item_desc = self.item_data["description"]
-        #Added sprite and rec
+        self.item_type = self.item_data["type"]
+
+        #Amount is the item effect number. 
+        #EX. Armor w/ 20 defense means amount = 20. 
+        #EX. Consumable gives 20 hp, amount = 20. Takes away 20 hp? amount = -20
+        self.amount = self.item_data["amount"]
+
+        #Sprite image and it's rect
         self.sprite =  item_image
         self.rect = self.sprite.get_rect()
-        #Item type, if it's a consumable, equip, etc
-        self.item_type = self.item_data["type"]
+
+        #Below will get initialized in setupItemData, based on the type of item
+
+        #If it's an EQUIP it will be either weapon or armor
         self.equip_type = None
-        if (self.item_type == "Equip"):
-            self.equip_type = self.item_data["equipType"]
+
+        #Effect is what the CONSUMABLE affects (Mana or Health)
+        self.effect = None
+
+        self.setupItemData()
 
     #This resizes the object image, mainly for dragging around items
     def resize(self, size):
@@ -35,3 +45,10 @@ class Item():
 
     def __str__(self):
         return self.item_name
+
+    def setupItemData(self):
+        if (self.item_type == "Equip"):
+            self.equip_type = self.item_data["equipType"]
+        elif (self.item_type == "Consumable"):
+            self.effect = self.item_data["effect"]
+        
