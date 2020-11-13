@@ -22,7 +22,8 @@ class Item():
 
         #Amount is the item effect number. 
         #EX. Armor w/ 20 defense means amount = 20. 
-        #EX. Consumable gives 20 hp, amount = 20. Takes away 20 hp? amount = -20
+        #EX. Consumable gives 20 hp, amount = 20. 
+        #EX. If it takes away 20 hp, amount = -20.
         self.amount = self.item_data["amount"]
 
         #Sprite image and it's rect
@@ -31,10 +32,10 @@ class Item():
 
         #Below will get initialized in setupItemData, based on the type of item
 
-        #If it's an EQUIP it will be either weapon or armor
+        #If it's an EQUIP it will be either Weapon or Armor
         self.equip_type = None
 
-        #Effect is what the CONSUMABLE affects (Mana or Health)
+        #If it's an CONSUMABLE the effect is either Health or Mana
         self.effect = None
 
         self.setupItemData()

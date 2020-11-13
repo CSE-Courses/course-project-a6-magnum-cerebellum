@@ -1,4 +1,4 @@
-{
+{ 
     "Book" : {
         "type": "Equip",
         "equipType": "Weapon",
@@ -29,6 +29,7 @@
     },
     "Grace Day": {
         "type": "Consumable",
+        "effect": "Health",
         "attributes" : "grace_day_attr",
         "description": "Restores 10 HP, yayyy grace days!",
         "amount": 10
