@@ -66,7 +66,7 @@ def battleMain(player : Player, enemy : Enemy, prevDisplay):
                     
                     print("enemy hp before", enemy.hp)
                     battle.attack_enemy(item_selected)
-                    damage = item_selected.damage
+                    damage = item_selected.amount
                     print("player attack with damage", damage)
                     print("enemy hp after", enemy.hp)
                     healthBar_enemy.clearBar(backgroundColor)

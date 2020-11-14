@@ -16,7 +16,6 @@ class Item():
             raise Exception("Sorry, no item availible")
         self.item_name = item_name
         self.item_data = data[item_name]
-        self.item_attr = self.item_data["attributes"]
         self.item_desc = self.item_data["description"]
         self.item_type = self.item_data["type"]
 
