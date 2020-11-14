@@ -26,7 +26,7 @@ from assets import character_images
 # from os import listdirtes
 # from os.path import isfile, join
 import intro_screen
-
+from activities import messages_to_add
 
 
 
@@ -76,13 +76,15 @@ def start_game_play(player):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_p:
                     global paused
                     paused = True
                     pause()
                 #if s button is pressed save the character's stats
                 if event.key == pygame.K_s:
                     save(player)
+                    messages_to_add(0,0, None, None, None, None)
+
                 #if l button is pressed load the character's stats
                 if event.key == pygame.K_l:
                     load()
@@ -105,6 +107,8 @@ def start_game_play(player):
         gui.fill(config.white)
 
         gameDisplay.blit(gui, (0, 0))
+        print("started at white")
+
         game_start(player)
         clock.tick(15)
 
@@ -186,6 +190,7 @@ def character_selection():
     x_offset = int(w / num_of_images) 
     
     char_detail_surf, char_detail_rect = pygame.Surface((0,0)), pygame.Surface((0,0)) # init to random surface to avoid crash on line 2016
+    #for every image in the image_list scale it to a certain size and then set its coordinates
     for elem in image_list:
         transformed_image = transform_image(elem, w, h, num_of_images)
         image_rect_list.append(set_image_location(transformed_image, start_x, start_y))
@@ -282,10 +287,12 @@ def main_menu():
 
             # When START button is selected, begin a new game.
             # For now, this will load into the mockup image, then we'll place things accordingly.
+            #start button leads to a new game
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 intro_screen.main()
                 character_selection()
+            #options buttons leads to options menu
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
                 music_player.stop()
                 options_menu()
@@ -310,7 +317,10 @@ def main_menu():
 
 # This function will effectively kick off gameplay - should load into character selection screen first.
 # For now the mockup will serve as a visual placeholder.
+# introduces character and then shows start game button
 def game_start(player):
+    print("started game start")
+
     music_player = music.Music_Player()
     music_player.play_ambtrack1()
     w, h = pygame.display.get_surface().get_size()
@@ -323,22 +333,33 @@ def game_start(player):
 
     #display.blit(image_surface, (w-60, 0))
     #Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-
     # char_ui(config.SPOOKY_SMALLER_FONT, (900, 50), player.character, player.character, gameDisplay)
-
-
     #healthBar = Bar(config.black, config.SPOOKY_SMALLER_FONT, (830, 150), gameDisplay)  # pos (800, 290) is close for non demo
-
-
     # I imagine we will move this into a larger, separate file for actual gameplay
 
     map = map_blit.Map("View Map", (700,0))
     map.blit(gameDisplay)
+    print(55555)
 
     # button events
     while True:
-
+        print(1000000)
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    global paused
+                    paused = True
+                    pause()
+                if event.key == pygame.K_s:
+                    save(player)
+                    messages_to_add(0,0, None, None, None, None)
+                if event.key == pygame.K_l:
+                    load()
+                    player.pos = loaddata['pos']
+                    player.health = loaddata['health']
+                    player.actions = loaddata['actions']
+                    player.items = loaddata['items']
+                    player.hp = loaddata['hp']
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
@@ -437,7 +458,6 @@ def options_menu():
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
                 if(paused == True):
-                    print(10)
                     character_selection()
                 elif(paused == False):
                     main_menu()

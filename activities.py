@@ -33,6 +33,8 @@ def setup(intermediate):
 
 def messages_to_add(a,b, row, col, item): #to add item actions to globakl actions list
     #same item stack it a==b,
+    if a == 0 and b == 0:
+        config.text1 = config.text1 + ["Game Saved"]
     if a == 1 and b == 1:
         config.text1 = config.text1 + [
             str(item[1]) + " " + str(item[0].item_name) + "s at " + str(
@@ -65,7 +67,6 @@ def messages_to_add(a,b, row, col, item): #to add item actions to globakl action
 
 def iterate_over_input(intermediate,y):
     #iterates over all 7 values of the input text and displays them onto the actviites panel
-    holding_time = 3
     global first_time #626
     for elems in config.text1:
         # if pygame.time.get_ticks() - first_time >= holding_time:

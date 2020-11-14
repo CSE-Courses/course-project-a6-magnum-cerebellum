@@ -57,6 +57,20 @@ def GameMain(sc, playername):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
+                if event.key == pygame.K_p:
+                    global paused
+                    paused = True
+                    pause()
+                if event.key == pygame.K_s:
+                    save(player)
+                    messages_to_add(0,0, None, None, None, None)
+                if event.key == pygame.K_l:
+                    load()
+                    player.pos = loaddata['pos']
+                    player.health = loaddata['health']
+                    player.actions = loaddata['actions']
+                    player.items = loaddata['items']
+                    player.hp = loaddata['hp']
                 if event.button == 4:
                     config.scroll_y = min(config.scroll_y + 20, 0)
                     print('up')
