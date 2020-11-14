@@ -16,7 +16,7 @@ class Battle():
 
     #player attacks enemy, inflict items damage,  return true if attack was successful, false if enemy was destroyed
     def attack_enemy(self,item:Item) -> bool:
-        damage = item.damage
+        damage = item.amount
         if self.enemy.decrease_hp(damage):
             return True
         else:

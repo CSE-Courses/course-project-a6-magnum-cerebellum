@@ -2,18 +2,23 @@ import pygame
 import invClassHelpers
 import equipClassHelpers
 from config import *
+import config
 from player import Player
 from sprites import *
 from render import ray_casting
 from drawing import Drawing
+import health
+import activities
 from items import Item
 
-def GameMain(sc, playername): 
+def GameMain(sc, playername):
+
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
 
     clock = pygame.time.Clock()
     sprites = Sprites()
+
     player = Player(playername)
     inventory = invClassHelpers.Inventory()
     equipment = equipClassHelpers.Equipment()
@@ -21,19 +26,29 @@ def GameMain(sc, playername):
     drawing = Drawing(sc, sc_map, None)
     heldItem = None
 
+    config.text1.append(player.pos)
+    second_screen = pygame.Surface((400, 300))
+
+    second_screen.fill(black)
+    drawing.activities_panel(second_screen)
+    healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
+    
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
 
         sc.fill(black)
         player.movement()
-        drawing.mini_map(player)
         walls = ray_casting(player, drawing.textures)
         drawing.background(player.angle)
         drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
+
+        sc.blit(second_screen, (0, config.scroll_y))
+        activities.iterate_over_input(second_screen, 20)
         drawing.ui_elements(player,sc)
+        healthBar.updateBar()
         inventory.createInventory()
         equipment.createEquip()
-        
+        drawing.mini_map(player)
         drawing.blitHeldItem(heldItem, mouseX, mouseY)
         drawing.blitMenuInfoBoxes(inventory, equipment)
         for event in pygame.event.get():
@@ -41,9 +56,15 @@ def GameMain(sc, playername):
                 exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
+                heldItem, healthBar = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
-
+                if event.button == 4:
+                    config.scroll_y = min(config.scroll_y + 20, 0)
+                    print('up')
+                if event.button == 5:
+                    config.scroll_y = max(config.scroll_y - 20, -300)
+                    print('down')
+                    print(config.scroll_y)
 
         pygame.display.flip()
-        clock.tick()
+        clock.tick(30)

@@ -1,4 +1,4 @@
-# Import random number picker for prototype inventory, remove later
+#Import random number picker for prototype inventory, remove later
 import random
 ####
 import pygame
@@ -10,9 +10,7 @@ import invClassHelpers
 import equipClassHelpers
 import time
 from health import Bar
-
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
-
 
 def inventoryMain():
     # Creates inventory
@@ -44,7 +42,7 @@ def inventoryMain():
             inventory.createInventory()
             equipment.createEquip()
 
-            # Get Current Position of the Mouse
+            #Get Current Position of the Mouse
             mouse = pygame.mouse.get_pos()
 
             # If an item is selected, hold it
@@ -72,20 +70,20 @@ def inventoryMain():
             # Get the player's mouse position
             pos = inventory.boxPos()
             equipPos = equipment.boxPos()
-            # print(equipPos)
+            #print(equipPos)
             # If it's a LEFT-CLICK
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 
-                # If the an item was already right-clicked on, detect if player clicks on an option or outside the option list. Close the menu either way.
+                #If the an item was already right-clicked on, detect if player clicks on an option or outside the option list. Close the menu either way.
                 if inventory.itemMenuClicked and inventory.itemMenu.borderRect.collidepoint(mouse):
                     menu = inventory.itemMenu
                     for i in range(len(menu.optionsRects)):
-                        # If an option is being selected, do the effect then break out
-                        # When integrating this w/ rest of UI, EX. equipment add into here too!
-                        # When fully integrating into the actual main screen, do effect
+                    #If an option is being selected, do the effect then break out
+                    #When integrating this w/ rest of UI, EX. equipment add into here too!
+                    #When fully integrating into the actual main screen, do effect
 
                         if (menu.optionsRects[i].collidepoint(mouse)):
-                            # Implemented Discards
+                            #Implemented Discards
                             if ("Discard" in menu.optionsTextArray[i]):
                                 inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
                                 break
@@ -93,7 +91,7 @@ def inventoryMain():
                                 inventory.infoBoxClicked = True
                                 break
 
-                                # WIP effects to be implemented/integrated with other parts of the game
+                            #WIP effects to be implemented/integrated with other parts of the game
 
                             elif (menu.optionsTextArray[i] == "Equip"):
                                 swappedItem = equipment.equipItem(inventory.currentItem)
@@ -107,8 +105,8 @@ def inventoryMain():
                                 break
                             elif (menu.optionsTextArray[i] == "Use"):
                                 healthBar.addHealth(inventory.currentItem[0].damage)
-                                # healthBar.subtractHealth(inventory.currentItem[0].damage)
-                                # healthBar.subtractMana(inventory.currentItem[0].damage)
+                                #healthBar.subtractHealth(inventory.currentItem[0].damage)
+                                #healthBar.subtractMana(inventory.currentItem[0].damage)
 
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                                 break
@@ -126,9 +124,8 @@ def inventoryMain():
                                 break
                     equipment.itemMenuClicked = False
 
-                # This means they clicked elsewhere, should still close the item options menu
-                elif (
-                        inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked):
+                #This means they clicked elsewhere, should still close the item options menu
+                elif (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
                     inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
 
                 # Only if mouse position is within the inventory, do stuff with Item
@@ -151,13 +148,13 @@ def inventoryMain():
                     inventory.createItemMenu(pos, inventory.items[pos[0]][pos[1]], mouse)
 
                 elif (equipment.borderRect.collidepoint(mouse)
-                      and equipPos != (2, 0) and equipPos != (0, 0) and equipment.equipment[equipPos]):
+                and equipPos != (2,0) and equipPos != (0,0) and equipment.equipment[equipPos]):
                     equipment.createEquipItemMenu(equipPos, mouse)
 
                 # TEMP: If it's a right click just grab a computer
                 # Remove later when putting everything together
                 elif heldItem == None:
-                    randomItemPicker = [Item("Computer"), Item("Book"), Item("Red Bull")]
+                    randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                     heldItem = [randomItemPicker[random.randint(2, 2)], 1]
 
         # Update display

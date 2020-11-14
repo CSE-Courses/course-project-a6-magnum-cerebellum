@@ -31,8 +31,8 @@ class Inventory:
         self.box_size = 50
 
         #x, y position of the inventory
-        self.x = 400
-        self.y = 400
+        self.x = 500
+        self.y = 550
 
         #border thiccness
         self.border = 5
@@ -100,26 +100,38 @@ class Inventory:
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
                 self.items[row][col][1] += Item[1]
+                config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
             #Otherwise swap the two items
 
             else:
                 heldItem = self.items[row][col]
                 self.items[row][col] = Item
+                config.text1 = config.text1 + ["swapped items"]
+
                 return heldItem
+
         
         #Nothing in box, so just place the Item
         else:
             self.items[row][col] = Item
+            config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
     def discardFromInventory(self,position, discardAmount):
         row, col = position
 
         if self.items[row][col]:
+            #get rid of 1 item
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
+                config.text1 = config.text1 + ["discarded a " + str(self.items[row][col][0].item_name)]
                 self.items[row][col][1] -= 1
+
+            #get rid of all items
             else:
+                config.text1 = config.text1 + ["discarded all " + str(self.items[row][col][0].item_name) + "s from inventory"]
                 self.items[row][col] = None
+
+
 
 ###Below for right-clicking item menu
 
@@ -144,7 +156,15 @@ class itemOptionMenu:
         self.optionsRects = []
 
     def createOptions(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 77) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + 77 + self.border)
+            
+        if (self.menuY + (self.box_size + self.border) * self.numberOfBoxes + self.border > config.display_height):
+            self.menuY = config.display_height - ((self.box_size + self.border) * self.numberOfBoxes + self.border)
         #draw border box
+        #x , width, y, height
+        
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 77, (self.box_size + self.border) * self.numberOfBoxes + self.border)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
@@ -153,6 +173,7 @@ class itemOptionMenu:
         for col in range(1):
 
             for row in range (self.numberOfBoxes):
+                
                 boxRect = pygame.Rect(  (self.menuX + self.border), self.menuY + (self.box_size + self.border) * row + self.border, self.box_size + 72, self.box_size)
                 self.optionsRects.append(boxRect)
 
@@ -165,11 +186,13 @@ class itemOptionMenu:
                 
                 #def outlineText(text, font, color, outlineColor, outlineSize):
                 gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
+                
 
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
-            self.optionsTextArray.extend( ["Info","Equip", "Discard One", "Discard All"] )
+            self.numberOfBoxes = 3
+            self.optionsTextArray.extend( ["Info","Equip", "Discard One"] )
         elif (self.itemType == "Consumable"):
             self.optionsTextArray.extend( ["Info","Use", "Discard One", "Discard All"] )
     
@@ -196,13 +219,23 @@ class infoBox:
         self.borderRect = None
 
     def createInfo(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 205) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + self.border + 205)
+
+        if ((self.menuY + self.box_size + 115  + self.border*2) > config.display_height):
+            self.menuY = config.display_height - (self.box_size + 115  + self.border*2)
+        #draw border box
+        #x , width, y, height
+
         #draw border box
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 205, self.box_size + 115  + self.border*2)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
 
         #Left, Top, Width, Height
-        #draw the inside 
+        #draw the inside
+
         itemNameBox = pygame.Rect(  (self.menuX + self.border), self.menuY + self.border, self.box_size + 200, self.box_size + 10)
         itemTypeBox = pygame.Rect(  (self.menuX + self.border), self.menuY + 40, self.box_size + 200, self.box_size)
         itemDescBox = pygame.Rect ( (self.menuX + self.border), self.menuY + 60, self.box_size + 200, self.box_size + 60 ) 
@@ -216,9 +249,9 @@ class infoBox:
         
         if (self.item_type == "Equip"):
             if (self.item.equip_type == "Weapon"):
-                self.item_type += ": " + "Deals " + str(self.item.damage) + " damage"
+                self.item_type += ": " + "Deals " + str(self.item.amount) + " damage"
         elif (self.item_type == "Consumable"):
-            self.item_type += ": " + "Heals " + str(self.item.damage) + " hp"
+            self.item_type += ": " + "Heals " + str(self.item.amount) + " hp"
         drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
         drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
 
