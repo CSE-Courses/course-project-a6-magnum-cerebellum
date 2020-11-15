@@ -4,24 +4,36 @@ from config import *
 from map import collision_walls
 import math
 import config
+import os 
+import json
+
 # import testing_delete
 
 class Player():
     old_pos = player_pos
-
     def __init__(self, character):
+        f = open(os.path.join("data/character_data.json"))
+        data = json.load(f)
+
+        self.character_data = data[character.__str__()]
+
         self.x, self.y = player_pos
         self.angle = player_angle
         #self.health = 10
         self.hp = 100
         self.character = character
+
+        #Initialize this to the starting item stats?? I guess IDK
+        self.attack = 0
+        self.defense = 0
+
+        self.actions = self.character_data["actions"]
+
          # collision parameters
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
         self.collision_list = collision_walls 
-   # def add_item(self, item):
-   #     new_item = Item(item)
-    #    self.items.append(new_item)
+
 
     @property
     def pos(self):

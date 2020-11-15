@@ -81,7 +81,7 @@ class Drawing:
         if equipment.infoBoxClicked:
             blitEquipInfoBox(equipment)
 
-    #Big chunk below
+    #Big inventory chunk below
     def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem, healthBar):
 
         inventory.createInventory()

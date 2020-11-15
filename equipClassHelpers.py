@@ -42,6 +42,7 @@ class Equipment:
         ,(self.box_size + self.border)*self.col
         ,(self.box_size + self.border)*self.rows)
 
+    #Redraws the Equipment GUI
     def createEquip(self):
 
         #This draws the borders

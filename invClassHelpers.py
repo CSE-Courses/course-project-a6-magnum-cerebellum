@@ -1,6 +1,7 @@
 import pygame
 import config
 from items import Item
+from button import Button
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -31,7 +32,7 @@ class Inventory:
         self.box_size = 50
 
         #x, y position of the inventory
-        self.x = 500
+        self.x = 550
         self.y = 550
 
         #border thiccness
@@ -40,6 +41,10 @@ class Inventory:
         ,(self.box_size + self.border)*self.col
         ,(self.box_size + self.border)*self.rows)
 
+        #If the inventory was opened during battle
+        self.back = Button("Back", config.white, config.RPG_ACTION_FONT, (self.x + self.x/2.5, self.y + (self.box_size + self.border)*self.rows + self.border*3), gameDisplay)
+
+    #Redraws the Inventory GUI
     def createInventory(self):
 
         #This draws the borders
@@ -187,7 +192,6 @@ class itemOptionMenu:
                 #def outlineText(text, font, color, outlineColor, outlineSize):
                 gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
                 
-
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
