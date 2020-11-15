@@ -2,6 +2,7 @@ import pygame
 import config
 from items import Item
 from button import Button
+from activities import messages_to_add
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -115,11 +116,10 @@ class Inventory:
 
         #Else the position is what box the mouse is tryna swap with
         row, col = position
-        
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if (self.items[row][col][0].item_name == item[0].item_name
+            if (self.items[row][col][0].item_name == Item[0].item_name #if the item in the column and row we are switching into has the same name as the item being held
                 and self.items[row][col][0].item_type != "Equip"):
                 
                 #This is the number of that particular item
@@ -130,30 +130,38 @@ class Inventory:
             #Otherwise swap the two items
 
             else:
-                heldItem = self.items[row][col]
-                self.items[row][col] = item
-                config.text1 = config.text1 + ["swapped items"]
 
+                heldItem = self.items[row][col]
+
+                self.items[row][col] = item
+                messages_to_add(1, 2, row, col, self.items[row][col])
                 return heldItem
 
-        
         #Nothing in box, so just place the Item
         else:
+
             self.items[row][col] = item
-            config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
+            if(self.items[row][col][1] > 1):
+                messages_to_add(3, 0, row, col, self.items[row][col])
+
+            elif(self.items[row][col][1] == 1):
+                messages_to_add(1, 0, row, col, self.items[row][col])
 
     def discardFromInventory(self,position, discardAmount):
         row, col = position
-
+        number_of_items = ""
         if self.items[row][col]:
             #get rid of 1 item
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
-                config.text1 = config.text1 + ["discarded a " + str(self.items[row][col][0].item_name)]
+                messages_to_add(1, -1, row, col, self.items[row][col])
                 self.items[row][col][1] -= 1
 
             #get rid of all items
             else:
-                config.text1 = config.text1 + ["discarded all " + str(self.items[row][col][0].item_name) + "s from inventory"]
+                if self.items[row][col][1] == 1:
+                    messages_to_add(1, -1, row, col, self.items[row][col])
+                elif self.items[row][col][1] > 1:
+                    messages_to_add(3, -2, row, col, self.items[row][col])
                 self.items[row][col] = None
 
 

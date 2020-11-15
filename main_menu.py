@@ -1,7 +1,6 @@
 import pygame
 import math
 import music
-import pickle
 import config
 from health import Bar
 from button import Button

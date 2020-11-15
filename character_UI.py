@@ -5,7 +5,6 @@ import math
 import music
 import config
 from button import Button
-from player import Player
 from character import Character
 
 #####################################################################################

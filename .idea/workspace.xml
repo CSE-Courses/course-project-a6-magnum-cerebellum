@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
+
     <list default="true" id="782f9703-940f-41d3-a0a1-2740a8fe4b91" name="Default Changelist" comment="">
-=======
+
     <list default="true" id="fb34440e-0f6b-4af8-a3a6-1acf330948e5" name="Default Changelist" comment="">
->>>>>>> develop
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,10 +40,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-<<<<<<< HEAD
+
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-=======
+
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -58,20 +58,17 @@
         <option name="myModuleName" value="course-project-a6-magnum-cerebellum-master" />
       </console-settings>
     </option>
->>>>>>> develop
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\dazar\Downloads\course-project-a6-magnum-cerebellum-master" />
     </key>
   </component>
-<<<<<<< HEAD
+
   <component name="RunManager">
     <configuration name="davis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-=======
   <component name="RunManager" selected="Python.davis">
     <configuration name="activities" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
->>>>>>> develop
       <module name="course-project-a6-magnum-cerebellum" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -84,8 +81,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-<<<<<<< HEAD
-=======
+
       <option name="SCRIPT_NAME" value="C:\Users\dazar\Downloads\course-project-a6-magnum-cerebellum-master\activities.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -108,7 +104,7 @@
       <option name="ADD_SOURCE_ROOTS" value="false" />
       <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
->>>>>>> develop
+
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/davis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -118,11 +114,10 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-<<<<<<< HEAD
     <recent_temporary>
       <list>
         <item itemvalue="Python.davis" />
-=======
+
     <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="course-project-a6-magnum-cerebellum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -226,7 +221,6 @@
         <item itemvalue="Python.testing" />
         <item itemvalue="Python.game" />
         <item itemvalue="Python.new" />
->>>>>>> develop
       </list>
     </recent_temporary>
   </component>

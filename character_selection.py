@@ -3,11 +3,9 @@ import random
 import pygame
 import math
 import music
-import pickle
 import config
 from health import Bar
 from button import Button
-from player import Player
 from character import Character
 from character_UI import char_ui
 import game
@@ -26,6 +24,8 @@ from start_game import start_game_play , game_start
 # from os import listdirtes
 # from os.path import isfile, join
 import intro_screen
+from utilities import save
+
 clock = pygame.time.Clock()
 def render_text(text, font, color):
     textSurface = font.render(text, True, color)
@@ -74,7 +74,7 @@ def get_player_stats(character, size):
     return temp_surface
 
 def character_selection(gameDisplay):
-    #w, h = pygame.display.get_surface().get_size()
+    print("selecting characters")
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
     music_player.play_ambtrack2()
@@ -109,18 +109,19 @@ def character_selection(gameDisplay):
                         char_detail_surf = get_player_stats(character, size)
                         break
                     index += 1
-
+            #back button when clicked returns to main menu
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
-             
                 return
-
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
                 index = 0
                 for char_image, char_rect in image_rect_list:
                     if (char_rect.collidepoint(event.pos)):
+                        print("character selected")
                         character = Character(character_types[index])
                         player = Player(character)
+                        save(player)
+
                         game_start(player, gameDisplay)
                     index += 1
             elif (selection_gui.get_rect().collidepoint(pygame.mouse.get_pos())):

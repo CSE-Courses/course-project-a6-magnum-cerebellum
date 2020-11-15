@@ -3,6 +3,7 @@ from items import Item
 from config import * 
 from map import collision_walls
 import math
+from options_menu import options_menu
 import config
 import os 
 import json
@@ -19,7 +20,6 @@ class Player():
 
         self.x, self.y = player_pos
         self.angle = player_angle
-        #self.health = 10
         self.hp = 100
         self.character = character
 
@@ -94,7 +94,8 @@ class Player():
         cos_a = math.cos(self.angle)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
-            exit()
+            gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
+            options_menu(gameDisplay)
 
         if keys[pygame.K_UP]:
             dx = player_speed * cos_a
@@ -122,10 +123,6 @@ class Player():
             if self.pos != self.old_pos:
                 self.old_pos = self.pos
                 printtuple = tuple(int(num) for num in self.pos)
-                # print(printtuple)
                 config.text1.append(printtuple)
-
-                # testing_delete.text1.append(printtuple)
-
 
 

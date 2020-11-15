@@ -7,7 +7,7 @@ first_time = pygame.time.get_ticks()
 
 def setup(intermediate):
     intermediate_surface = intermediate.get_rect()
-    first = config.red
+    first = (210,105,30) #config.red
 
     wid, hei = intermediate.get_width() , intermediate.get_height()
 
@@ -31,17 +31,49 @@ def setup(intermediate):
                   min(max(first[2]+(change_of_color[2]*line),0),255))
          pygame.draw.line(intermediate, color, (x_coord, line),(end_x_coord, line))
 
+def messages_to_add(a,b, row, col, item): #to add item actions to globakl actions list
+    #same item stack it a==b,
+    if a == 0 and b == 0:
+        config.text1 = config.text1 + ["Game Saved"]
+    elif a == 1 and b == 1:
+        config.text1 = config.text1 + [
+            str(item[1]) + " " + str(item[0].item_name) + "s at " + str(
+                tuple((row, col)))]
+
+    #not same item, swap it a!=b, a = 1 b = 2
+    elif a == 1 and b == 2:
+        config.text1 = config.text1 + ["Swapped items"]
+
+
+    #Moved a stack to an empty cell a = 3 b = 0
+    elif a == 3 and b == 0:
+        config.text1 = config.text1 + [
+            "Moved " + str(item[1]) + " " + str(item[0].item_name) + "s to " + str(
+                tuple((row, col)))]
+
+    #Added an item to an empty cell a = 1 b = 0
+    elif a == 1 and b == 0:
+        config.text1 = config.text1 + ["Added a " + str(item[0].item_name)]
+
+    #Discarded one item a = 1 b = -1
+    elif a == 1 and b == -1:
+        config.text1 = config.text1 + ["Discarded 1 " + str(item[0].item_name) + " from inventory"]
+
+    #Discarded multiple items a = 3 b = -2
+    elif a == 3 and b == -2:
+        config.text1 = config.text1 + ["Discarded " + str(item[1]) + " " + str(
+            item[0].item_name) + "s" + " from inventory"]
+
 
 def iterate_over_input(intermediate,y):
     #iterates over all 7 values of the input text and displays them onto the actviites panel
-    holding_time = 3
     global first_time #626
     for elems in config.text1:
         # if pygame.time.get_ticks() - first_time >= holding_time:
         if(type(elems) == tuple):
             intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
         elif(type(elems) != tuple):
-            intermediate.blit(config.SPOOKY_SMALLER_FONT.render("You have " + str(elems), True, config.white), (10, y))
+            intermediate.blit(config.SPOOKY_SMALLER_FONT.render("" + str(elems), True, config.white), (10, y))
 
         y += 40
         config.storage.append([elems])

@@ -1,12 +1,9 @@
 import pygame
 import math
 import music
-import pickle
 import config
 from button import Button
-import utilities
 import game
-from character_selection import character_selection
 clock = pygame.time.Clock()
 
 def reRenderVol(volDisplay, vol, text, gameDisplay):
@@ -33,22 +30,28 @@ def options_menu(gameDisplay):
                Button(">", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2 + 80, config.display_height / 2), gameDisplay),
                Button("MUTE", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 + 100), gameDisplay),
                Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 200), gameDisplay),
-               Button("1400 x 1050", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 100), gameDisplay)]
-    backButton = Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)
+               Button("1400 x 900", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 100), gameDisplay),
+               Button("Save", config.white, config.SPOOKY_SMALL_FONT, (config.display_width / 2, config.display_height / 2 + 200), gameDisplay),
+               Button("Load", config.white, config.SPOOKY_SMALL_FONT,(config.display_width / 2, config.display_height / 2 + 300), gameDisplay)
+
+              ]
 
     while True:
-
         for event in pygame.event.get():
-            if (event.type == pygame.QUIT):
+            if event.type == pygame.KEYDOWN:
+                if (event.key == pygame.K_p):
+                    print(1111111111)
+                    return
+            elif (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
-                if(utilities.paused == True):
-                    print(10)
-                    character_selection(gameDisplay)
-                elif(utilities.paused == False):
+                # if(config.paused == True):
+                #     print("proceeding to character selection function")
+                #     character_selection(gameDisplay)
+                if(config.paused == False):
                     return
 
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(
@@ -90,19 +93,17 @@ def options_menu(gameDisplay):
                 pygame.display.set_mode((config.display_width, config.display_height))
                 pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
                 pygame.display.update()
-                main_menu()
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].text == "1400 x 1050" and
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[5].text == "1400 x 900" and
                   buttons[5].rect.collidepoint(pygame.mouse.get_pos())):
                 config.display_height = 1400
-                config.display_height = 1050
+                config.display_height = 900
                 pygame.display.set_mode((config.display_width, config.display_height))
                 pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
                 pygame.display.update()
-                main_menu()
                 pygame.transform.scale(gameDisplay, (config.display_width, config.display_height))
-
         for button in buttons:
             Button.check_Hover(button, gameDisplay)
+
 
         pygame.display.update()
         clock.tick(15)

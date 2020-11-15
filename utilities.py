@@ -1,7 +1,10 @@
 import pygame
 import config
-
-paused = False
+import pickle
+# import main_menu
+import options_menu
+from button import Button
+import player
 
 def render_text(text, font, color):
     textSurface = font.render(text, True, color)
@@ -14,11 +17,18 @@ def load():
         loaddata = pickle.load(file)
 
 #saves the character's stats onto a pickle file at the same directory level
-def save(player1):
+def save(player):
     with open('savedgame.pkl', 'wb') as file:
         print('Saving...')
-        data = {'pos':(3,3), 'health':100, 'actions': ['punch','kick',], 'items':['Computer','Book'],'hp':100}
-        pickle.dump(data, file)
+        # data = {'pos':tuple((player.x,player.y)), 'angle':player.angle,'health':player.hp, 'character':player.character,'actions': player.character.actions, 'items':player.character.items}
+        #printing out infomation
+        # for d in data:
+        #     if isinstance(data[d],list):
+        #         for g in range(len(data[d])):
+        #             print(data[d][g])
+        #     else:
+        #         print(data[d])
+        # pickle.dump(data, file)
         print('Saved!')
 
 def set_image(image, display):
@@ -31,6 +41,7 @@ def unpause():
     # gameDisplay.fill(config.black)
 
 def pause():
+    gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
     gameDisplay.fill(config.black)
     font = config.SPOOKY_BIG_FONT
@@ -51,7 +62,7 @@ def pause():
     gameDisplay.blit(text, textrect)
 
 
-    while(paused):
+    while(config.paused):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
                 pygame.quit()
@@ -74,13 +85,13 @@ def pause():
             Button.check_Hover(button, gameDisplay)
 
         pygame.display.update()
-        clock.tick(5)
 
 class Checkbox:
     def __init__(self):
         self.draw()
 
     def draw(self):
+        gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
         pygame.draw.circle(gameDisplay, config.white, (150 ,150), 75)
 
 

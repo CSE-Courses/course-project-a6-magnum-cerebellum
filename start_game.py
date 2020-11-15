@@ -3,7 +3,6 @@ import random
 import pygame
 import math
 import music
-import pickle
 import config
 from health import Bar
 from button import Button
@@ -61,22 +60,24 @@ def game_start(player, gameDisplay):
         clock.tick(15)
 #unused
 def start_game_play(player, gameDisplay):
+    print(111111111111111111)
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
     music_player.play_ambtrack2()
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     gui = pygame.Surface((w, h))
-    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     global paused
                     paused = True
+                    print(420420420)
                     utilities.pause()
                 #if s button is pressed save the character's stats
                 if event.key == pygame.K_s:
+                    print('saved the game')
                     utilities.save(player)
                 #if l button is pressed load the character's stats
                 if event.key == pygame.K_l:
