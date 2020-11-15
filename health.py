@@ -85,7 +85,7 @@ class Bar:
 
     def addHealth(self, gain):
         self.currenthealth += gain
-        if (self.currenthealth > 100): self.currenthealth = 100
+        #if (self.currenthealth > 100): self.currenthealth = 100
         self.updateBar()
 
     def subtractMana(self, lost):
@@ -95,7 +95,7 @@ class Bar:
 
     def addMana(self, gain):
         self.currentmana += gain
-        if (self.currentmana > 100): self.currentmana = 0
+        #if (self.currentmana > 100): self.currentmana = 100
         self.updateBar()
 
 

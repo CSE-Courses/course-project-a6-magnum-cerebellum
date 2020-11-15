@@ -49,7 +49,7 @@ def GameMain(sc, playername):
         player.movement()
         walls = ray_casting(player, drawing.textures)
         drawing.background(player.angle)
-        drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
+        drawing.world(walls + [obj.object_locate(player, healthBar) for obj in sprites.list_of_objects])
         sc.blit(second_screen, (0, 0))
         # second_screen.blit(second_screen, (0, config.scroll_y))
         activities.iterate_over_input(second_screen, 20)

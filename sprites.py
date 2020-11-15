@@ -1,12 +1,14 @@
 import pygame
 from config import *
 from collections import deque
+import health
 
 
 class Sprites:
     def __init__(self):
         self.sprite_parameters = {
             'barrel': { 
+                'name': "barrel",
                 'sprite': pygame.image.load('assets/sprites/barrel/0.png').convert_alpha(),
                 'viewing_angles': None,
                 'shift': 1.8,
@@ -15,16 +17,48 @@ class Sprites:
                     [pygame.image.load(f'assets/sprites/barrel/anim/{i}.png').convert_alpha() for i in range(12)]),
                 'animation_dist': 800,
                 'animation_speed': 10,
+                'pickup': False,
+                'used': False,
+                 },
+            'health': { 
+                'name': "health",
+                'sprite': pygame.image.load('assets/sprites/health/0.png').convert_alpha(),
+                'viewing_angles': None,
+                'shift': 1.8,
+                'scale': 0.5,
+                'animation': deque(
+                    [pygame.image.load(f'assets/sprites/health/anim/{i}.png').convert_alpha() for i in range(4)]),
+                'animation_dist': 800,
+                'animation_speed': 10,
+                'pickup': True,
+                'used': False,
+                 },
+            'mana': { 
+                'name': "mana",
+                'sprite': pygame.image.load('assets/sprites/mana/0.png').convert_alpha(),
+                'viewing_angles': None,
+                'shift': 1.8,
+                'scale': 0.5,
+                'animation': deque(
+                    [pygame.image.load(f'assets/sprites/mana/anim/{i}.png').convert_alpha() for i in range(4)]),
+                'animation_dist': 800,
+                'animation_speed': 10,
+                'pickup': True,
+                'used': False,
                  }
         }
         self.list_of_objects = [
             SpriteObject(self.sprite_parameters['barrel'], (7.1, 2.1)),
-            SpriteObject(self.sprite_parameters['barrel'], (5.9, 2.1))
+            SpriteObject(self.sprite_parameters['barrel'], (5.9, 2.1)),
+            SpriteObject(self.sprite_parameters['health'], (8.7, 2.5)),
+            SpriteObject(self.sprite_parameters['mana'], (8.7, 2.8))
         ]
 
 
 class SpriteObject:
     def __init__(self, parameters, pos):
+        self.name = parameters['name']
+        self.pickup = parameters['pickup']
         self.object = parameters['sprite']
         self.viewing_angles = parameters['viewing_angles']
         self.shift = parameters['shift']
@@ -32,16 +66,28 @@ class SpriteObject:
         self.animation = parameters['animation'].copy()
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
+        self.used = parameters['used']
         self.animation_count = 0
         self.pos = self.x, self.y = pos[0] * TILE, pos[1] * TILE
         if self.viewing_angles:
             self.sprite_angles = [frozenset(range(i, i + 45)) for i in range(0, 360, 45)]
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.object)}
 
-    def object_locate(self, player):
-
+    def object_locate(self, player, bar):
+        
+        if self.used is True:
+            return (False, )
+        
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprite = math.sqrt(dx ** 2 + dy ** 2)
+
+      
+        if self.pickup is True and distance_to_sprite <= 50:
+            self.used = True
+            if self.name == "health":
+                bar.addHealth(25)
+            if self.name == "mana":
+                bar.addMana(25)
 
         theta = math.atan2(dy, dx)
         gamma = theta - player.angle
