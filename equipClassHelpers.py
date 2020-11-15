@@ -42,6 +42,7 @@ class Equipment:
         ,(self.box_size + self.border)*self.col
         ,(self.box_size + self.border)*self.rows)
 
+    #Redraws the Equipment GUI
     def createEquip(self):
 
         #This draws the borders
@@ -93,8 +94,17 @@ class Equipment:
         if (item[0].equip_type == "Weapon"):
             config.text1.append("Equipped a " + str(item[0].item_name))
             old_item = self.equipment[(1,1)]
-            self.equipment[(1,1)] = item                
-            return old_item
+            self.equipment[(1,1)] = item
+        elif (item[0].equip_type == "Helmet"):
+            old_item = self.equipment[(1,0)]
+            self.equipment[(1,0)] = item
+        elif (item[0].equip_type == "Armor"):
+            old_item = self.equipment[(0,1)]
+            self.equipment[(0,1)] = item
+        elif (item[0].equip_type == "Shoes"):
+            old_item = self.equipment[(2,1)]
+            self.equipment[(2,1)] = item       
+
         return old_item
     '''
     Need to make sure here you return the equipped item to the first inventory slot free
@@ -108,7 +118,8 @@ class Equipment:
                 if inventory.items[y][x] == None:
                     inventory.items[y][x] = equippedItem
                     equipment.equipment[equipment.itemBox] = None
-                    return
+                    return equippedItem[0].equip_type, equippedItem[0].amount
+        return None
 
 def blitEquipItemMenu(equipment):
     equipment.itemMenu = itemOptionMenu(equipment.itemMousePos, equipment.equipment[equipment.itemBox][0])

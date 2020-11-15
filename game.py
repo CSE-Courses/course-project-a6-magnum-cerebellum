@@ -1,6 +1,7 @@
 import pygame
 import invClassHelpers
 import equipClassHelpers
+import battle_UIClassHelpers
 from config import *
 import config
 from player import Player
@@ -10,8 +11,14 @@ from drawing import Drawing
 import health
 import activities
 from items import Item
+from button import Button
 
 def GameMain(sc, playername):
+    #If the player is in battle, it will bring up battle UI instead of Inventory
+    playerInBattle = True
+    
+    #If the player clicks their inventory while in battle this should be True
+    battleInvClicked = False
 
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
@@ -19,12 +26,14 @@ def GameMain(sc, playername):
     clock = pygame.time.Clock()
     sprites = Sprites()
 
+    #Initialize Player, Inventory, Equipment, Battle UI
     player = Player(playername)
-    inventory = invClassHelpers.Inventory()
+    inventory = invClassHelpers.Inventory(player.startingItems)
     equipment = equipClassHelpers.Equipment()
+    battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
+    heldItem = None
 
     drawing = Drawing(sc, sc_map, None)
-    heldItem = None
 
     config.text1.append(player.pos)
     second_screen = pygame.Surface((400, 300))
@@ -46,18 +55,40 @@ def GameMain(sc, playername):
         activities.iterate_over_input(second_screen, 20)
         drawing.ui_elements(player,sc)
         healthBar.updateBar()
-        inventory.createInventory()
         equipment.createEquip()
         drawing.mini_map(player)
-        drawing.blitHeldItem(heldItem, mouseX, mouseY)
-        drawing.blitMenuInfoBoxes(inventory, equipment)
+
+        if (playerInBattle == False or battleInvClicked):
+            inventory.createInventory()
+            if (battleInvClicked):
+                Button.check_Hover(inventory.back, sc)
+            drawing.blitHeldItem(heldItem, mouseX, mouseY)
+            drawing.blitMenuInfoBoxes(inventory, equipment)
+
+        else: #The player is in battle
+            battleUI.createBattleUI()
+
+            #the hover check is what's blitting the actions to the screen each time also
+            #battleUI.actions[0] to [3] is the player's moves. [4] is "Open Inventory"
+            for button in battleUI.actions:
+                Button.check_Hover(button, sc)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                heldItem, healthBar = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar)
+            elif event.type == pygame.MOUSEBUTTONDOWN and (playerInBattle == False or battleInvClicked):
+                #If they clicked "Back" in the Inventory
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and inventory.back.rect.collidepoint(pygame.mouse.get_pos()):
+                    battleInvClicked = False
+                    break
+
+                heldItem, healthBar, player = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar, player)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
+                
+                print("Player Attack : " + str(player.attack))
+                print("Player Defense : " + str(player.defense))
+                
                 # if event.key == pygame.K_p:
                 #     global paused
                 #     paused = True
@@ -72,6 +103,7 @@ def GameMain(sc, playername):
                 #     player.actions = loaddata['actions']
                 #     player.items = loaddata['items']
                 #     player.hp = loaddata['hp']
+                
                 if event.button == 4:
                     config.scroll_y = min(config.scroll_y + 20, 0) #what happens when you scroll is that the activities panel goes
                                                                    #black and then the text are repeated
@@ -81,6 +113,12 @@ def GameMain(sc, playername):
                     config.scroll_y = max(config.scroll_y - 20, -300)
                     print('down')
                     print(config.scroll_y)
+
+            #If they left-click
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                #If they clicked "Open Inventory" in the Battle UI
+                if battleUI.actions[4].rect.collidepoint(pygame.mouse.get_pos()):
+                    battleInvClicked = True           
 
         pygame.display.flip()
         clock.tick(30)

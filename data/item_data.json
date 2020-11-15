@@ -17,6 +17,24 @@
         "description": "Bet you wish you had one of these",
         "amount": 10
     },
+    "Beanie": {
+        "type": "Equip",
+        "equipType": "Helmet",
+        "description": "Placeholder",
+        "amount": 10
+    },
+    "Converse": {
+        "type": "Equip",
+        "equipType": "Shoes",
+        "description": "Placeholder",
+        "amount": 10
+    },
+    "Suit and Tie": {
+        "type": "Equip",
+        "equipType": "Armor",
+        "description": "Placeholder",
+        "amount": 10
+    },
      "Red Bull": {
         "type": "Consumable",
         "effect": "Health",

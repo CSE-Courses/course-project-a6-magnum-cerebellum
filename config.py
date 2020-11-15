@@ -14,6 +14,8 @@ SPOOKY_INVENTORY_OUTLINE = pygame.font.Font("assets/fonts/CHILLER.ttf", 35)
 SPOOKY_INFO_OUTLINE = pygame.font.Font("assets/fonts/CHILLER.ttf", 32)
 SPOOKY_ITEM_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 20)
 RPG_ITEM_TYPE_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
+RPG_ACTION_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 25)
+
 CHAR_DETAIL_FONT_LARGE = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
 CHAR_DETAIL_FONT_SMALL = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 20)
 display_width = 1600

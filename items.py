@@ -31,7 +31,7 @@ class Item():
 
         #Below will get initialized in setupItemData, based on the type of item
 
-        #If it's an EQUIP it will be either Weapon or Armor
+        #If it's an EQUIP it will be either Weapon or Armor 
         self.equip_type = None
 
         #If it's an CONSUMABLE the effect is either Health or Mana

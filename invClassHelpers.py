@@ -1,6 +1,7 @@
 import pygame
 import config
 from items import Item
+from button import Button
 from activities import messages_to_add
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
@@ -9,9 +10,19 @@ gameDisplay = pygame.display.set_mode((config.display_width, config.display_heig
 ###Below for Inventory
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, startingItems):
         self.rows = 4
         self.col = 8
+        
+        #items[x][y][0] is the item
+        #items[x][y][1] is item count
+        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
+
+        #Items the Character starts with
+        self.startingItems = startingItems
+
+        for item in self.startingItems:
+            self.addToInventory( [Item(item), 1] , None)
 
         #For Menu that shows when right-click item
         self.itemMenuClicked = False
@@ -23,16 +34,12 @@ class Inventory:
         #For Description box that shows when clicking Info Option
         self.infoBoxClicked = False
         self.infoBox = None
-
-        #items[x][y][0] is the item
-        #items[x][y][1] is item count
-        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
         
         #size of the box itself
         self.box_size = 50
 
         #x, y position of the inventory
-        self.x = 500
+        self.x = 550
         self.y = 550
 
         #border thiccness
@@ -41,6 +48,10 @@ class Inventory:
         ,(self.box_size + self.border)*self.col
         ,(self.box_size + self.border)*self.rows)
 
+        #If the inventory was opened during battle
+        self.back = Button("Back", config.white, config.RPG_ACTION_FONT, (self.x + self.x/2.5, self.y + (self.box_size + self.border)*self.rows + self.border*3), gameDisplay)
+
+    #Redraws the Inventory GUI
     def createInventory(self):
 
         #This draws the borders
@@ -89,7 +100,21 @@ class Inventory:
         return (x,y)
     
     #Add the item to the inventory, if there's a item already being selected, swap their positions
-    def addToInventory(self, Item, position):
+    #NOTE THE TYPE OF ITEM IS ACTUALLY A LIST!!! 
+    #[0] is the item itself, [1] is the number! This allows for stacking
+    #So when adding item, add a list
+    #EX. [ Item("Computer"), 1 ]
+
+    def addToInventory(self, item, position):
+        #If it's not swapping around items, loop through the items and place it into the first slot
+        if position == None:
+            for x in range(self.rows):
+                for y in range(self.col):
+                    if self.items[y][x] == None:
+                        self.items[y][x] = item
+                        return
+
+        #Else the position is what box the mouse is tryna swap with
         row, col = position
         #If something contained in that box
         if self.items[row][col]:
@@ -99,23 +124,23 @@ class Inventory:
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
-                self.items[row][col][1] += Item[1]
-                messages_to_add(1, 1, row, col, self.items[row][col])
-
+                self.items[row][col][1] += item[1]
+                config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
             #Otherwise swap the two items
 
             else:
 
                 heldItem = self.items[row][col]
-                # print(heldItem[0].item_name) #item that was already there in the column and row we are switching to
-                self.items[row][col] = Item
+
+                self.items[row][col] = item
                 messages_to_add(1, 2, row, col, self.items[row][col])
                 return heldItem
 
         #Nothing in box, so just place the Item
         else:
-            self.items[row][col] = Item
+
+            self.items[row][col] = item
             if(self.items[row][col][1] > 1):
                 messages_to_add(3, 0, row, col, self.items[row][col])
 
@@ -195,7 +220,6 @@ class itemOptionMenu:
                 #def outlineText(text, font, color, outlineColor, outlineSize):
                 gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
                 
-
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
