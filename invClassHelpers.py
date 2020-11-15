@@ -133,9 +133,13 @@ class Inventory:
 
             #get rid of all items
             else:
-                if self.items[row][col][1] > 1:
-                    number_of_items = "s"
-                messages_to_add(3, -2, row, col, self.items[row][col])
+                if self.items[row][col][1] == 1:
+                    messages_to_add(1, -1, row, col, self.items[row][col])
+                    print(10)
+                elif self.items[row][col][1] > 1:
+                    messages_to_add(3, -2, row, col, self.items[row][col])
+                    print(50)
+
                 self.items[row][col] = None
 
 

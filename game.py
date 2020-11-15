@@ -40,8 +40,8 @@ def GameMain(sc, playername):
         walls = ray_casting(player, drawing.textures)
         drawing.background(player.angle)
         drawing.world(walls + [obj.object_locate(player) for obj in sprites.list_of_objects])
-
-        sc.blit(second_screen, (0, config.scroll_y))
+        sc.blit(second_screen, (0, 0))
+        # second_screen.blit(second_screen, (0, config.scroll_y))
         activities.iterate_over_input(second_screen, 20)
 
         drawing.ui_elements(player,sc)
@@ -57,22 +57,24 @@ def GameMain(sc, playername):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 heldItem = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
-                if event.key == pygame.K_p:
-                    global paused
-                    paused = True
-                    pause()
-                if event.key == pygame.K_s:
-                    save(player)
-                    messages_to_add(0,0, None, None, None, None)
-                if event.key == pygame.K_l:
-                    load()
-                    player.pos = loaddata['pos']
-                    player.health = loaddata['health']
-                    player.actions = loaddata['actions']
-                    player.items = loaddata['items']
-                    player.hp = loaddata['hp']
+                # if event.key == pygame.K_p:
+                #     global paused
+                #     paused = True
+                #     pause()
+                # if event.key == pygame.K_s:
+                #     save(player)
+                #     messages_to_add(0,0, None, None, None, None)
+                # if event.key == pygame.K_l:
+                #     load()
+                #     player.pos = loaddata['pos']
+                #     player.health = loaddata['health']
+                #     player.actions = loaddata['actions']
+                #     player.items = loaddata['items']
+                #     player.hp = loaddata['hp']
                 if event.button == 4:
-                    config.scroll_y = min(config.scroll_y + 20, 0)
+                    config.scroll_y = min(config.scroll_y + 20, 0) #what happens when you scroll is that the activities panel goes
+                                                                   #black and then the text are repeated
+                                                                   #so you should use the second_screen recursively
                     print('up')
                 if event.button == 5:
                     config.scroll_y = max(config.scroll_y - 20, -300)

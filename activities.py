@@ -35,32 +35,33 @@ def messages_to_add(a,b, row, col, item): #to add item actions to globakl action
     #same item stack it a==b,
     if a == 0 and b == 0:
         config.text1 = config.text1 + ["Game Saved"]
-    if a == 1 and b == 1:
+    elif a == 1 and b == 1:
         config.text1 = config.text1 + [
             str(item[1]) + " " + str(item[0].item_name) + "s at " + str(
                 tuple((row, col)))]
 
     #not same item, swap it a!=b, a = 1 b = 2
-    if a == 1 and b == 2:
+    elif a == 1 and b == 2:
         config.text1 = config.text1 + ["Swapped items"]
 
 
     #Moved a stack to an empty cell a = 3 b = 0
-    if a == 3 and b == 0:
+    elif a == 3 and b == 0:
         config.text1 = config.text1 + [
             "Moved " + str(item[1]) + " " + str(item[0].item_name) + "s to " + str(
                 tuple((row, col)))]
 
     #Added an item to an empty cell a = 1 b = 0
-    if a == 1 and b == 0:
+    elif a == 1 and b == 0:
         config.text1 = config.text1 + ["Added a " + str(item[0].item_name)]
 
-    #Discarded one a = 1 b = -1
-    if a == 1 and b == -1:
-        config.text1 = config.text1 + ["Discarded 1 " + str(item[0].item_name)]
+    #Discarded one item a = 1 b = -1
+    elif a == 1 and b == -1:
+        config.text1 = config.text1 + ["Discarded 1 " + str(item[0].item_name) + " from inventory"]
 
-    #Discarded multiple a = 3 b = -2
-    if a == 3 and b == -2:
+    #Discarded multiple items a = 3 b = -2
+    elif a == 3 and b == -2:
+        print(69696969)
         config.text1 = config.text1 + ["Discarded " + str(item[1]) + " " + str(
             item[0].item_name) + "s" + " from inventory"]
 
