@@ -1,7 +1,7 @@
 {
     "Fratboy" : {
         "actions": ["Take a shot","Show up late", "Haze", "Hydrate"],
-        "items": [ "Computer"]
+        "items": [ "Computer", "Beanie"]
     },
     "CSESophomore": {
         "actions": ["Throw class materials", "Study", "Caffienate", "Cry"],
@@ -9,7 +9,7 @@
     },
     "Techie" : {
         "actions": ["Humble brag", "Consult Stack Overflow", "Snarky remark", "Adjust tie"],
-        "items": ["Book", "Computer"]
+        "items": ["Book", "Computer", "Suit and Tie", "Converse", "Beanie"]
     },
     "Terror": {
         "actions": ["Bite", "Honk", "Screech", "Poop"],
