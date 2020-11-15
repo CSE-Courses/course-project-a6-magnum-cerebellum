@@ -27,14 +27,14 @@ def inventoryMain():
         # Get the position of the mouse
         mouseX, mouseY = pygame.mouse.get_pos()
 
-        #So everytime mouse moves this is called
+        # So everytime mouse moves this is called
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
                 quit()
-            
+
             # Re-fills display everytime
             gameDisplay.fill(config.white)
             healthBar.updateBar()
@@ -54,7 +54,7 @@ def inventoryMain():
                     outline = config.SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, config.black)
                     gameDisplay.blit(outline, (mouseX + 20, mouseY + 20))
                     gameDisplay.blit(obj, (mouseX + 20, mouseY + 20))
-                
+
             if inventory.itemMenuClicked:
                 invClassHelpers.blitItemMenu(inventory)
 
@@ -89,8 +89,8 @@ def inventoryMain():
                                 break
                             elif (menu.optionsTextArray[i] == "Info"):
                                 inventory.infoBoxClicked = True
-                                break                         
-                            
+                                break
+
                             #WIP effects to be implemented/integrated with other parts of the game
 
                             elif (menu.optionsTextArray[i] == "Equip"):
@@ -127,7 +127,7 @@ def inventoryMain():
                 #This means they clicked elsewhere, should still close the item options menu
                 elif (inventory.itemMenuClicked or inventory.infoBoxClicked or equipment.itemMenuClicked or equipment.infoBoxClicked) :
                     inventory.itemMenuClicked = inventory.infoBoxClicked = equipment.itemMenuClicked = equipment.infoBoxClicked = False
-                
+
                 # Only if mouse position is within the inventory, do stuff with Item
                 elif inventory.borderRect.collidepoint(pygame.mouse.get_pos()):
 
@@ -147,7 +147,7 @@ def inventoryMain():
                 if inventory.borderRect.collidepoint(mouse) and inventory.items[pos[0]][pos[1]]:
                     inventory.createItemMenu(pos, inventory.items[pos[0]][pos[1]], mouse)
 
-                elif (equipment.borderRect.collidepoint(mouse) 
+                elif (equipment.borderRect.collidepoint(mouse)
                 and equipPos != (2,0) and equipPos != (0,0) and equipment.equipment[equipPos]):
                     equipment.createEquipItemMenu(equipPos, mouse)
 
@@ -156,7 +156,7 @@ def inventoryMain():
                 elif heldItem == None:
                     randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                     heldItem = [randomItemPicker[random.randint(2, 2)], 1]
- 
+
         # Update display
         pygame.display.update()
 

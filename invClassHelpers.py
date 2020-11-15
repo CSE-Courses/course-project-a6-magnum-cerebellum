@@ -167,7 +167,15 @@ class itemOptionMenu:
         self.optionsRects = []
 
     def createOptions(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 77) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + 77 + self.border)
+            
+        if (self.menuY + (self.box_size + self.border) * self.numberOfBoxes + self.border > config.display_height):
+            self.menuY = config.display_height - ((self.box_size + self.border) * self.numberOfBoxes + self.border)
         #draw border box
+        #x , width, y, height
+        
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 77, (self.box_size + self.border) * self.numberOfBoxes + self.border)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
@@ -222,6 +230,15 @@ class infoBox:
         self.borderRect = None
 
     def createInfo(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 205) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + self.border + 205)
+
+        if ((self.menuY + self.box_size + 115  + self.border*2) > config.display_height):
+            self.menuY = config.display_height - (self.box_size + 115  + self.border*2)
+        #draw border box
+        #x , width, y, height
+
         #draw border box
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 205, self.box_size + 115  + self.border*2)
 
@@ -243,9 +260,9 @@ class infoBox:
         
         if (self.item_type == "Equip"):
             if (self.item.equip_type == "Weapon"):
-                self.item_type += ": " + "Deals " + str(self.item.damage) + " damage"
+                self.item_type += ": " + "Deals " + str(self.item.amount) + " damage"
         elif (self.item_type == "Consumable"):
-            self.item_type += ": " + "Heals " + str(self.item.damage) + " hp"
+            self.item_type += ": " + "Heals " + str(self.item.amount) + " hp"
         drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
         drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
 

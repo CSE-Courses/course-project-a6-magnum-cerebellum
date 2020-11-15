@@ -6,6 +6,7 @@ from map import mini_map
 
 import activities
 import config
+import health
 
 from character_UI import char_ui
 from invClassHelpers import *
@@ -59,9 +60,7 @@ class Drawing:
 
     def blitHeldItem(self, heldItem, mouseX, mouseY):
         if heldItem:
-
                 self.sc.blit(heldItem[0].resize(30), (mouseX, mouseY))
-
                 if (heldItem[0].item_type != "Equip"):
                     obj = SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, white)
                     outline = SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, black)
@@ -81,10 +80,10 @@ class Drawing:
 
         if equipment.infoBoxClicked:
             blitEquipInfoBox(equipment)
-        return
 
     #Big chunk below
-    def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem):
+    def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem, healthBar):
+
         inventory.createInventory()
         equipment.createEquip()
         mouse = pygame.mouse.get_pos()
@@ -110,29 +109,24 @@ class Drawing:
                         #Implemented Discards
                         if ("Discard" in menu.optionsTextArray[i]):
                             inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
-                            print ("Discard")
-                            break
                         elif (menu.optionsTextArray[i] == "Info"):
-                            inventory.infoBoxClicked = True
-                            print ("Info")
-                            return                         
-                            
+                            inventory.infoBoxClicked = True                            
                         #WIP effects to be implemented/integrated with other parts of the game
-
                         elif (menu.optionsTextArray[i] == "Equip"):
                             swappedItem = equipment.equipItem(inventory.currentItem)
-
                             if (swappedItem == None):
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                             elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                                 inventory.addToInventory(swappedItem, inventory.itemBox)
-                                break
-                            #elif (menu.optionsTextArray[i] == "Use"):
-                            #    healthBar.addHealth(inventory.currentItem[0].damage)
-
-                            #    inventory.discardFromInventory(inventory.itemBox, "Discard One")
-                            #    break
+                        elif (menu.optionsTextArray[i] == "Use"):
+                            print("hey homo")
+                            if (inventory.currentItem[0].effect == "Health"):
+                                healthBar.addHealth(inventory.currentItem[0].amount)
+                            elif (inventory.currentItem[0].effect == "Mana"):
+                                healthBar.addMana(inventory.currentItem[0].amount)
+                            inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                        break
                     inventory.itemMenuClicked = False
 
             elif equipment.itemMenuClicked and equipment.itemMenu.borderRect.collidepoint(mouse):
@@ -164,7 +158,7 @@ class Drawing:
                     heldItem = inventory.items[pos[0]][pos[1]]
                     inventory.items[pos[0]][pos[1]] = None
 
-            return heldItem
+            return heldItem, healthBar
 
         ### If it's a right-click
         elif eventType == pygame.MOUSEBUTTONDOWN and eventButton == 3:
@@ -186,6 +180,6 @@ class Drawing:
             elif heldItem == None:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                 heldItem = [randomItemPicker[random.randint(1, 2)], 1]
-            return heldItem
+            return heldItem, healthBar
 
-        return heldItem
+        return heldItem, healthBar

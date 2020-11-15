@@ -1,8 +1,5 @@
 import pygame
 import config
-import pickle
-from button import Button
-
 
 paused = False
 
