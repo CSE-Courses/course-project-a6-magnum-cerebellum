@@ -9,9 +9,19 @@ gameDisplay = pygame.display.set_mode((config.display_width, config.display_heig
 ###Below for Inventory
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, startingItems):
         self.rows = 4
         self.col = 8
+        
+        #items[x][y][0] is the item
+        #items[x][y][1] is item count
+        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
+
+        #Items the Character starts with
+        self.startingItems = startingItems
+
+        for item in self.startingItems:
+            self.addToInventory( [Item(item), 1] , None)
 
         #For Menu that shows when right-click item
         self.itemMenuClicked = False
@@ -23,10 +33,6 @@ class Inventory:
         #For Description box that shows when clicking Info Option
         self.infoBoxClicked = False
         self.infoBox = None
-
-        #items[x][y][0] is the item
-        #items[x][y][1] is item count
-        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
         
         #size of the box itself
         self.box_size = 50
@@ -93,25 +99,39 @@ class Inventory:
         return (x,y)
     
     #Add the item to the inventory, if there's a item already being selected, swap their positions
-    def addToInventory(self, Item, position):
+    #NOTE THE TYPE OF ITEM IS ACTUALLY A LIST!!! 
+    #[0] is the item itself, [1] is the number! This allows for stacking
+    #So when adding item, add a list
+    #EX. [ Item("Computer"), 1 ]
+
+    def addToInventory(self, item, position):
+        #If it's not swapping around items, loop through the items and place it into the first slot
+        if position == None:
+            for x in range(self.rows):
+                for y in range(self.col):
+                    if self.items[y][x] == None:
+                        self.items[y][x] = item
+                        return
+
+        #Else the position is what box the mouse is tryna swap with
         row, col = position
         
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if (self.items[row][col][0].item_name == Item[0].item_name
+            if (self.items[row][col][0].item_name == item[0].item_name
                 and self.items[row][col][0].item_type != "Equip"):
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
-                self.items[row][col][1] += Item[1]
+                self.items[row][col][1] += item[1]
                 config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
             #Otherwise swap the two items
 
             else:
                 heldItem = self.items[row][col]
-                self.items[row][col] = Item
+                self.items[row][col] = item
                 config.text1 = config.text1 + ["swapped items"]
 
                 return heldItem
@@ -119,7 +139,7 @@ class Inventory:
         
         #Nothing in box, so just place the Item
         else:
-            self.items[row][col] = Item
+            self.items[row][col] = item
             config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
     def discardFromInventory(self,position, discardAmount):

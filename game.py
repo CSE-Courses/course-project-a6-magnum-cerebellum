@@ -16,7 +16,6 @@ from button import Button
 def GameMain(sc, playername):
     #If the player is in battle, it will bring up battle UI instead of Inventory
     playerInBattle = True
-    #playerInBattle = False
     
     #If the player clicks their inventory while in battle this should be True
     battleInvClicked = False
@@ -27,13 +26,14 @@ def GameMain(sc, playername):
     clock = pygame.time.Clock()
     sprites = Sprites()
 
+    #Initialize Player, Inventory, Equipment, Battle UI
     player = Player(playername)
-    inventory = invClassHelpers.Inventory()
+    inventory = invClassHelpers.Inventory(player.startingItems)
     equipment = equipClassHelpers.Equipment()
     battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
+    heldItem = None
 
     drawing = Drawing(sc, sc_map, None)
-    heldItem = None
 
     config.text1.append(player.pos)
     second_screen = pygame.Surface((400, 300))

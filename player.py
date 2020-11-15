@@ -28,6 +28,7 @@ class Player():
         self.defense = 0
 
         self.actions = self.character_data["actions"]
+        self.startingItems = self.character_data["items"] #Just strings, need to cast to Item
 
          # collision parameters
         self.side = 50

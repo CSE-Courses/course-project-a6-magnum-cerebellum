@@ -120,7 +120,6 @@ class Drawing:
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                                 inventory.addToInventory(swappedItem, inventory.itemBox)
                         elif (menu.optionsTextArray[i] == "Use"):
-                            print("hey homo")
                             if (inventory.currentItem[0].effect == "Health"):
                                 healthBar.addHealth(inventory.currentItem[0].amount)
                             elif (inventory.currentItem[0].effect == "Mana"):
