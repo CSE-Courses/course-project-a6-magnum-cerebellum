@@ -83,8 +83,11 @@ def GameMain(sc, playername):
                     battleInvClicked = False
                     break
 
-                heldItem, healthBar = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar)
+                heldItem, healthBar, player = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar, player)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
+                print("Player Attack : " + str(player.attack))
+                print("Player Defense : " + str(player.defense))
+                
                 if event.button == 4:
                     config.scroll_y = min(config.scroll_y + 20, 0)
                     print('up')

@@ -31,7 +31,7 @@
     },
     "Suit and Tie": {
         "type": "Equip",
-        "equipType": "Top",
+        "equipType": "Armor",
         "description": "Placeholder",
         "amount": 10
     },
