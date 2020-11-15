@@ -135,11 +135,8 @@ class Inventory:
             else:
                 if self.items[row][col][1] == 1:
                     messages_to_add(1, -1, row, col, self.items[row][col])
-                    print(10)
                 elif self.items[row][col][1] > 1:
                     messages_to_add(3, -2, row, col, self.items[row][col])
-                    print(50)
-
                 self.items[row][col] = None
 
 

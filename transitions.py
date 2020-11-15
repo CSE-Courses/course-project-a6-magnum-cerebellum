@@ -23,6 +23,7 @@ def transistion_character_selection_gameplay(gameDisplay, player):
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
+            #clicked start game
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(pygame.mouse.get_pos())):
                 print("Clicked Start Game")
                 game.GameMain(gameDisplay, player.character)

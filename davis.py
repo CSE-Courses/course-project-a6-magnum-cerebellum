@@ -3,17 +3,14 @@ import random
 import pygame
 import math
 import music
-import pickle
 import config
 from health import Bar
 from button import Button
-from player import Player
 from character import Character
 from character_UI import char_ui
 import game
 from character import Character, create_all_characters, random_character
 from enemies import Enemy, random_enemy
-from player import Player
 
 #from assets import character_images
 from os import listdir
@@ -21,7 +18,6 @@ from os.path import isfile, join
 import map_blit
 import transitions
 import battle_blit
-from character_selection import character_selection
 from assets import character_images
 import intro_screen
 import utilities

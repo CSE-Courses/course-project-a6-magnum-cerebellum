@@ -34,6 +34,7 @@ def changing_term(string):
 
         if word_counter >= len(words[0]) - 1 and string[letters] == words[0][len(words[0]) - 1][-1]:
             buttons.append(Button("Next", config.white, config.SPOOKY_SMALL_FONT, (1290, 530), gameDisplay))
+
             print(buttons[0].text)
 
         if string[
@@ -74,18 +75,17 @@ def main():
     )
     # davis.character_selection()
     while bool:
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
         for event in pygame.event.get():
-            Button.check_Hover(buttons[0], gameDisplay)
+            # Button.check_Hover(buttons[0], gameDisplay)
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 print(pygame.mouse.get_pos())
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
                     pygame.mouse.get_pos())):
-                print(4)
+
                 bool = False
                 break
-                # pygame.display.quit()
-
-                # davis.character_selection()
 
             if event.type == pygame.QUIT:
                 pygame.display.quit()

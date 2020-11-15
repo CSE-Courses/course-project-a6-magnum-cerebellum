@@ -61,7 +61,6 @@ def messages_to_add(a,b, row, col, item): #to add item actions to globakl action
 
     #Discarded multiple items a = 3 b = -2
     elif a == 3 and b == -2:
-        print(69696969)
         config.text1 = config.text1 + ["Discarded " + str(item[1]) + " " + str(
             item[0].item_name) + "s" + " from inventory"]
 
