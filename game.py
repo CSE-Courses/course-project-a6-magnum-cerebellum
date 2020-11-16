@@ -84,8 +84,8 @@ def GameMain(sc, playername):
                 heldItem, healthBar, player = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar, player)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
                 
-                print("Player Attack : " + str(player.attack))
-                print("Player Defense : " + str(player.defense))
+                #print("Player Attack : " + str(player.attack))
+                #print("Player Defense : " + str(player.defense))
                 
                 # if event.key == pygame.K_p:
                 #     global paused

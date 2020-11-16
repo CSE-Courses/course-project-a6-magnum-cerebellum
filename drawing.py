@@ -199,5 +199,4 @@ class Drawing:
             elif heldItem == None:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                 heldItem = [randomItemPicker[random.randint(1, 2)], 1]
-
         return heldItem, healthBar, player

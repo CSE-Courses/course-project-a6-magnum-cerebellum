@@ -119,8 +119,8 @@ class Inventory:
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if (self.items[row][col][0].item_name == Item[0].item_name #if the item in the column and row we are switching into has the same name as the item being held
-                and self.items[row][col][0].item_type != "Equip"):
+            if (self.items[row][col][0].item_name == item[0].item_name #if the item in the column and row we are switching into has the same name as the item being held
+                and self.items[row][col][0].equip_type == None):
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
@@ -130,7 +130,6 @@ class Inventory:
             #Otherwise swap the two items
 
             else:
-
                 heldItem = self.items[row][col]
 
                 self.items[row][col] = item
