@@ -32,14 +32,10 @@ def GameMain(sc, playername):
     equipment = equipClassHelpers.Equipment()
     battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
     heldItem = None
-
-    drawing = Drawing(sc, sc_map, None)
-
     config.text1.append(player.pos)
+    drawing = Drawing(sc, sc_map, None)
     second_screen = pygame.Surface((400, 300))
-
     second_screen.fill(black)
-    drawing.activities_panel(second_screen)
     healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
     
     while True:
@@ -52,11 +48,13 @@ def GameMain(sc, playername):
         drawing.world(walls + [obj.object_locate(player, healthBar) for obj in sprites.list_of_objects])
         sc.blit(second_screen, (0, 0))
         # second_screen.blit(second_screen, (0, config.scroll_y))
-        activities.iterate_over_input(second_screen, 20)
+        drawing.mini_map(player)
         drawing.ui_elements(player,sc)
+        drawing.activities_panel(second_screen)
         healthBar.updateBar()
         equipment.createEquip()
-        drawing.mini_map(player)
+        activities.iterate_over_input(second_screen, 20)
+
 
         if (playerInBattle == False or battleInvClicked):
             inventory.createInventory()
@@ -121,4 +119,4 @@ def GameMain(sc, playername):
                     battleInvClicked = True           
 
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(60)

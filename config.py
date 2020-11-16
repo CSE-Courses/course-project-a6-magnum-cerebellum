@@ -34,7 +34,7 @@ player_speed = 2
 
 # mini-map settings
 MINIMAP_SCALE = 3
-MINIMAP_RES = (render_display_width// MINIMAP_SCALE, render_display_height // MINIMAP_SCALE)
+MINIMAP_RES = (render_display_width// MINIMAP_SCALE, (render_display_height+1600) // MINIMAP_SCALE)
 MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
 MAP_POS = (display_width-400, (display_height // MINIMAP_SCALE)-270)
