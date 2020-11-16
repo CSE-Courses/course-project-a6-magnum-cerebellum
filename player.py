@@ -7,6 +7,7 @@ from options_menu import options_menu
 import config
 import os 
 import json
+import encounter
 
 # import testing_delete
 
@@ -101,18 +102,22 @@ class Player():
             dx = player_speed * cos_a
             dy = player_speed * sin_a
             self.detect_collision(dx, dy)
+            encounter.increment_step_counter()
         if keys[pygame.K_DOWN]:
             dx = -player_speed * cos_a
             dy = -player_speed * sin_a
             self.detect_collision(dx, dy)
+            encounter.increment_step_counter()
         if keys[pygame.K_a]:
             dx = player_speed * sin_a
             dy = -player_speed * cos_a
             self.detect_collision(dx, dy)
+            encounter.increment_step_counter()
         if keys[pygame.K_d]:
             dx = -player_speed * sin_a
             dy = player_speed * cos_a
             self.detect_collision(dx, dy)
+            encounter.increment_step_counter()
 
         if keys[pygame.K_LEFT]:
             self.angle -= 0.02
