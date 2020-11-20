@@ -12,7 +12,7 @@ from button import Button
 
 class Bar:
 
-    def __init__(self, color, font, pos, gameDisplay):
+    def __init__(self, color, font, pos, gameDisplay, show = True):
         self.color = color
         self.font = font
         self.pos = pos
@@ -25,9 +25,10 @@ class Bar:
         #
         self.currenthealth = self.totalhealth
         self.currentmana = self.totalmana
-
-        self.set_rect()
-        self.createBar()
+        self.show = show
+        if self.show:
+            self.set_rect()
+            self.createBar()
 
 
     def barText(self):
@@ -61,9 +62,13 @@ class Bar:
         newpos = ((self.pos[0], self.pos[1] + 50))
         self.rect2.center = newpos
 
-    def clearBar(self, color):
-        self.rend.fill((color))
-        self.rend2.fill((color))
+    def clearBar(self):
+        self.rend.fill((self.color))
+        self.rend2.fill((self.color))
+
+    def show_bar(self):
+        self.set_rect()
+        self.createBar()
 
     def updateBar(self):
         self.barText()

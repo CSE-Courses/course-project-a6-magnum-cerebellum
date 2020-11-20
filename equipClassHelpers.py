@@ -121,6 +121,8 @@ class Equipment:
                     return equippedItem[0].equip_type, equippedItem[0].amount
         return None
 
+
+
 def blitEquipItemMenu(equipment):
     equipment.itemMenu = itemOptionMenu(equipment.itemMousePos, equipment.equipment[equipment.itemBox][0])
     equipment.itemMenu.populateEquipOptions()

@@ -40,7 +40,6 @@ def random_enemy() :
     data = json.load(f)
     f.close()
     enemies = data.keys()
-    for enemy in enemies: 
-        
-        return enemy
+    for enemy in enemies:  
+        return Enemy(enemy)
 

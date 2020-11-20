@@ -12,6 +12,7 @@ from character_UI import char_ui
 from invClassHelpers import *
 from equipClassHelpers import  *
 from items import Item
+from enemies import Enemy
 
 class Drawing:
     def __init__(self, sc, sc_map, heldItem):
@@ -151,6 +152,7 @@ class Drawing:
                         if (menu.optionsTextArray[i] == "Info"):
                             equipment.infoBoxClicked = True
                             break
+
                         elif (menu.optionsTextArray[i] == "Unequip"):
                             equip_type, value = equipment.unequipItem(equipment, inventory)
                             #Successful unequip
@@ -200,3 +202,17 @@ class Drawing:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
                 heldItem = [randomItemPicker[random.randint(1, 2)], 1]
         return heldItem, healthBar, player
+
+    def enemyEncounter(self, display, enemy: Enemy):
+        text = config.SPOOKY_ITEM_FONT.render("Battle Enemy", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2))
+        return rect
+    def attackButton(self, display):
+        text = config.SPOOKY_ITEM_FONT.render("Attack", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2 + 50))
+        return rect
+    def defendButton(self, display):
+        text = config.SPOOKY_ITEM_FONT.render("Defend", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2 + 80))
+        return rect
+

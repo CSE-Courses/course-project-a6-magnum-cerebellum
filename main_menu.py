@@ -17,11 +17,7 @@ clock = pygame.time.Clock()
 
 def main_menu(gameDisplay, music_player):
     intro = True
-    # gameDisplay.fill(config.black)
-    # TextSurf, TextRect = utilities.render_text("Davis Hall", config.SPOOKY_BIG_FONT, config.red)
-    # TextRect.center = ((round(config.display_width/2)),(round(config.display_height/5)))
-    # utilities.set_image("assets/images/very_scary_davis.jpg", gameDisplay)
-    # gameDisplay.blit(TextSurf, TextRect)
+
     music_player.play_main()
     buttons = [
         Button("START", config.white, config.SPOOKY_SMALL_FONT,

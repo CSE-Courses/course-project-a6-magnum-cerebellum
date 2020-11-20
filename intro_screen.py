@@ -18,7 +18,7 @@ def changing_term(string):
     word_counter = 0
     words = [word.split(' ') for word in string.splitlines()]
     x, y = (config.display_width / 7, config.display_height / 5)
-    time = 1
+    time = 0
     term = ''
     gameDisplay.fill(config.black)
 
