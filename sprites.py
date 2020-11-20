@@ -50,8 +50,28 @@ class Sprites:
         self.list_of_objects = [
             SpriteObject(self.sprite_parameters['barrel'], (7.1, 2.1)),
             SpriteObject(self.sprite_parameters['barrel'], (5.9, 2.1)),
-            SpriteObject(self.sprite_parameters['health'], (8.7, 2.5)),
-            SpriteObject(self.sprite_parameters['mana'], (8.7, 2.8))
+            SpriteObject(self.sprite_parameters['barrel'], (5.7, 9.7)),
+            SpriteObject(self.sprite_parameters['barrel'], (4.2, 13.3)),
+            SpriteObject(self.sprite_parameters['barrel'], (22.5, 14.7)),
+            SpriteObject(self.sprite_parameters['barrel'], (21.2, 8.9)),
+            SpriteObject(self.sprite_parameters['barrel'], (18.6, 5.5)),
+
+            SpriteObject(self.sprite_parameters['health'], (8.4, 10)),
+            SpriteObject(self.sprite_parameters['mana'], (8.3, 14.5)),
+            SpriteObject(self.sprite_parameters['mana'], (8.0, 2.8)),
+            SpriteObject(self.sprite_parameters['health'], (1.1, 1.25)),
+            SpriteObject(self.sprite_parameters['health'], (16.4, 2.6)),
+            SpriteObject(self.sprite_parameters['mana'], (18.3, 1.3)),
+            SpriteObject(self.sprite_parameters['health'], (20.7, 11.7)),
+            SpriteObject(self.sprite_parameters['mana'], (20.7, 11.7)),
+            SpriteObject(self.sprite_parameters['health'], (20.7, 11.7)),
+            SpriteObject(self.sprite_parameters['mana'], (22.6, 11.8)),
+            SpriteObject(self.sprite_parameters['mana'], (9.5, 10.5)),
+            SpriteObject(self.sprite_parameters['health'], (2.5, 13.4)),
+            SpriteObject(self.sprite_parameters['mana'], (10.5, 9.4)),
+            SpriteObject(self.sprite_parameters['health'], (16.5, 4.3)),
+            SpriteObject(self.sprite_parameters['health'], (21.3, 2.4)),
+            SpriteObject(self.sprite_parameters['health'], (13.6, 14.4))
         ]
 
 
