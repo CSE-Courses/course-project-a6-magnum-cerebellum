@@ -5,13 +5,15 @@ import pygame
 import random
 import enemies
 import random
+import config
 import player
 import game
 import character
 
-# Global variable to be used to count movements
+# Global variable to be used to count movements and encounters
 step_counter = 0
 encounter_trigger = 4096
+in_battle = False
 
 # Implements a step counter in order to control random enemy encounters on the map
 
@@ -27,7 +29,44 @@ def increment_step_counter():
     print("Step counter after adding is " + str(step_counter) + "\n")
     if step_counter >= encounter_trigger:
         # Then trigger a battle with a random enemy
-        #game.GameMain(0, __str__())
+        global in_battle
+        in_battle = True
+        # enemy_trigger called in game.py
         print("Step counter at encounter is " + str(step_counter) + "\n")
         # Restart the counter
         restart_encounters()
+
+# Selects an enemy based on likelihood triggers for different types of enemies
+def select_enemy():
+    enemy = enemies.random_enemy()
+    return enemy
+
+
+# Will cause an enemy to be chosen, blitted to screen, and thus a battle to trigger
+def enemy_trigger(gameDisplay):
+    global in_battle
+    enemy = select_enemy()
+    # Now set up imaging
+    print("Enemy selected is " + str(enemy.type) + "\n")
+    image_path = "assets/enemy_sprites/" + str(enemy.type) + ".png"
+    enemy_image = pygame.image.load(image_path)
+    enemy_rect = enemy_image.get_rect()
+    enemy_rect.x = 500
+    enemy_rect.y = 100
+    print("about to get surface\n")
+    if gameDisplay is None:
+        print("display aint here idiot\n")
+    gameDisplay.blit(enemy_image, enemy_rect)
+    # Somehow stop movement during battle
+    x = 0
+    while in_battle:
+        x += 1
+        print("in loop \n")
+        # if foe's HP is reduced to 0, then end battle
+        battlekeys = pygame.key.get_pressed()
+        if battlekeys[pygame.K_p]:
+            # Unblit enemy and exit battle.
+            # This is for testing purposes.
+            in_battle = False
+        if x > 500:
+            in_battle = False

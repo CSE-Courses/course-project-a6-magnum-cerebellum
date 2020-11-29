@@ -10,13 +10,16 @@ from render import ray_casting
 from drawing import Drawing
 import health
 import activities
+import encounter
 from items import Item
 from button import Button
 import enemies
 from battle import Battle
 
+
 def GameMain(sc, playername):
     #If the player is in battle, it will bring up battle UI instead of Inventory
+    #global in_battle
     playerInBattle = True
     playerIsBattling = False
     show = True
@@ -78,6 +81,10 @@ def GameMain(sc, playername):
                 Button.check_Hover(inventory.back, sc)
             drawing.blitHeldItem(heldItem, mouseX, mouseY)
             drawing.blitMenuInfoBoxes(inventory, equipment)
+
+        if encounter.in_battle:
+            encounter.enemy_trigger(sc)
+
 
         else: #The player is in battle
             battleUI.createBattleUI()
