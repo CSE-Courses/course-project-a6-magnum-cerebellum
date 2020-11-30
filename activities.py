@@ -69,10 +69,11 @@ def iterate_over_input(intermediate,y):
     #iterates over all 7 values of the input text and displays them onto the actviites panel
     global first_time #626
     for elems in config.text1:
+        # print(elems)
         # if pygame.time.get_ticks() - first_time >= holding_time:
-        if(type(elems) == tuple):
-            intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
-        elif(type(elems) != tuple):
+        # if(type(elems) == tuple):
+        #     intermediate.blit(config.SPOOKY_SMALLER_FONT.render("Current location:" + str(elems), True, config.white), (10, y))
+        if(type(elems) != tuple):
             intermediate.blit(config.SPOOKY_SMALLER_FONT.render("" + str(elems), True, config.white), (10, y))
 
         y += 40

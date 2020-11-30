@@ -4,6 +4,7 @@ import music
 import config
 from button import Button
 import game
+import intro_screen
 clock = pygame.time.Clock()
 
 def reRenderVol(volDisplay, vol, text, gameDisplay):
@@ -14,6 +15,11 @@ def reRenderVol(volDisplay, vol, text, gameDisplay):
     vol.createButton(gameDisplay)
 def roundup(x):
     return int(math.ceil(x / 10.0)) * 10
+
+def lost(gameDisplay):
+    gameDisplay.fill(config.black)
+    intro_screen.changing_term("You have whited out")
+
 def options_menu(gameDisplay):
     music_player = music.Music_Player()
     music_player.play_options()

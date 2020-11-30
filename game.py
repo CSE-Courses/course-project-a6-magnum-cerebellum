@@ -11,6 +11,8 @@ from drawing import Drawing
 import health
 import activities
 import encounter
+from character_selection import character_selection
+import options_menu
 from items import Item
 from button import Button
 import enemies
@@ -18,6 +20,7 @@ from battle import Battle
 
 
 def GameMain(sc, playername):
+    print("i have started the game")
     #If the player is in battle, it will bring up battle UI instead of Inventory
     #global in_battle
     playerInBattle = True
@@ -25,7 +28,7 @@ def GameMain(sc, playername):
     show = True
     #If the player clicks their inventory while in battle this should be True
     battleInvClicked = False
-
+    exited = 0
     sc = pygame.display.set_mode((display_width, display_height))
     sc_map = pygame.Surface(MINIMAP_RES)
 
@@ -39,7 +42,7 @@ def GameMain(sc, playername):
     equipment = equipClassHelpers.Equipment()
     battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
     heldItem = None
-    config.text1.append(player.pos)
+    # config.text1.append(player.pos)
     drawing = Drawing(sc, sc_map, None)
     second_screen = pygame.Surface((400, 300))
     second_screen.fill(black)
@@ -106,25 +109,7 @@ def GameMain(sc, playername):
 
                 heldItem, healthBar, player = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar, player)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
-                
-                #print("Player Attack : " + str(player.attack))
-                #print("Player Defense : " + str(player.defense))
-                
-                # if event.key == pygame.K_p:
-                #     global paused
-                #     paused = True
-                #     pause()
-                # if event.key == pygame.K_s:
-                #     save(player)
-                #     messages_to_add(0,0, None, None, None, None)
-                # if event.key == pygame.K_l:
-                #     load()
-                #     player.pos = loaddata['pos']
-                #     player.health = loaddata['health']
-                #     player.actions = loaddata['actions']
-                #     player.items = loaddata['items']
-                #     player.hp = loaddata['hp']
-                
+
                 if event.button == 4:
                     config.scroll_y = min(config.scroll_y + 20, 0) #what happens when you scroll is that the activities panel goes
                                                                    #black and then the text are repeated
@@ -143,7 +128,8 @@ def GameMain(sc, playername):
 
                 #click battle button to begin. Clicking button during or after a battle will start a new battle with a random enemy 
                 elif enemyBlit.collidepoint(pygame.mouse.get_pos()):
-                    print("battle beginning...") 
+                    config.text1.append("battle beginning...")
+                    print("battle beginning...")
                     enemy = enemies.random_enemy()
                     playerIsBattling = True
                     battle_object = Battle(player, enemy)
@@ -158,33 +144,53 @@ def GameMain(sc, playername):
                         battle_object.attack_ememy_with_damage(attack_value)
                         enemy_healthBar.set_health(enemy.hp)
                         print("attack with " + str(attack_value))
+                        config.text1.append("attack with " + str(attack_value))
                         if not battle_object.isActive:
                             print("battle over, enemy defeated")
+                            config.text1.append("battle over, enemy defeated")
                             playerIsBattling = False
-                            show =  True
+                            show = True
                             break
                         else:
                             action = enemy.random_attack()
                             damage = action.damage   
                             battle_object.attack_player_with_damage(damage) 
-                            print("enemy attack with damage " + str(damage)) 
+                            print("enemy attack with damage " + str(damage))
+                            config.text1.append("enemy attack with damage " + str(damage))
                             if not battle_object.isActive:
                                 print("battle over, player defeated")
+                                config.text1.append("battle over, player defeated")
                                 playerIsBattling = False
                                 show =  True
                                 healthBar.set_health(player.hp)
+                                exited = 1
                                 break
                         healthBar.set_health(player.hp)
                     
                     elif defendButton.collidepoint(pygame.mouse.get_pos()): 
                         defend_value = player.defense
                         battle_object.defend_with_damage(defend_value)
+                        config.text1.append("defend with " + str(defend_value))
                         print("defend with " + str(defend_value))
                         healthBar.set_health(player.hp)
-                    
-                    
-                     
-                    
-       
+        if exited == 1:
+            gameDisplay_input = pygame.display.set_mode((config.display_width, config.display_height))
+            game_over_text = config.SPOOKY_BIG_FONT.render('Game Over', True, config.red)
+            gameDisplay_input.blit(game_over_text,(config.display_width/3, config.display_height/3))
+            buttons = [
+                Button("Return to Character Selection Screen", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 50), (4*config.display_width/5, 4*config.display_height/5), gameDisplay_input)]
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(
+                pygame.mouse.get_pos())):
+                character_selection(gameDisplay_input)
+                # options_menu.options_menu(gameDisplay_input)
+
+
+
+            # options_menu.lost(gameDisplay_input)
+
+            # print("You suck")
+
+
+
         pygame.display.flip()
         clock.tick(60)

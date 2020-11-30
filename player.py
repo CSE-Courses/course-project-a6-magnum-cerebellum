@@ -4,6 +4,7 @@ from config import *
 from map import collision_walls
 import math
 from options_menu import options_menu
+from options_menu import lost
 import config
 import os 
 import json
@@ -13,6 +14,8 @@ import encounter
 
 class Player():
     old_pos = player_pos
+    gamedisplaystorage = 0
+
     def __init__(self, character):
         f = open(os.path.join("data/character_data.json"))
         data = json.load(f)
@@ -36,7 +39,6 @@ class Player():
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
         self.collision_list = collision_walls 
 
-
     @property
     def pos(self):
         return (self.x, self.y)
@@ -46,6 +48,9 @@ class Player():
         if (self.hp - n) <= 0:
             self.hp = 0
             return False
+        if self.hp == 0:
+            gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
+            lost(gameDisplay)
         else:
             self.hp = self.hp - n
             return True

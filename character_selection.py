@@ -8,7 +8,6 @@ from health import Bar
 from button import Button
 from character import Character
 from character_UI import char_ui
-import game
 from character import Character, create_all_characters, random_character
 from enemies import Enemy, random_enemy
 from player import Player

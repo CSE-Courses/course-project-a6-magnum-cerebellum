@@ -106,8 +106,10 @@ class SpriteObject:
             self.used = True
             if self.name == "health":
                 bar.addHealth(25)
+                text1.append("Picked up Health")
             if self.name == "mana":
                 bar.addMana(25)
+                text1.append("Picked up Mana")
 
         theta = math.atan2(dy, dx)
         gamma = theta - player.angle
