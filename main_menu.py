@@ -29,9 +29,8 @@ def main_menu(gameDisplay, music_player):
                ((config.display_width / 2), (config.display_height / 1.20)),
                gameDisplay),
         Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width/2),(config.display_height-500)), gameDisplay),
-        Button("Battle Demo", config.white, config.SPOOKY_SMALL_FONT, 
-                ((config.display_width/2),(config.display_height/1.3)), gameDisplay),]
+               ((config.display_width/2),(config.display_height-500)), gameDisplay),]
+        
 
     while intro:
         gameDisplay.fill(config.black)
@@ -61,12 +60,6 @@ def main_menu(gameDisplay, music_player):
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay, "Techie")
 
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
-                music_player.stop() 
-                dummy_player = Player(random_character())
-                dummy_enemy = Enemy(random_enemy())
-                
-                battle_blit.battleMain(dummy_player, dummy_enemy, gameDisplay)
 
 
 

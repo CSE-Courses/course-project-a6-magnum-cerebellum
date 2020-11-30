@@ -23,9 +23,6 @@ def GameMain(sc, playername):
     print("i have started the game")
     #If the player is in battle, it will bring up battle UI instead of Inventory
     #global in_battle
-    playerInBattle = True
-    playerIsBattling = False
-    show = True
     #If the player clicks their inventory while in battle this should be True
     battleInvClicked = False
     exited = 0
@@ -37,7 +34,6 @@ def GameMain(sc, playername):
 
     #Initialize Player, Inventory, Equipment, Battle UI
     player = Player(playername)
-    enemy =  None
     inventory = invClassHelpers.Inventory(player.startingItems)
     equipment = equipClassHelpers.Equipment()
     battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
@@ -47,7 +43,7 @@ def GameMain(sc, playername):
     second_screen = pygame.Surface((400, 300))
     second_screen.fill(black)
     healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
-    enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc, False)
+
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
         sc.fill(black)
@@ -60,48 +56,34 @@ def GameMain(sc, playername):
         drawing.mini_map(player)
         drawing.ui_elements(player,sc)
         drawing.activities_panel(second_screen)
-        enemyBlit = drawing.enemyEncounter(sc, enemy)
         healthBar.updateBar()
         equipment.createEquip()
         activities.iterate_over_input(second_screen, 20)
 
-        if playerIsBattling:
-            attackButton = drawing.attackButton(sc)
-            defendButton = drawing.defendButton(sc)
-            if show:
-                enemy_healthBar.show_bar()
-                show = False
-            if enemy != None:
-                enemy_healthBar.set_health(enemy.hp)
-            else:
-                enemy_healthBar.set_health(100)
-            enemy_healthBar.updateBar()
-            
+        if encounter.in_battle:
+            encounter.enemy_trigger(sc)
 
-        if (playerInBattle == False or battleInvClicked):
+        if (battleInvClicked):
             inventory.createInventory()
             if (battleInvClicked):
                 Button.check_Hover(inventory.back, sc)
             drawing.blitHeldItem(heldItem, mouseX, mouseY)
             drawing.blitMenuInfoBoxes(inventory, equipment)
-
-        if encounter.in_battle:
-            encounter.enemy_trigger(sc)
-
-
-        else: #The player is in battle
-            battleUI.createBattleUI()
             
-            #the hover check is what's blitting the actions to the screen each time also
-            #battleUI.actions[0] to [3] is the player's moves. [4] is "Open Inventory"
-            for button in battleUI.actions:
-                Button.check_Hover(button, sc)
+        else: #The player is in battle
+                battleUI.createBattleUI()
+                
+                #the hover check is what's blitting the actions to the screen each time also
+                #battleUI.actions[0] to [3] is the player's moves. [4] is "Open Inventory"
+                for button in battleUI.actions:
+                    Button.check_Hover(button, sc)
+        
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and (playerInBattle == False or battleInvClicked):
+            elif event.type == pygame.MOUSEBUTTONDOWN and ( battleInvClicked):
                 #If they clicked "Back" in the Inventory
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and inventory.back.rect.collidepoint(pygame.mouse.get_pos()):
                     battleInvClicked = False
@@ -126,53 +108,7 @@ def GameMain(sc, playername):
                 if battleUI.actions[4].rect.collidepoint(pygame.mouse.get_pos()):
                     battleInvClicked = True  
 
-                #click battle button to begin. Clicking button during or after a battle will start a new battle with a random enemy 
-                elif enemyBlit.collidepoint(pygame.mouse.get_pos()):
-                    config.text1.append("battle beginning...")
-                    print("battle beginning...")
-                    enemy = enemies.random_enemy()
-                    playerIsBattling = True
-                    battle_object = Battle(player, enemy)
-                    enemy_healthBar.show_bar()
-                    break
                 
-                # battle enemy with attacks (decrease enemy hp or defend (increase player hp))
-                elif playerIsBattling:  
-                    enemy_healthBar.clearBar()
-                    if attackButton.collidepoint(pygame.mouse.get_pos()):
-                        attack_value = player.attack
-                        battle_object.attack_ememy_with_damage(attack_value)
-                        enemy_healthBar.set_health(enemy.hp)
-                        print("attack with " + str(attack_value))
-                        config.text1.append("attack with " + str(attack_value))
-                        if not battle_object.isActive:
-                            print("battle over, enemy defeated")
-                            config.text1.append("battle over, enemy defeated")
-                            playerIsBattling = False
-                            show = True
-                            break
-                        else:
-                            action = enemy.random_attack()
-                            damage = action.damage   
-                            battle_object.attack_player_with_damage(damage) 
-                            print("enemy attack with damage " + str(damage))
-                            config.text1.append("enemy attack with damage " + str(damage))
-                            if not battle_object.isActive:
-                                print("battle over, player defeated")
-                                config.text1.append("battle over, player defeated")
-                                playerIsBattling = False
-                                show =  True
-                                healthBar.set_health(player.hp)
-                                exited = 1
-                                break
-                        healthBar.set_health(player.hp)
-                    
-                    elif defendButton.collidepoint(pygame.mouse.get_pos()): 
-                        defend_value = player.defense
-                        battle_object.defend_with_damage(defend_value)
-                        config.text1.append("defend with " + str(defend_value))
-                        print("defend with " + str(defend_value))
-                        healthBar.set_health(player.hp)
         if exited == 1:
             gameDisplay_input = pygame.display.set_mode((config.display_width, config.display_height))
             game_over_text = config.SPOOKY_BIG_FONT.render('Game Over', True, config.red)
