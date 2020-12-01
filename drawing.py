@@ -200,7 +200,7 @@ class Drawing:
             # Remove later when putting everything together
             elif heldItem == None:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
-                heldItem = [randomItemPicker[random.randint(1, 2)], 1]
+                heldItem = [randomItemPicker[random.randint(0, 2)], 1]
         return heldItem, healthBar, player
 
     def enemyEncounter(self, display, enemy: Enemy):

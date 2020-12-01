@@ -43,9 +43,8 @@ def select_enemy():
 
 
 # Will cause an enemy to be chosen, blitted to screen, and thus a battle to trigger
-def enemy_trigger(gameDisplay):
+def enemy_trigger(gameDisplay, enemy):
     global in_battle
-    enemy = select_enemy()
     # Now set up imaging
     print("Enemy selected is " + str(enemy.type) + "\n")
     image_path = "assets/enemy_sprites/" + str(enemy.type) + ".png"
@@ -59,6 +58,7 @@ def enemy_trigger(gameDisplay):
     gameDisplay.blit(enemy_image, enemy_rect)
     # Somehow stop movement during battle
     x = 0
+    
     while in_battle:
         x += 1
         print("in loop \n")

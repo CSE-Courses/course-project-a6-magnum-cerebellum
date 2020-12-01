@@ -17,13 +17,13 @@ from items import Item
 from button import Button
 import enemies
 from battle import Battle
-
+import random
 
 def GameMain(sc, playername):
     print("i have started the game")
 
     #If the player is in battle
-    playerIsBattling = True
+    playerIsBattling = False
 
     #If the player clicks their inventory while in battle this should be True
     battleInvClicked = False
@@ -47,6 +47,7 @@ def GameMain(sc, playername):
     healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
     
     #129 Enemy HP Bar, set to a new bar when encountering an enemy
+    enemy = None
     enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
     while True:
@@ -70,8 +71,10 @@ def GameMain(sc, playername):
         equipment.createEquip()
         activities.iterate_over_input(second_screen, 20)
 
+        #I assume this is only called once and not repeatedly (?) - Ling
         if encounter.in_battle:
-            encounter.enemy_trigger(sc)
+            enemy = encounter.select_enemy()
+            encounter.enemy_trigger(sc, enemy)
             playerIsBattling = True
             enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
@@ -117,7 +120,10 @@ def GameMain(sc, playername):
             #129 BATTLE
             #If they left-click
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if playerIsBattling:
+                if battleUI.actions[4].rect.collidepoint(pygame.mouse.get_pos()):
+                    battleInvClicked = True  
+
+                elif playerIsBattling:
                     if battleUI.actions[0].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
                     elif battleUI.actions[1].rect.collidepoint(pygame.mouse.get_pos()):
@@ -128,12 +134,16 @@ def GameMain(sc, playername):
                         enemy_healthBar.subtractHealth(player.attack)
                     enemy_healthBar.updateBar()
                     #Mf got KO'ed bro
-                    if enemy_healthBar.totalhealth == 0:
+                    if enemy_healthBar.currenthealth == 0:
                         playerIsBattling = False
-
-                if battleUI.actions[4].rect.collidepoint(pygame.mouse.get_pos()):
-                    battleInvClicked = True  
-
+                    #Let the enemy whack the stupid player here
+                    else:
+                        damageTaken = player.defense - random.randint(int (enemy.damage[0]), int (enemy.damage[1]))
+                        #This means player defense is higher than the damage taken!!@#!@#!@# SO SET IT TO 0 SO THE DAMN PLAYER DONT GET WHACKED
+                        if (damageTaken > 0) : damageTaken = 0
+                        healthBar.subtractHealth( abs(damageTaken) ) #Enemy does a range of damage
+                        if (healthBar.currenthealth == 0): #UR DEAD BRO
+                            exited = 1
                 
         if exited == 1:
             gameDisplay_input = pygame.display.set_mode((config.display_width, config.display_height))
