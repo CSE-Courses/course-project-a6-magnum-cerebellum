@@ -30,7 +30,6 @@ class Bar:
             self.set_rect()
             self.createBar()
 
-
     def barText(self):
         bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
         bar2 = "MP: " + str(self.currentmana) + " / " + str(self.totalmana)

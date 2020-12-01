@@ -138,7 +138,7 @@ class Drawing:
                         #USE OPTION
                         elif (menu.optionsTextArray[i] == "Use"):
                             if (inventory.currentItem[0].effect == "Health"):
-                                healthBar.addHealth(inventory.currentItem[0].amount)
+                                healthBar.subtractHealth(inventory.currentItem[0].amount)
                             elif (inventory.currentItem[0].effect == "Mana"):
                                 healthBar.addMana(inventory.currentItem[0].amount)
                             inventory.discardFromInventory(inventory.itemBox, "Discard One")

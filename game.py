@@ -21,8 +21,10 @@ from battle import Battle
 
 def GameMain(sc, playername):
     print("i have started the game")
-    #If the player is in battle, it will bring up battle UI instead of Inventory
-    #global in_battle
+
+    #If the player is in battle
+    playerIsBattling = True
+
     #If the player clicks their inventory while in battle this should be True
     battleInvClicked = False
     exited = 0
@@ -43,6 +45,9 @@ def GameMain(sc, playername):
     second_screen = pygame.Surface((400, 300))
     second_screen.fill(black)
     healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), sc)
+    
+    #129 Enemy HP Bar, set to a new bar when encountering an enemy
+    enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -56,21 +61,27 @@ def GameMain(sc, playername):
         drawing.mini_map(player)
         drawing.ui_elements(player,sc)
         drawing.activities_panel(second_screen)
+        
+        #Player Health Bar & Enemy Health Bar
         healthBar.updateBar()
+        if (playerIsBattling):
+            enemy_healthBar.updateBar()
+
         equipment.createEquip()
         activities.iterate_over_input(second_screen, 20)
 
         if encounter.in_battle:
             encounter.enemy_trigger(sc)
+            playerIsBattling = True
+            enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
-        if (battleInvClicked):
+        if (battleInvClicked): #When the Open Inventory button is clicked
             inventory.createInventory()
-            if (battleInvClicked):
-                Button.check_Hover(inventory.back, sc)
+            Button.check_Hover(inventory.back, sc)
             drawing.blitHeldItem(heldItem, mouseX, mouseY)
             drawing.blitMenuInfoBoxes(inventory, equipment)
             
-        else: #The player is in battle
+        else: #The player is in battle moves menu, not inventory
                 battleUI.createBattleUI()
                 
                 #the hover check is what's blitting the actions to the screen each time also
@@ -83,12 +94,13 @@ def GameMain(sc, playername):
             if event.type == pygame.QUIT:
                 exit()
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and ( battleInvClicked):
-                #If they clicked "Back" in the Inventory
+            #For if the player is in the Inventory and click a button
+            elif event.type == pygame.MOUSEBUTTONDOWN and (battleInvClicked):
+                #If they clicked "Back" in the Inventory, then go back and break out
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and inventory.back.rect.collidepoint(pygame.mouse.get_pos()):
                     battleInvClicked = False
                     break
-
+                #Otherwise blit everything needed!
                 heldItem, healthBar, player = drawing.inventoryEquipmentUI(inventory, equipment, sc, event.type, event.button, mouseX, mouseY, heldItem, healthBar, player)
                 drawing.blitMenuInfoBoxes(inventory, equipment)
 
@@ -102,9 +114,23 @@ def GameMain(sc, playername):
                     print('down')
                     print(config.scroll_y)
 
+            #129 BATTLE
             #If they left-click
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                #If they clicked "Open Inventory" in the Battle UI
+                if playerIsBattling:
+                    if battleUI.actions[0].rect.collidepoint(pygame.mouse.get_pos()):
+                        enemy_healthBar.subtractHealth(player.attack)
+                    elif battleUI.actions[1].rect.collidepoint(pygame.mouse.get_pos()):
+                        enemy_healthBar.subtractHealth(player.attack)
+                    elif battleUI.actions[2].rect.collidepoint(pygame.mouse.get_pos()):
+                        enemy_healthBar.subtractHealth(player.attack)
+                    elif battleUI.actions[3].rect.collidepoint(pygame.mouse.get_pos()):
+                        enemy_healthBar.subtractHealth(player.attack)
+                    enemy_healthBar.updateBar()
+                    #Mf got KO'ed bro
+                    if enemy_healthBar.totalhealth == 0:
+                        playerIsBattling = False
+
                 if battleUI.actions[4].rect.collidepoint(pygame.mouse.get_pos()):
                     battleInvClicked = True  
 

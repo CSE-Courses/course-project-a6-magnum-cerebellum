@@ -27,9 +27,9 @@ class Player():
         self.hp = 100
         self.character = character
 
-        #Initialize this to the starting item stats?? I guess IDK
-        self.attack = 0
-        self.defense = 0
+        #Initialize this to the class' attack and defense
+        self.attack = int (self.character_data["attack"])
+        self.defense = int (self.character_data["defense"])
 
         self.actions = self.character_data["actions"]
         self.startingItems = self.character_data["items"] #Just strings, need to cast to Item
