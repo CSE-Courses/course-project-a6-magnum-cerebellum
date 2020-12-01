@@ -15,11 +15,13 @@ class Enemy():
         self.enemy = data[type_]
         self.type = type_
         self.actions = []
+        #Damage list of two ints, damage will RANGE from the first & second. EX. CSE220 dmg ranges from 5 to 12
+        self.damage = self.enemy["damage"]
         self.hp = 100
         for action in self.enemy["actions"]:
             self.actions.append(Action(action))
 
-    # return False if decrease kills enemy, true otherwise. Update player hp with decreased ammount
+    # return False if decrease kills enemy, true otherwise. Update enemy hp with decreased ammount
     def decrease_hp(self, n):
         if (self.hp - n) <= 0:
             self.hp = 0

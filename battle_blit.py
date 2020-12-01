@@ -44,7 +44,6 @@ def battleMain(player : Player, enemy : Enemy, prevDisplay):
         
         healthBar_player.set_health(player.hp)
         healthBar_player.createBar()
-
         
         healthBar_enemy.set_health(enemy.hp)
         healthBar_enemy.createBar()

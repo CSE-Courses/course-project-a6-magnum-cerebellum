@@ -138,7 +138,7 @@ class Drawing:
                         #USE OPTION
                         elif (menu.optionsTextArray[i] == "Use"):
                             if (inventory.currentItem[0].effect == "Health"):
-                                healthBar.addHealth(inventory.currentItem[0].amount)
+                                healthBar.subtractHealth(inventory.currentItem[0].amount)
                             elif (inventory.currentItem[0].effect == "Mana"):
                                 healthBar.addMana(inventory.currentItem[0].amount)
                             inventory.discardFromInventory(inventory.itemBox, "Discard One")
@@ -200,7 +200,7 @@ class Drawing:
             # Remove later when putting everything together
             elif heldItem == None:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
-                heldItem = [randomItemPicker[random.randint(1, 2)], 1]
+                heldItem = [randomItemPicker[random.randint(0, 2)], 1]
         return heldItem, healthBar, player
 
     def enemyEncounter(self, display, enemy: Enemy):

@@ -1,17 +1,22 @@
 {
     "220 Student" : {
-        "actions": ["Segmentation Fault (core dumped)", "AI violation"]  
+        "actions": ["Segmentation Fault (core dumped)", "AI violation"],
+        "damage": ["5", "12"]  
     },
     "AI Violation Email": {
-        "actions": ["End whole career", "Cause stress"]
+        "actions": ["End whole career", "Cause stress"],
+        "damage": ["5", "20"]
     },
     "Deadline" : {
-        "actions" : ["Read the handout!", "Cause stress"]
+        "actions" : ["Read the handout!", "Cause stress"],
+        "damage": ["6", "14"]
     },
     "DJ Khaled" : {
-        "actions" : ["We da best music", "Anotha one", "DJ KHALED"]
+        "actions" : ["We da best music", "Anotha one", "DJ KHALED"],
+        "damage": ["3", "8"]
     },
     "Wet Floor Sign" : {
-        "actions" : ["Slip", "Fall over", "Cause stress"]
+        "actions" : ["Slip", "Fall over", "Cause stress"],
+        "damage": ["3", "8"]
     }
 }
