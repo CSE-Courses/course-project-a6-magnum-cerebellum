@@ -2,9 +2,41 @@ import config
 import pygame
 from button import Button
 import format_text
+import config
 import game
+import music
+import format_text
+from button import Button
 clock = pygame.time.Clock()
 
+# Renders win screen once player has defeated final enemy
+def win_screen(gameDisplay, player):
+    
+    music_player = music.Music_Player()
+    music_player.play_victory
+    music_player.set_volume(0.5)
+    gameDisplay.fill(config.gray)
+    buttons = [
+        Button("QUIT", config.white, config.SPOOKY_SMALL_FONT,
+               ((config.display_width / 2), (config.display_height / 1.2)),
+               gameDisplay),
+        ]
+    text = f'Congratulations {player.character} you have escaped from Davis Hall! Along your journey you learned many valuble lessons, fought enemies, collected items, and hopefully had some fun along the way.'
+    while True:
+        format_text.blit_text(gameDisplay, text, (config.display_width/1.5, config.display_height), (config.display_width/2.5, config.display_height/5), config.SPOOKY_SMALLER_FONT, config.black)
+
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT or
+                    (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].text == "QUIT" and buttons[0].rect.collidepoint
+                        (pygame.mouse.get_pos()))):
+                pygame.quit()
+                quit()
+          
+        for button in buttons:
+            Button.check_Hover(button, gameDisplay)
+    
+        pygame.display.update()
+        clock.tick(15)
 
 def transistion_character_selection_gameplay(gameDisplay, player):
     gameDisplay = pygame.display.set_mode((config.display_width, config.display_height),0, 32)

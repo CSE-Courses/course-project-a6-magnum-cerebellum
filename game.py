@@ -18,6 +18,7 @@ from button import Button
 import enemies
 from battle import Battle
 import random
+import transitions
 
 def GameMain(sc, playername):
     print("i have started the game")

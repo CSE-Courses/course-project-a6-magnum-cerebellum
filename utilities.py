@@ -1,7 +1,6 @@
 import pygame
 import config
 import pickle
-# import main_menu
 import options_menu
 from button import Button
 import player

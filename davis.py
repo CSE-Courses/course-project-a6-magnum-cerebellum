@@ -17,7 +17,7 @@ from os import listdir
 from os.path import isfile, join
 import map_blit
 import transitions
-import battle_blit
+
 from assets import character_images
 import intro_screen
 import utilities

@@ -12,7 +12,7 @@ from player import Player
 from character_selection import character_selection
 import intro_screen
 from options_menu import options_menu
-import battle_blit
+import transitions
 clock = pygame.time.Clock()
 
 def main_menu(gameDisplay, music_player):
@@ -29,7 +29,10 @@ def main_menu(gameDisplay, music_player):
                ((config.display_width / 2), (config.display_height / 1.20)),
                gameDisplay),
         Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width/2),(config.display_height-500)), gameDisplay),]
+               ((config.display_width/2),(config.display_height-500)), gameDisplay),
+        # Button("Win Screen", config.white, config.SPOOKY_SMALL_FONT,
+        #        ((config.display_width/2),(30)), gameDisplay),
+               ]
         
 
     while intro:
@@ -54,14 +57,15 @@ def main_menu(gameDisplay, music_player):
                 intro_screen.main()
                 character_selection(gameDisplay)
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[1].rect.collidepoint(pygame.mouse.get_pos())):
-                music_player.stop()
+                #music_player.stop()
                 options_menu(gameDisplay)
             #Temporary game rendering prototype Button
             elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
                 game.GameMain(gameDisplay, "Techie")
-
-
-
+            # elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
+            #     music_player.stop()
+            #     random_player = Player(Character("Fratboy"))
+            #     transitions.win_screen(gameDisplay, random_player)
 
         for button in buttons:
             Button.check_Hover(button, gameDisplay)

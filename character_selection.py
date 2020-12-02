@@ -12,16 +12,14 @@ from character import Character, create_all_characters, random_character
 from enemies import Enemy, random_enemy
 from player import Player
 
-#from assets import character_images
 from os import listdir
 from os.path import isfile, join
 import map_blit
 import transitions
-import battle_blit
+
 from assets import character_images
 from start_game import start_game_play , game_start
-# from os import listdirtes
-# from os.path import isfile, join
+
 import intro_screen
 from utilities import save
 
