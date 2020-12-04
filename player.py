@@ -12,11 +12,16 @@ import encounter
 
 # import testing_delete
 
+# Global player_speed
+player_speed = 2
+
 class Player():
     old_pos = player_pos
     gamedisplaystorage = 0
 
     def __init__(self, character):
+        #global player_speed
+        #player_speed = 2
         f = open(os.path.join("data/character_data.json"))
         data = json.load(f)
 
@@ -96,6 +101,8 @@ class Player():
         self.angle %= DOUBLE_PI
 
     def keys_control(self):
+        global player_speed
+
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         keys = pygame.key.get_pressed()

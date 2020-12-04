@@ -30,7 +30,7 @@ FPS_POS = (render_display_width - 65, 5)
 # player settings
 player_pos = ((render_display_width//2)//4, (render_display_height//2)-50)
 player_angle = 0
-player_speed = 2
+#player_speed = 2
 
 # mini-map settings
 MINIMAP_SCALE = 3

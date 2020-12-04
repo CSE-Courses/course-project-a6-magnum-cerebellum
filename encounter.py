@@ -57,16 +57,12 @@ def enemy_trigger(gameDisplay, enemy):
         print("display aint here idiot\n")
     gameDisplay.blit(enemy_image, enemy_rect)
     # Somehow stop movement during battle
-    x = 0
-    
-    while in_battle:
-        x += 1
-        print("in loop \n")
-        # if foe's HP is reduced to 0, then end battle
-        battlekeys = pygame.key.get_pressed()
-        if battlekeys[pygame.K_p]:
-            # Unblit enemy and exit battle.
-            # This is for testing purposes.
-            in_battle = False
-        if x > 500:
-            in_battle = False
+    player.player_speed = 0
+    #x = 0
+
+# Call to stop the battle, when the enemy has been defeated
+def enemy_defeated():
+    print("Enemy defeated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+    global in_battle
+    in_battle = False
+    player.player_speed = 2

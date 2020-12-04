@@ -137,6 +137,7 @@ def GameMain(sc, playername):
                     #Mf got KO'ed bro
                     if enemy_healthBar.currenthealth == 0:
                         playerIsBattling = False
+                        encounter.enemy_defeated()
                     #Let the enemy whack the stupid player here
                     else:
                         damageTaken = player.defense - random.randint(int (enemy.damage[0]), int (enemy.damage[1]))
