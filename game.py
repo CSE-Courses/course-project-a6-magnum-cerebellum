@@ -74,7 +74,6 @@ def GameMain(sc, playername):
 
         equipment.createEquip()
         activities.iterate_over_input(second_screen, 20)
-
         if encounter.in_battle and not encounter.enemy_selected:
             enemy = encounter.enemy_trigger(sc)
             playerIsBattling = True

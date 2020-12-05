@@ -45,6 +45,19 @@ class Sprites:
                 'animation_speed': 10,
                 'pickup': True,
                 'used': False,
+                 },
+            'exit': { 
+                'name': "exit",
+                'sprite': pygame.image.load('assets/sprites/exit/0.png').convert_alpha(),
+                'viewing_angles': None,
+                'shift': 1.8,
+                'scale': 0.5,
+                'animation': deque(
+                    [pygame.image.load(f'assets/sprites/exit/anim/{i}.png').convert_alpha() for i in range(1)]),
+                'animation_dist': 800,
+                'animation_speed': 10,
+                'pickup': True,
+                'used': False,
                  }
         }
         self.list_of_objects = [
@@ -71,7 +84,8 @@ class Sprites:
             SpriteObject(self.sprite_parameters['mana'], (10.5, 9.4)),
             SpriteObject(self.sprite_parameters['health'], (16.5, 4.3)),
             SpriteObject(self.sprite_parameters['health'], (21.3, 2.4)),
-            SpriteObject(self.sprite_parameters['health'], (13.6, 14.4))
+            SpriteObject(self.sprite_parameters['health'], (13.6, 14.4)),
+            SpriteObject(self.sprite_parameters['exit'], (16.5, 14.7))
         ]
 
 
@@ -102,7 +116,7 @@ class SpriteObject:
         distance_to_sprite = math.sqrt(dx ** 2 + dy ** 2)
 
       
-        if self.pickup is True and distance_to_sprite <= 50:
+        if self.pickup is True and distance_to_sprite <= 75:
             self.used = True
             if self.name == "health":
                 bar.addHealth(25)
@@ -110,6 +124,9 @@ class SpriteObject:
             if self.name == "mana":
                 bar.addMana(25)
                 text1.append("Picked up Mana")
+            if self.name == "exit":
+               print("EXITING")
+               #DO EXIT STUFF
 
         theta = math.atan2(dy, dx)
         gamma = theta - player.angle
