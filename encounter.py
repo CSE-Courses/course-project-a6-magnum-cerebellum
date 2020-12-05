@@ -12,8 +12,9 @@ import character
 
 # Global variable to be used to count movements and encounters
 step_counter = 0
-encounter_trigger = 4096
+encounter_trigger = 8192
 in_battle = False
+enemy_selected = False
 
 # Implements a step counter in order to control random enemy encounters on the map
 
@@ -21,18 +22,18 @@ in_battle = False
 def restart_encounters():
     global step_counter
     step_counter = 0
-    print("Step counter is " + str(step_counter) + "\n")
+    #print("Step counter is " + str(step_counter) + "\n")
 
 def increment_step_counter():
     global step_counter
     step_counter += random.randrange(1, 128)
-    print("Step counter after adding is " + str(step_counter) + "\n")
+    #print("Step counter after adding is " + str(step_counter) + "\n")
     if step_counter >= encounter_trigger:
         # Then trigger a battle with a random enemy
         global in_battle
         in_battle = True
         # enemy_trigger called in game.py
-        print("Step counter at encounter is " + str(step_counter) + "\n")
+        #print("Step counter at encounter is " + str(step_counter) + "\n")
         # Restart the counter
         restart_encounters()
 
@@ -43,12 +44,17 @@ def select_enemy():
 
 # Will cause an enemy to be chosen, blitted to screen, and thus a battle to trigger
 def enemy_trigger(gameDisplay):
+    global enemy_selected
     global in_battle
+    enemy = None
     # Select an enemy
-    enemy = select_enemy()
+    if not enemy_selected:
+        enemy = select_enemy()
+        enemy_selected = True
     # Stop movement during battle
     player.player_speed = 0
-    return enemy
+    if enemy_selected:
+        return enemy
 
 def enemy_blit(gameDisplay, enemy):
     global in_battle
@@ -65,12 +71,13 @@ def enemy_blit(gameDisplay, enemy):
         gameDisplay.blit(enemy_image, enemy_rect)
     #print("Stopped blitting enemy")
 
-
 # Call to stop the battle, when the enemy has been defeated
 def enemy_defeated():
     print("Enemy defeated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
     global in_battle
+    global enemy_selected
     in_battle = False
+    enemy_selected = False
     player.player_speed = 2
     # Set this global variable to zero again (kinda works as an init flag for each new encounter)
     game.enemy_healthBar = 0

@@ -75,13 +75,13 @@ def GameMain(sc, playername):
         equipment.createEquip()
         activities.iterate_over_input(second_screen, 20)
 
-        #I assume this is only called once and not repeatedly (?) - Ling
-        if encounter.in_battle:
+        if encounter.in_battle and not encounter.enemy_selected:
             enemy = encounter.enemy_trigger(sc)
             playerIsBattling = True
             if enemy_healthBar == 0:
                 enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
-            encounter.enemy_blit(sc, enemy)
+
+        encounter.enemy_blit(sc, enemy)
 
         if (battleInvClicked): #When the Open Inventory button is clicked
             inventory.createInventory()

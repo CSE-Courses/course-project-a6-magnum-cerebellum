@@ -114,12 +114,14 @@ class Player():
             dx = player_speed * cos_a
             dy = player_speed * sin_a
             self.detect_collision(dx, dy)
-            encounter.increment_step_counter()
+            if player_speed != 0:
+                encounter.increment_step_counter()
         if keys[pygame.K_DOWN]:
             dx = -player_speed * cos_a
             dy = -player_speed * sin_a
             self.detect_collision(dx, dy)
-            encounter.increment_step_counter()
+            if player_speed != 0:
+                encounter.increment_step_counter()
         if keys[pygame.K_a]:
             dx = player_speed * sin_a
             dy = -player_speed * cos_a

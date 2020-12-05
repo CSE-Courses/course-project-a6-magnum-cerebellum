@@ -42,6 +42,10 @@ def random_enemy() :
     data = json.load(f)
     f.close()
     enemies = data.keys()
-    for enemy in enemies:  
-        return Enemy(enemy)
-
+    enemies_list = list(enemies)
+    choice = random.choice(enemies_list)
+    print(choice + "\n")
+    for enemy in enemies:
+        if enemy == choice:
+            chosen_enemy = Enemy(choice)
+            return chosen_enemy
