@@ -131,10 +131,12 @@ class Player():
             self.detect_collision(dx, dy)
             encounter.increment_step_counter()
 
-        if keys[pygame.K_LEFT]:
-            self.angle -= 0.02
-        if keys[pygame.K_RIGHT]:
-            self.angle += 0.02
+        if(encounter.in_battle == False):
+            # If statement for no movement during battle
+            if keys[pygame.K_LEFT]:
+                self.angle -= 0.02
+            if keys[pygame.K_RIGHT]:
+                self.angle += 0.02
 
         if keys[pygame.K_UP] == False and keys[pygame.K_DOWN] == False: #and keys[pygame.K_LEFT] == False and keys[pygame.K_RIGHT] == False:
             if self.pos != self.old_pos:

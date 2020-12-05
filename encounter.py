@@ -41,24 +41,30 @@ def select_enemy():
     enemy = enemies.random_enemy()
     return enemy
 
-
 # Will cause an enemy to be chosen, blitted to screen, and thus a battle to trigger
-def enemy_trigger(gameDisplay, enemy):
+def enemy_trigger(gameDisplay):
     global in_battle
-    # Now set up imaging
-    print("Enemy selected is " + str(enemy.type) + "\n")
-    image_path = "assets/enemy_sprites/" + str(enemy.type) + ".png"
-    enemy_image = pygame.image.load(image_path)
-    enemy_rect = enemy_image.get_rect()
-    enemy_rect.x = 500
-    enemy_rect.y = 100
-    print("about to get surface\n")
-    if gameDisplay is None:
-        print("display aint here idiot\n")
-    gameDisplay.blit(enemy_image, enemy_rect)
-    # Somehow stop movement during battle
+    # Select an enemy
+    enemy = select_enemy()
+    # Stop movement during battle
     player.player_speed = 0
-    #x = 0
+    return enemy
+
+def enemy_blit(gameDisplay, enemy):
+    global in_battle
+    if in_battle:
+        #print("Enemy selected is " + str(enemy.type) + "\n")
+        image_path = "assets/enemy_sprites/" + str(enemy.type) + ".png"
+        enemy_image = pygame.image.load(image_path)
+        enemy_rect = enemy_image.get_rect()
+        enemy_rect.x = 500
+        enemy_rect.y = 100
+        #print("about to get surface\n")
+        if gameDisplay is None:
+            print("display aint here idiot\n")
+        gameDisplay.blit(enemy_image, enemy_rect)
+    #print("Stopped blitting enemy")
+
 
 # Call to stop the battle, when the enemy has been defeated
 def enemy_defeated():
@@ -66,3 +72,7 @@ def enemy_defeated():
     global in_battle
     in_battle = False
     player.player_speed = 2
+    # Set this global variable to zero again (kinda works as an init flag for each new encounter)
+    game.enemy_healthBar = 0
+    # Have to do this as there is a bug where increments count when arrows are pressed during battle
+    restart_encounters()

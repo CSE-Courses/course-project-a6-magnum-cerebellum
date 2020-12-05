@@ -2,26 +2,26 @@
     "Fratboy" : {
         "actions": ["Take a shot","Show up late", "Haze", "Hydrate"],
         "items": [ "Computer", "Beanie"],
-        "attack": "6",
-        "defense": "1"
+        "attack": "30",
+        "defense": "5"
     },
     "CSESophomore": {
         "actions": ["Throw class materials", "Study", "Caffienate", "Cry"],
         "items": ["Book"],
-        "attack": "4",
-        "defense": "3"
+        "attack": "20",
+        "defense": "15"
     },
     "Techie" : {
         "actions": ["Humble brag", "Consult Stack Overflow", "Snarky remark", "Adjust tie"],
         "items": ["Book", "Computer", "Suit and Tie", "Converse", "Beanie"],
-        "attack": "3",
-        "defense": "4"
+        "attack": "15",
+        "defense": "20"
     },
     "Terror": {
         "actions": ["Bite", "Honk", "Screech", "Poop"],
         "items": ["Book", "Computer"],
-        "attack": "7",
-        "defense": "0"
+        "attack": "40",
+        "defense": "1"
     }
 
 }

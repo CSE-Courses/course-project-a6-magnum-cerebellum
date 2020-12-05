@@ -20,7 +20,11 @@ from battle import Battle
 import random
 import transitions
 
+# Globally init this for time's sake
+enemy_healthBar = 0
+
 def GameMain(sc, playername):
+    global enemy_healthBar
     print("i have started the game")
 
     #If the player is in battle
@@ -49,7 +53,6 @@ def GameMain(sc, playername):
     
     #129 Enemy HP Bar, set to a new bar when encountering an enemy
     enemy = None
-    enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
     while True:
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -74,10 +77,11 @@ def GameMain(sc, playername):
 
         #I assume this is only called once and not repeatedly (?) - Ling
         if encounter.in_battle:
-            enemy = encounter.select_enemy()
-            encounter.enemy_trigger(sc, enemy)
+            enemy = encounter.enemy_trigger(sc)
             playerIsBattling = True
-            enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
+            if enemy_healthBar == 0:
+                enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
+            encounter.enemy_blit(sc, enemy)
 
         if (battleInvClicked): #When the Open Inventory button is clicked
             inventory.createInventory()
@@ -133,6 +137,7 @@ def GameMain(sc, playername):
                         enemy_healthBar.subtractHealth(player.attack)
                     elif battleUI.actions[3].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
+                    print(str(enemy_healthBar.currenthealth))
                     enemy_healthBar.updateBar()
                     #Mf got KO'ed bro
                     if enemy_healthBar.currenthealth == 0:
@@ -148,6 +153,7 @@ def GameMain(sc, playername):
                             exited = 1
                 
         if exited == 1:
+            # Do different music here too
             gameDisplay_input = pygame.display.set_mode((config.display_width, config.display_height))
             game_over_text = config.SPOOKY_BIG_FONT.render('Game Over', True, config.red)
             gameDisplay_input.blit(game_over_text,(config.display_width/3, config.display_height/3))
