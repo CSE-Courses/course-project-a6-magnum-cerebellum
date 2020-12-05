@@ -81,7 +81,8 @@ def GameMain(sc, playername):
             if enemy_healthBar == 0:
                 enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
-        encounter.enemy_blit(sc, enemy)
+        if encounter.in_battle and encounter.enemy_selected:
+            encounter.enemy_blit(sc, enemy)
 
         if (battleInvClicked): #When the Open Inventory button is clicked
             inventory.createInventory()
@@ -150,6 +151,8 @@ def GameMain(sc, playername):
                         if (damageTaken > 0) : damageTaken = 0
                         healthBar.subtractHealth( abs(damageTaken) ) #Enemy does a range of damage
                         if (healthBar.currenthealth == 0): #UR DEAD BRO
+                            # To reset variables
+                            encounter.player_death()
                             exited = 1
                 
         if exited == 1:

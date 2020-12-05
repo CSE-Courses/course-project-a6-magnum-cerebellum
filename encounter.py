@@ -1,6 +1,5 @@
 import json
 import os
-from actions import Action
 import pygame
 import random
 import enemies
@@ -8,6 +7,7 @@ import random
 import config
 import player
 import game
+import music_choice
 import character
 
 # Global variable to be used to count movements and encounters
@@ -51,10 +51,20 @@ def enemy_trigger(gameDisplay):
     if not enemy_selected:
         enemy = select_enemy()
         enemy_selected = True
+        music_choice.encounter_choice(enemy)
     # Stop movement during battle
     player.player_speed = 0
     if enemy_selected:
         return enemy
+
+def player_death():
+    global in_battle
+    global enemy_selected
+    in_battle = False
+    enemy_selected = False
+    player.player_speed = 2
+    # Have to do this as there is a bug where increments count when arrows are pressed during battle
+    restart_encounters()
 
 def enemy_blit(gameDisplay, enemy):
     global in_battle
