@@ -125,7 +125,7 @@ class SpriteObject:
                 bar.addMana(25)
                 text1.append("Picked up Mana")
             if self.name == "exit":
-               print("EXITING")
+               player.won = True
                #DO EXIT STUFF
 
         theta = math.atan2(dy, dx)

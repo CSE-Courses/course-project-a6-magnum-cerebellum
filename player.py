@@ -26,7 +26,7 @@ class Player():
         data = json.load(f)
 
         self.character_data = data[character.__str__()]
-
+        self.won = False 
         self.x, self.y = player_pos
         self.angle = player_angle
         self.hp = 100
@@ -42,7 +42,7 @@ class Player():
          # collision parameters
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
-        self.collision_list = collision_walls 
+        self.collision_list = collision_walls
 
     @property
     def pos(self):

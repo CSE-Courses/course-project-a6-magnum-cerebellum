@@ -67,6 +67,9 @@ def GameMain(sc, playername):
         drawing.ui_elements(player,sc)
         drawing.activities_panel(second_screen)
         
+
+        if(player.won is True):
+            transitions.win_screen(sc,player)
         #Player Health Bar & Enemy Health Bar
         healthBar.updateBar()
         if (playerIsBattling):
