@@ -11,6 +11,7 @@ from drawing import Drawing
 import health
 import activities
 import encounter
+import music_choice
 from character_selection import character_selection
 import options_menu
 from items import Item

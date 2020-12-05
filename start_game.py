@@ -31,7 +31,7 @@ paused = False
 
 def game_start(player, gameDisplay):
     music_player = music.Music_Player()
-    music_player.play_ambtrack1()
+    music_player.play_ambtrack5()
     w, h = pygame.display.get_surface().get_size()
     gameDisplay = transitions.transistion_character_selection_gameplay(pygame.display.get_surface(), player)
     gameDisplay.fill(config.black)

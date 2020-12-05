@@ -13,6 +13,7 @@ import character
 # Global variable to be used to count movements and encounters
 step_counter = 0
 encounter_trigger = 8192
+music_steps = 0
 in_battle = False
 enemy_selected = False
 
@@ -26,7 +27,10 @@ def restart_encounters():
 
 def increment_step_counter():
     global step_counter
-    step_counter += random.randrange(1, 128)
+    global music_steps
+    increment = random.randrange(1, 128)
+    step_counter += increment
+    music_steps += increment
     #print("Step counter after adding is " + str(step_counter) + "\n")
     if step_counter >= encounter_trigger:
         # Then trigger a battle with a random enemy
@@ -65,6 +69,7 @@ def player_death():
     player.player_speed = 2
     # Have to do this as there is a bug where increments count when arrows are pressed during battle
     restart_encounters()
+    music_choice.death()
 
 def enemy_blit(gameDisplay, enemy):
     global in_battle

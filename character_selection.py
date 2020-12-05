@@ -74,7 +74,7 @@ def character_selection(gameDisplay):
     print("selecting characters")
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
-    music_player.play_ambtrack2()
+    music_player.play_ambtrack9()
     gameDisplay.fill(config.black)
     buttons = [Button("BACK", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 70), (90, 60), gameDisplay)]
     character_list = create_all_characters()
