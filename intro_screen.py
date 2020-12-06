@@ -69,9 +69,12 @@ def prev():
 def main():
     bool = True
     changing_term(
-        'Hello World! In 2020, the University at Buffalo shut down and some mysterious figure decided to keep some.'
-        'students including Team Magnum Cerebellum inside of the basement in Davis Hall. We are Dan, Montana, Arnab, Ling, and Tiff, '
-        'and this is our story. It is up to you to save us and several others to escape.'
+
+        "Hello World! You are a student in University at Buffalo's Davis Hall- "
+        "and you've been trapped inside. The dark halls are filled with horrors, "
+        "and the exit is guarded by a frightening entity... What type of student are "
+        "you? How will you fight your way through to your escape? However, the real "
+        "question is... Can you escape?"
     )
     # davis.character_selection()
     while bool:
