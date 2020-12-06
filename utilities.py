@@ -18,7 +18,7 @@ def load():
 #saves the character's stats onto a pickle file at the same directory level
 def save(player):
     with open('savedgame.pkl', 'wb') as file:
-        print('Saving...')
+        config.text1.append("Saved the game")
         # data = {'pos':tuple((player.x,player.y)), 'angle':player.angle,'health':player.hp, 'character':player.character,'actions': player.character.actions, 'items':player.character.items}
         #printing out infomation
         # for d in data:

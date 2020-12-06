@@ -48,7 +48,6 @@ def GameMain(sc, playername):
     equipment = equipClassHelpers.Equipment()
     battleUI = battle_UIClassHelpers.BattleUI(player,inventory)
     heldItem = None
-    # config.text1.append(player.pos)
     drawing = Drawing(sc, sc_map, None)
     second_screen = pygame.Surface((400, 300))
     second_screen.fill(black)
@@ -92,8 +91,10 @@ def GameMain(sc, playername):
         if encounter.in_battle and not encounter.enemy_selected:
             enemy = encounter.enemy_trigger(sc)
             print("chose enemy in game")
+
             if enemy is not None:
                 print("In game chose " + enemy.type)
+                config.text1.append(str(enemy.type) + " has appeared")
             playerIsBattling = True
             if enemy_healthBar == 0:
                 enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
@@ -149,12 +150,16 @@ def GameMain(sc, playername):
                 elif playerIsBattling:
                     if battleUI.actions[0].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
+                        config.text1.append(str(player.character) + " used " +  str(player.actions[0]))
                     elif battleUI.actions[1].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
+                        config.text1.append(str(player.character) + " used " +  str(player.actions[1]))
                     elif battleUI.actions[2].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
+                        config.text1.append(str(player.character) + " used " +  str(player.actions[2]))
                     elif battleUI.actions[3].rect.collidepoint(pygame.mouse.get_pos()):
                         enemy_healthBar.subtractHealth(player.attack)
+                        config.text1.append(str(player.character) + " used " +  str(player.actions[3]))
                     print(str(enemy_healthBar.currenthealth))
                     enemy_healthBar.updateBar()
                     #Mf got KO'ed bro
@@ -175,8 +180,17 @@ def GameMain(sc, playername):
         if exited == 1:
             # Do different music here too
             gameDisplay_input = pygame.display.set_mode((config.display_width, config.display_height))
-            game_over_text = config.SPOOKY_BIG_FONT.render('Game Over', True, config.red)
+            game_over_text = config.SPOOKY_BIG_FONT.render('Game Over.', True, config.red)
+            message_text = config.SPOOKY_SMALL_FONT.render('Sorry to say but tyu have failed CSE 220...', True, config.red)
+            if config.characterselected == 1:
+                message_text = config.SPOOKY_SMALL_FONT.render('You are banned from body slamming tables.', True, config.red)
+            elif config.characterselected == 2:
+                message_text = config.SPOOKY_SMALL_FONT.render('You have to transfer to the Business School', True,config.red)
+            elif config.characterselected == 3:
+                message_text = config.SPOOKY_SMALL_FONT.render('You are not allowed to annoy UB students anymore.', True, config.red)
+
             gameDisplay_input.blit(game_over_text,(config.display_width/3, config.display_height/3))
+            gameDisplay_input.blit(message_text, (config.display_width/4, (config.display_height/3)+120))
             buttons = [
                 Button("Return to Character Selection Screen", config.white, pygame.font.Font("assets/fonts/CHILLER.ttf", 50), (4*config.display_width/5, 4*config.display_height/5), gameDisplay_input)]
             if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[0].rect.collidepoint(

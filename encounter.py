@@ -2,6 +2,7 @@ import json
 import os
 import pygame
 import random
+import activities
 import enemies
 import random
 import config
@@ -114,6 +115,9 @@ def enemy_blit(gameDisplay, enemy):
 
 # Call to stop the battle, when the enemy has been defeated
 def enemy_defeated(sc, flag):
+    config.text1.append("Enemy defeated!")
+    # second_screen = pygame.Surface((400, 300))
+    # activities.setup(second_screen)
     print("Enemy defeated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
     global in_battle
     global enemy_selected

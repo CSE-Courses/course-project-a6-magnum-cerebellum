@@ -53,7 +53,7 @@ def messages_to_add(a,b, row, col, item): #to add item actions to globakl action
 
     #Added an item to an empty cell a = 1 b = 0
     elif a == 1 and b == 0:
-        config.text1 = config.text1 + ["Added a " + str(item[0].item_name)]
+        config.text1 = config.text1 + ["Moved " + str(item[0].item_name) + " to " + str(tuple((row, col)))]
 
     #Discarded one item a = 1 b = -1
     elif a == 1 and b == -1:

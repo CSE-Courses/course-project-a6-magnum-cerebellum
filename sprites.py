@@ -1,5 +1,6 @@
 import pygame
 from config import *
+import config
 from collections import deque
 import health
 
@@ -128,10 +129,10 @@ class SpriteObject:
             self.used = True
             if self.name == "health":
                 bar.addHealth(25)
-                text1.append("Picked up Health")
+                config.text1.append("Picked up Health")
             if self.name == "mana":
                 bar.addMana(25)
-                text1.append("Picked up Mana")
+                config.text1.append("Picked up Mana")
             if self.name == "exit":
                player.won = True
                #DO EXIT STUFF
