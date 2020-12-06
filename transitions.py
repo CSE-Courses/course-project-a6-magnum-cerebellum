@@ -5,6 +5,7 @@ import format_text
 import config
 import game
 import music
+import music_choice
 import format_text
 from button import Button
 clock = pygame.time.Clock()
@@ -15,6 +16,7 @@ def win_screen(gameDisplay, player):
     music_player = music.Music_Player()
     music_player.play_victory
     music_player.set_volume(0.5)
+    music_choice.win()
     gameDisplay.fill(config.black)
     buttons = [
         Button("QUIT", config.white, config.SPOOKY_SMALL_FONT,
@@ -44,7 +46,7 @@ def transistion_character_selection_gameplay(gameDisplay, player):
     sprite = player.character.sprite_size(300,300)
     gameDisplay.blit(sprite, (config.display_width/4, config.display_height/4))
     format_text.blit_text(gameDisplay, f'Welcome to Escape from Davis {player.character} \n Your journey will begin in the basement of Davis Hall, you must battle your way to the roof. \n You will start with {player.hp} health points, dont let it fall to 0! \n click "start game" to begin your escape!' ,(1000,1000), (config.display_width/2, config.display_height/4), config.SPOOKY_SMALLER_FONT, config.yellow)
- 
+
     buttons = [
         Button("START GAME", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay),
     ]

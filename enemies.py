@@ -3,6 +3,7 @@ import os
 from actions import Action
 import pygame
 import random
+import encounter
 
 # must set for items class to work (sprites)
 screen = pygame.display.set_mode((800, 600))
@@ -43,9 +44,32 @@ def random_enemy() :
     f.close()
     enemies = data.keys()
     enemies_list = list(enemies)
-    choice = random.choice(enemies_list)
+    if encounter.boss_flag:
+        enemy = Enemy("Ethan")
+        print("in random enemy chose " + enemy.type)
+        return enemy
+    flag = False
+    while not flag and not encounter.boss_flag:
+        choice = random.choice(enemies_list)
+        if choice != "Ethan":
+            flag = True
     print(choice + "\n")
     for enemy in enemies:
         if enemy == choice:
             chosen_enemy = Enemy(choice)
             return chosen_enemy
+
+
+# Returns Ethan as the enemy
+def boss_enemy():
+    print("Entering boss battle")
+    f = open(("data/enemy_data.json"),"r")
+    data = json.load(f)
+    f.close()
+    enemies = data.keys()
+    enemies_list = list(enemies)
+    if encounter.boss_flag:
+        for enemy in enemies_list:
+            if enemy == "Ethan":
+                chosen_enemy = Enemy(enemy)
+                return chosen_enemy

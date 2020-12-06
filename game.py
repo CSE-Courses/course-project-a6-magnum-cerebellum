@@ -23,9 +23,11 @@ import transitions
 
 # Globally init this for time's sake
 enemy_healthBar = 0
+#enemy = None
 
 def GameMain(sc, playername):
     global enemy_healthBar
+    #global enemy
     print("i have started the game")
 
     #If the player is in battle
@@ -67,9 +69,17 @@ def GameMain(sc, playername):
         drawing.mini_map(player)
         drawing.ui_elements(player,sc)
         drawing.activities_panel(second_screen)
-        
+
+        if player.won and not playerIsBattling:
+            encounter.boss_flag = True
+            enemy = encounter.enemy_trigger(sc)
+            encounter.in_battle = True
+            playerIsBattling = True
+            if enemy_healthBar == 0:
+                enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
+
   
-        if(player.won is True):
+        if player.won is True and encounter.boss_defeated:
             transitions.win_screen(sc,player)
         #Player Health Bar & Enemy Health Bar
         healthBar.updateBar()
@@ -80,11 +90,14 @@ def GameMain(sc, playername):
         activities.iterate_over_input(second_screen, 20)
         if encounter.in_battle and not encounter.enemy_selected:
             enemy = encounter.enemy_trigger(sc)
+            print("chose enemy in game")
+            if enemy is not None:
+                print("In game chose " + enemy.type)
             playerIsBattling = True
             if enemy_healthBar == 0:
                 enemy_healthBar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (100, 650), sc)
 
-        if encounter.in_battle and encounter.enemy_selected:
+        if encounter.in_battle and encounter.enemy_selected and enemy is not None:
             encounter.enemy_blit(sc, enemy)
 
         if (battleInvClicked): #When the Open Inventory button is clicked
@@ -146,7 +159,7 @@ def GameMain(sc, playername):
                     #Mf got KO'ed bro
                     if enemy_healthBar.currenthealth == 0:
                         playerIsBattling = False
-                        encounter.enemy_defeated()
+                        encounter.enemy_defeated(sc, player.won)
                     #Let the enemy whack the stupid player here
                     else:
                         damageTaken = player.defense - random.randint(int (enemy.damage[0]), int (enemy.damage[1]))

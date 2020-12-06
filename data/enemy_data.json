@@ -18,5 +18,9 @@
     "Wet Floor Sign" : {
         "actions" : ["Slip", "Fall over", "Cause stress"],
         "damage": ["3", "8"]
+    },
+    "Ethan" : {
+        "actions" : ["Incinerate with C Power", "Binary Beam", "Ramble"],
+        "damage": ["20", "40"]
     }
 }

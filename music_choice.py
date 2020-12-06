@@ -13,6 +13,9 @@ dead = False
 def encounter_choice(enemy):
     global dead
     dead = False
+    if enemy.type == "Ethan":
+        music_player = music.Music_Player()
+        music_player.play_boss5()
     if current_enemy != enemy and encounter.music_steps > 50000:
         music_player = music.Music_Player()
         type = enemy.type
@@ -34,3 +37,8 @@ def death():
         music_player = music.Music_Player()
         music_player.play_ambtrack8()
         dead = True
+
+def win():
+    music_player = music.Music_Player()
+    music_player.play_ambtrack10()
+

@@ -7,15 +7,20 @@ import random
 import config
 import player
 import game
+import transitions
 import music_choice
 import character
 
 # Global variable to be used to count movements and encounters
 step_counter = 0
-encounter_trigger = 8192
+encounter_trigger = 8192000000000000000000000000000000
 music_steps = 0
 in_battle = False
 enemy_selected = False
+# Is set to true when the boss fight should be triggered
+boss_flag = False
+# Is set to true when boss is defeated
+boss_defeated = False
 
 # Implements a step counter in order to control random enemy encounters on the map
 
@@ -41,9 +46,19 @@ def increment_step_counter():
         # Restart the counter
         restart_encounters()
 
-# Selects an enemy based on likelihood triggers for different types of enemies
+# Selects an enemy randomly, but not the boss
 def select_enemy():
+    global boss_flag
+    # If the boss flag is set, then return the boss
+    if boss_flag == True:
+        print("Chose" + enemies.boss_enemy().type)
+        return enemies.boss_enemy()
+    # Otherwise, choose any other one
     enemy = enemies.random_enemy()
+    if enemy.type == "Ethan":
+        enemy = enemies.random_enemy()
+        select_enemy()
+    print("Chose " + enemy.type)
     return enemy
 
 # Will cause an enemy to be chosen, blitted to screen, and thus a battle to trigger
@@ -51,6 +66,12 @@ def enemy_trigger(gameDisplay):
     global enemy_selected
     global in_battle
     enemy = None
+    if boss_flag and not enemy_selected:
+        enemy_selected = True
+        enemy = enemies.random_enemy()
+        music_choice.encounter_choice(enemy)
+        player.player_speed = 0
+        return enemy
     # Select an enemy
     if not enemy_selected:
         enemy = select_enemy()
@@ -87,10 +108,15 @@ def enemy_blit(gameDisplay, enemy):
     #print("Stopped blitting enemy")
 
 # Call to stop the battle, when the enemy has been defeated
-def enemy_defeated():
+def enemy_defeated(sc, flag):
     print("Enemy defeated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
     global in_battle
     global enemy_selected
+    global boss_defeated
+    if flag:
+        # This means that the boss has been defeated
+        boss_defeated = True
+    # Else, proceed normally
     in_battle = False
     enemy_selected = False
     player.player_speed = 2

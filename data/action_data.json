@@ -97,5 +97,14 @@
     },
     "Fall over" : {
         "damage_level" : 0
+    },
+    "Incinerate with C Power" : {
+        "damage_level" : 50
+    },
+    "Binary Beam" : {
+        "damage_level" : 40
+    },
+    "Ramble" : {
+        "damage_level" : 5
     }
 }
