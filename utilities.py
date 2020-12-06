@@ -32,7 +32,7 @@ def save(player):
 
 def set_image(image, display):
     image_surface = pygame.image.load(image)
-    display.blit(image_surface, (0, 0))
+    display.blit(image_surface, (275, 0))
 
 def unpause():
     global paused
