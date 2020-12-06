@@ -13,7 +13,7 @@ import character
 
 # Global variable to be used to count movements and encounters
 step_counter = 0
-encounter_trigger = 8192000000000000000000000000000000
+encounter_trigger = 8192
 music_steps = 0
 in_battle = False
 enemy_selected = False
@@ -99,6 +99,11 @@ def enemy_blit(gameDisplay, enemy):
         image_path = "assets/enemy_sprites/" + str(enemy.type) + ".png"
         enemy_image = pygame.image.load(image_path)
         enemy_rect = enemy_image.get_rect()
+        if boss_flag:
+            enemy_rect.x = 600
+            enemy_rect.y = 10
+            gameDisplay.blit(enemy_image, enemy_rect)
+            return
         enemy_rect.x = 500
         enemy_rect.y = 100
         #print("about to get surface\n")

@@ -72,6 +72,7 @@ def GameMain(sc, playername):
 
         if player.won and not playerIsBattling:
             encounter.boss_flag = True
+            config.boss_initiate = True
             enemy = encounter.enemy_trigger(sc)
             encounter.in_battle = True
             playerIsBattling = True

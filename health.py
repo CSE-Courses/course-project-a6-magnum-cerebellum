@@ -22,6 +22,8 @@ class Bar:
         # This initialization will be changed according to character stats once set up
         self.totalhealth = 100
         self.totalmana = 100
+        if config.boss_initiate:
+            self.totalhealth = 200
         #
         self.currenthealth = self.totalhealth
         self.currentmana = self.totalmana

@@ -13,7 +13,7 @@ import encounter
 # import testing_delete
 
 # Global player_speed
-player_speed = 10
+player_speed = 2
 
 class Player():
     old_pos = player_pos
