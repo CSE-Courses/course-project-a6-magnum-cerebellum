@@ -34,6 +34,9 @@ def encounter_choice(enemy):
 def death():
     global dead
     if not dead:
+        encounter.boss_flag = False
+        encounter.boss_defeated = False
+        encounter.enemy_selected = False
         music_player = music.Music_Player()
         music_player.play_ambtrack8()
         dead = True
