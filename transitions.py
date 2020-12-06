@@ -43,9 +43,9 @@ def win_screen(gameDisplay, player):
 def transistion_character_selection_gameplay(gameDisplay, player):
     gameDisplay = pygame.display.set_mode((config.display_width, config.display_height),0, 32)
     gameDisplay.fill(config.black)
-    sprite = player.character.sprite_size(300,300)
+    sprite = player.character.sprite_size(300,500)
     gameDisplay.blit(sprite, (config.display_width/4, config.display_height/4))
-    format_text.blit_text(gameDisplay, f'Welcome to Escape from Davis {player.character} \n Your journey will begin in the basement of Davis Hall, you must battle your way to the roof. \n You will start with {player.hp} health points, dont let it fall to 0! \n click "start game" to begin your escape!' ,(1000,1000), (config.display_width/2, config.display_height/4), config.SPOOKY_SMALLER_FONT, config.yellow)
+    format_text.blit_text(gameDisplay, f'You are a {player.character}! \n Your journey begins in the basement, and you must survive long enough in order to find the exit. \n You start with {player.hp} health points, and if it falls to 0, then you will perish to the spectres of Davis Hall. \n But if your search for the exit proves fruitful, you may have to overcome one last trial...' ,(1000,1000), (config.display_width/2, config.display_height/4), config.SPOOKY_SMALLER_FONT, config.yellow)
 
     buttons = [
         Button("START GAME", config.white, config.SPOOKY_SMALL_FONT, ((config.display_width / 2), (config.display_height / 1.1)), gameDisplay),
