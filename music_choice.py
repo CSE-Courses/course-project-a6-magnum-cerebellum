@@ -3,7 +3,6 @@ import os
 import music
 import config
 import encounter
-#from davis import music_player
 
 ### Will choose music to play based on several factors
 
@@ -37,6 +36,7 @@ def death():
         encounter.boss_flag = False
         encounter.boss_defeated = False
         encounter.enemy_selected = False
+        config.boss_initiate = False
         music_player = music.Music_Player()
         music_player.play_ambtrack8()
         dead = True
