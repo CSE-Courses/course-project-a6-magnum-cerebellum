@@ -28,8 +28,8 @@ def main_menu(gameDisplay, music_player):
         Button("QUIT", config.white, config.SPOOKY_SMALL_FONT,
                ((config.display_width / 2), (config.display_height / 1.20)),
                gameDisplay),
-        Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
-               ((config.display_width/2),(config.display_height-500)), gameDisplay),
+        #Button("Rendering Demo", config.white, config.SPOOKY_SMALL_FONT,
+        #       ((config.display_width/2),(config.display_height-500)), gameDisplay),
         # Button("Win Screen", config.white, config.SPOOKY_SMALL_FONT,
         #        ((config.display_width/2),(30)), gameDisplay),
                ]
@@ -60,8 +60,8 @@ def main_menu(gameDisplay, music_player):
                 #music_player.stop()
                 options_menu(gameDisplay)
             #Temporary game rendering prototype Button
-            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
-                game.GameMain(gameDisplay, "Techie")
+            #elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[3].rect.collidepoint(pygame.mouse.get_pos())):
+            #    game.GameMain(gameDisplay, "Techie")
             # elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and buttons[4].rect.collidepoint(pygame.mouse.get_pos())):
             #     music_player.stop()
             #     random_player = Player(Character("Fratboy"))
