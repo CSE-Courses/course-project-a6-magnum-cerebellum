@@ -5,6 +5,7 @@ class Button:
     def __init__(self, text, color, font, pos, gameDisplay):
         self.text = text
         self.color = color
+        self.originalColor = color
         self.font = font
         self.pos = pos
 
@@ -30,6 +31,9 @@ class Button:
     def check_Hover(self, gameDisplay):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.color = (255, 0, 0)  # Red
+            self.createButton(gameDisplay)
+            return True
         else:
-            self.color = (255, 255, 255)  # White
-        self.createButton(gameDisplay)
+            self.color = self.originalColor
+            self.createButton(gameDisplay)
+            return False

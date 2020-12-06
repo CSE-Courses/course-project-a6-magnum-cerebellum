@@ -1,6 +1,8 @@
 import pygame
 import config
 from items import Item
+from button import Button
+from activities import messages_to_add
 
 gameDisplay = pygame.display.set_mode((config.display_width, config.display_height))
 
@@ -8,9 +10,19 @@ gameDisplay = pygame.display.set_mode((config.display_width, config.display_heig
 ###Below for Inventory
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, startingItems):
         self.rows = 4
         self.col = 8
+        
+        #items[x][y][0] is the item
+        #items[x][y][1] is item count
+        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
+
+        #Items the Character starts with
+        self.startingItems = startingItems
+
+        for item in self.startingItems:
+            self.addToInventory( [Item(item), 1] , None)
 
         #For Menu that shows when right-click item
         self.itemMenuClicked = False
@@ -22,16 +34,12 @@ class Inventory:
         #For Description box that shows when clicking Info Option
         self.infoBoxClicked = False
         self.infoBox = None
-
-        #items[x][y][0] is the item
-        #items[x][y][1] is item count
-        self.items = [[None for _ in range(self.rows)] for _ in range(self.col)]
         
         #size of the box itself
         self.box_size = 50
 
         #x, y position of the inventory
-        self.x = 500
+        self.x = 550
         self.y = 550
 
         #border thiccness
@@ -40,6 +48,10 @@ class Inventory:
         ,(self.box_size + self.border)*self.col
         ,(self.box_size + self.border)*self.rows)
 
+        #If the inventory was opened during battle
+        self.back = Button("Back", config.white, config.RPG_ACTION_FONT, (self.x + self.x/2.5, self.y + (self.box_size + self.border)*self.rows + self.border*3), gameDisplay)
+
+    #Redraws the Inventory GUI
     def createInventory(self):
 
         #This draws the borders
@@ -88,47 +100,67 @@ class Inventory:
         return (x,y)
     
     #Add the item to the inventory, if there's a item already being selected, swap their positions
-    def addToInventory(self, Item, position):
+    #NOTE THE TYPE OF ITEM IS ACTUALLY A LIST!!! 
+    #[0] is the item itself, [1] is the number! This allows for stacking
+    #So when adding item, add a list
+    #EX. [ Item("Computer"), 1 ]
+
+    def addToInventory(self, item, position):
+        #If it's not swapping around items, loop through the items and place it into the first slot
+        if position == None:
+            for x in range(self.rows):
+                for y in range(self.col):
+                    if self.items[y][x] == None:
+                        self.items[y][x] = item
+                        return
+
+        #Else the position is what box the mouse is tryna swap with
         row, col = position
-        
         #If something contained in that box
         if self.items[row][col]:
             #If it's the same item, stack it
-            if (self.items[row][col][0].item_name == Item[0].item_name
-                and self.items[row][col][0].item_type != "Equip"):
+            if (self.items[row][col][0].item_name == item[0].item_name #if the item in the column and row we are switching into has the same name as the item being held
+                and self.items[row][col][0].equip_type == None):
                 
                 #This is the number of that particular item
                 #Item[1] allows it to stack multiple numbers, not just increase by 1
-                self.items[row][col][1] += Item[1]
+                self.items[row][col][1] += item[1]
                 config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
 
             #Otherwise swap the two items
 
             else:
                 heldItem = self.items[row][col]
-                self.items[row][col] = Item
-                config.text1 = config.text1 + ["swapped items"]
 
+                self.items[row][col] = item
+                messages_to_add(1, 2, row, col, self.items[row][col])
                 return heldItem
 
-        
         #Nothing in box, so just place the Item
         else:
-            self.items[row][col] = Item
-            config.text1 = config.text1 + ["added a " + str(self.items[row][col][0].item_name)]
+
+            self.items[row][col] = item
+            if(self.items[row][col][1] > 1):
+                messages_to_add(3, 0, row, col, self.items[row][col])
+
+            elif(self.items[row][col][1] == 1):
+                messages_to_add(1, 0, row, col, self.items[row][col])
 
     def discardFromInventory(self,position, discardAmount):
         row, col = position
-
+        number_of_items = ""
         if self.items[row][col]:
             #get rid of 1 item
             if self.items[row][col][1] > 1 and discardAmount == "Discard One":
-                config.text1 = config.text1 + ["discarded a " + str(self.items[row][col][0].item_name)]
+                messages_to_add(1, -1, row, col, self.items[row][col])
                 self.items[row][col][1] -= 1
 
             #get rid of all items
             else:
-                config.text1 = config.text1 + ["discarded all " + str(self.items[row][col][0].item_name) + "s from inventory"]
+                if self.items[row][col][1] == 1:
+                    messages_to_add(1, -1, row, col, self.items[row][col])
+                elif self.items[row][col][1] > 1:
+                    messages_to_add(3, -2, row, col, self.items[row][col])
                 self.items[row][col] = None
 
 
@@ -156,7 +188,15 @@ class itemOptionMenu:
         self.optionsRects = []
 
     def createOptions(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 77) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + 77 + self.border)
+            
+        if (self.menuY + (self.box_size + self.border) * self.numberOfBoxes + self.border > config.display_height):
+            self.menuY = config.display_height - ((self.box_size + self.border) * self.numberOfBoxes + self.border)
         #draw border box
+        #x , width, y, height
+        
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 77, (self.box_size + self.border) * self.numberOfBoxes + self.border)
 
         pygame.draw.rect(gameDisplay,config.black,self.borderRect)
@@ -179,7 +219,6 @@ class itemOptionMenu:
                 #def outlineText(text, font, color, outlineColor, outlineSize):
                 gameDisplay.blit(outlineText(self.optionsTextArray[row],config.SPOOKY_INVENTORY_FONT, config.red, config.black, 1, False, 0), text_rect)
                 
-
     def populateOptionsArray(self):
         self.numberOfBoxes = 4
         if (self.itemType == "Equip"):
@@ -211,6 +250,15 @@ class infoBox:
         self.borderRect = None
 
     def createInfo(self):
+        #So it doesn't blit the fu thing out of the screen
+        if ((self.menuX + self.box_size + self.border + 205) > config.display_width):
+            self.menuX = config.display_width - (self.box_size + self.border + 205)
+
+        if ((self.menuY + self.box_size + 115  + self.border*2) > config.display_height):
+            self.menuY = config.display_height - (self.box_size + 115  + self.border*2)
+        #draw border box
+        #x , width, y, height
+
         #draw border box
         self.borderRect = pygame.Rect(self.menuX, self.menuY, (self.box_size + self.border) + 205, self.box_size + 115  + self.border*2)
 
@@ -232,9 +280,11 @@ class infoBox:
         
         if (self.item_type == "Equip"):
             if (self.item.equip_type == "Weapon"):
-                self.item_type += ": " + "Deals " + str(self.item.damage) + " damage"
+                self.item_type += ": " + "Deals " + str(self.item.amount) + " damage"
+            elif (self.item.equip_type in ("Armor", "Helmet", "Shoes")):
+                self.item_type += ": " + "Gives " + str(self.item.amount) + " defense"
         elif (self.item_type == "Consumable"):
-            self.item_type += ": " + "Heals " + str(self.item.damage) + " hp"
+            self.item_type += ": " + "Heals " + str(self.item.amount) + " hp"
         drawText(gameDisplay, self.item_name, config.white, itemNameBox, config.SPOOKY_INVENTORY_FONT, 2, config.black)
         drawText(gameDisplay, self.item_type, config.white, itemTypeBox, config.SPOOKY_ITEM_FONT, 2, config.black)
 

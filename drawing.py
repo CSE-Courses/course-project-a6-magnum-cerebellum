@@ -6,11 +6,13 @@ from map import mini_map
 
 import activities
 import config
+import health
 
 from character_UI import char_ui
 from invClassHelpers import *
 from equipClassHelpers import  *
 from items import Item
+from enemies import Enemy
 
 class Drawing:
     def __init__(self, sc, sc_map, heldItem):
@@ -19,6 +21,7 @@ class Drawing:
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
         self.textures = {'1': pygame.image.load("assets/textures/wall1.png").convert(),
                          '2': pygame.image.load("assets/textures/wall2.png").convert(),
+                         '3': pygame.image.load("assets/textures/wall3.png").convert(),
                          'S': pygame.image.load("assets/textures/sky.png").convert()
                          }
 
@@ -59,9 +62,7 @@ class Drawing:
 
     def blitHeldItem(self, heldItem, mouseX, mouseY):
         if heldItem:
-
                 self.sc.blit(heldItem[0].resize(30), (mouseX, mouseY))
-
                 if (heldItem[0].item_type != "Equip"):
                     obj = SPOOKY_INVENTORY_FONT.render(str(heldItem[1]), True, white)
                     outline = SPOOKY_INVENTORY_OUTLINE.render(str(heldItem[1]), True, black)
@@ -81,10 +82,10 @@ class Drawing:
 
         if equipment.infoBoxClicked:
             blitEquipInfoBox(equipment)
-        return
 
-    #Big chunk below
-    def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem):
+    #Big inventory chunk below
+    def inventoryEquipmentUI(self, inventory, equipment, gameDisplay, eventType, eventButton, mouseX, mouseY, heldItem, healthBar, player):
+
         inventory.createInventory()
         equipment.createEquip()
         mouse = pygame.mouse.get_pos()
@@ -107,32 +108,42 @@ class Drawing:
                 #When fully integrating into the actual main screen, do effect
 
                     if (menu.optionsRects[i].collidepoint(mouse)):
-                        #Implemented Discards
+                        #DISCARD OPTION
                         if ("Discard" in menu.optionsTextArray[i]):
                             inventory.discardFromInventory(inventory.itemBox, menu.optionsTextArray[i])
-                            print ("Discard")
-                            break
-                        elif (menu.optionsTextArray[i] == "Info"):
-                            inventory.infoBoxClicked = True
-                            print ("Info")
-                            return                         
-                            
-                        #WIP effects to be implemented/integrated with other parts of the game
 
+                        #INFO OPTION
+                        elif (menu.optionsTextArray[i] == "Info"):
+                            inventory.infoBoxClicked = True                    
+
+                        #EQUIP OPTION
                         elif (menu.optionsTextArray[i] == "Equip"):
                             swappedItem = equipment.equipItem(inventory.currentItem)
-
                             if (swappedItem == None):
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                             elif (swappedItem[0].item_name != inventory.currentItem[0].item_name):
                                 inventory.discardFromInventory(inventory.itemBox, "Discard One")
                                 inventory.addToInventory(swappedItem, inventory.itemBox)
-                                break
-                            #elif (menu.optionsTextArray[i] == "Use"):
-                            #    healthBar.addHealth(inventory.currentItem[0].damage)
-
-                            #    inventory.discardFromInventory(inventory.itemBox, "Discard One")
-                            #    break
+                                #Swapped with an Equip so need to decrement the old equip values
+                                if (swappedItem[0].equip_type == "Weapon"):
+                                    player.attack -= swappedItem[0].amount
+                                else:
+                                    player.defense -= swappedItem[0].amount
+                                    
+                            #Change player value
+                            if (inventory.currentItem[0].equip_type == "Weapon"):
+                                player.attack += inventory.currentItem[0].amount
+                            else:
+                                player.defense += inventory.currentItem[0].amount
+                        
+                        #USE OPTION
+                        elif (menu.optionsTextArray[i] == "Use"):
+                            if (inventory.currentItem[0].effect == "Health"):
+                                healthBar.subtractHealth(inventory.currentItem[0].amount)
+                            elif (inventory.currentItem[0].effect == "Mana"):
+                                healthBar.addMana(inventory.currentItem[0].amount)
+                            inventory.discardFromInventory(inventory.itemBox, "Discard One")
+                        break
                     inventory.itemMenuClicked = False
 
             elif equipment.itemMenuClicked and equipment.itemMenu.borderRect.collidepoint(mouse):
@@ -142,8 +153,15 @@ class Drawing:
                         if (menu.optionsTextArray[i] == "Info"):
                             equipment.infoBoxClicked = True
                             break
+
                         elif (menu.optionsTextArray[i] == "Unequip"):
-                            equipment.unequipItem(equipment, inventory)
+                            equip_type, value = equipment.unequipItem(equipment, inventory)
+                            #Successful unequip
+                            if (equip_type != None):
+                                if(equip_type == "Weapon"):
+                                    player.attack -= value
+                                else : #Then it's armor
+                                    player.defense -= value
                             break
                 equipment.itemMenuClicked = False
 
@@ -164,8 +182,6 @@ class Drawing:
                     heldItem = inventory.items[pos[0]][pos[1]]
                     inventory.items[pos[0]][pos[1]] = None
 
-            return heldItem
-
         ### If it's a right-click
         elif eventType == pygame.MOUSEBUTTONDOWN and eventButton == 3:
             
@@ -185,7 +201,19 @@ class Drawing:
             # Remove later when putting everything together
             elif heldItem == None:
                 randomItemPicker = [Item("Computer"), Item("Book"),Item("Red Bull")]
-                heldItem = [randomItemPicker[random.randint(1, 2)], 1]
-            return heldItem
+                heldItem = [randomItemPicker[random.randint(0, 2)], 1]
+        return heldItem, healthBar, player
 
-        return heldItem
+    def enemyEncounter(self, display, enemy: Enemy):
+        text = config.SPOOKY_ITEM_FONT.render("Battle Enemy", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2))
+        return rect
+    def attackButton(self, display):
+        text = config.SPOOKY_ITEM_FONT.render("Attack", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2 + 50))
+        return rect
+    def defendButton(self, display):
+        text = config.SPOOKY_ITEM_FONT.render("Defend", True, config.black, config.gray)
+        rect = display.blit(text, (0, config.display_height/2 + 80))
+        return rect
+

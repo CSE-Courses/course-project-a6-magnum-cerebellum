@@ -12,7 +12,7 @@ from button import Button
 
 class Bar:
 
-    def __init__(self, color, font, pos, gameDisplay):
+    def __init__(self, color, font, pos, gameDisplay, show = True):
         self.color = color
         self.font = font
         self.pos = pos
@@ -22,13 +22,15 @@ class Bar:
         # This initialization will be changed according to character stats once set up
         self.totalhealth = 100
         self.totalmana = 100
+        if config.boss_initiate:
+            self.totalhealth = 200
         #
         self.currenthealth = self.totalhealth
         self.currentmana = self.totalmana
-
-        self.set_rect()
-        self.createBar()
-
+        self.show = show
+        if self.show:
+            self.set_rect()
+            self.createBar()
 
     def barText(self):
         bar = "HP: " + str(self.currenthealth) + " / " + str(self.totalhealth)
@@ -61,9 +63,13 @@ class Bar:
         newpos = ((self.pos[0], self.pos[1] + 50))
         self.rect2.center = newpos
 
-    def clearBar(self, color):
-        self.rend.fill((color))
-        self.rend2.fill((color))
+    def clearBar(self):
+        self.rend.fill((self.color))
+        self.rend2.fill((self.color))
+
+    def show_bar(self):
+        self.set_rect()
+        self.createBar()
 
     def updateBar(self):
         self.barText()
@@ -85,7 +91,7 @@ class Bar:
 
     def addHealth(self, gain):
         self.currenthealth += gain
-        if (self.currenthealth > 100): self.currenthealth = 100
+        #if (self.currenthealth > 100): self.currenthealth = 100
         self.updateBar()
 
     def subtractMana(self, lost):
@@ -95,7 +101,7 @@ class Bar:
 
     def addMana(self, gain):
         self.currentmana += gain
-        if (self.currentmana > 100): self.currentmana = 0
+        #if (self.currentmana > 100): self.currentmana = 100
         self.updateBar()
 
 

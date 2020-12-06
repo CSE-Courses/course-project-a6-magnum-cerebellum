@@ -3,7 +3,7 @@ import config
 
 clock = pygame.time.Clock()
 
-
+# text formatter, text -> string, text_block_size -> (height, width) max text block size, pos -> (x, y) position of text on screen
 def blit_text(display, text, text_block_size, pos, font, color):
     words = []
     lines = text.splitlines()

@@ -14,6 +14,8 @@ SPOOKY_INVENTORY_OUTLINE = pygame.font.Font("assets/fonts/CHILLER.ttf", 35)
 SPOOKY_INFO_OUTLINE = pygame.font.Font("assets/fonts/CHILLER.ttf", 32)
 SPOOKY_ITEM_FONT = pygame.font.Font("assets/fonts/CHILLER.ttf", 20)
 RPG_ITEM_TYPE_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
+RPG_ACTION_FONT = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 25)
+
 CHAR_DETAIL_FONT_LARGE = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 30)
 CHAR_DETAIL_FONT_SMALL = pygame.font.Font("assets/fonts/RPGSYSTEM.ttf", 20)
 display_width = 1600
@@ -28,11 +30,12 @@ FPS_POS = (render_display_width - 65, 5)
 # player settings
 player_pos = ((render_display_width//2)//4, (render_display_height//2)-50)
 player_angle = 0
-player_speed = 2
+boss_initiate = False
+#player_speed = 2
 
 # mini-map settings
 MINIMAP_SCALE = 3
-MINIMAP_RES = (render_display_width// MINIMAP_SCALE, render_display_height // MINIMAP_SCALE)
+MINIMAP_RES = (render_display_width// MINIMAP_SCALE, (render_display_height+1600) // MINIMAP_SCALE)
 MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
 MAP_POS = (display_width-400, (display_height // MINIMAP_SCALE)-270)

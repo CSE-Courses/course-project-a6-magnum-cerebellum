@@ -5,8 +5,6 @@ import math
 import music
 import config
 from button import Button
-import health
-from player import Player
 from character import Character
 
 #####################################################################################
@@ -24,7 +22,6 @@ class char_ui:
         self.setRect()
         self.blitText()
         self.blitPortrait()
-        self.bar = health.Bar(config.white, config.CHAR_DETAIL_FONT_LARGE, (1285, 500), gameDisplay)
 
     def genText(self):
         name = str(self.name)
