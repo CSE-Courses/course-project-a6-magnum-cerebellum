@@ -144,6 +144,6 @@ class Player():
             if self.pos != self.old_pos:
                 self.old_pos = self.pos
                 printtuple = tuple(int(num) for num in self.pos)
-                config.text1.append(printtuple)
+                # config.text1.append(printtuple)
 
 

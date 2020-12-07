@@ -71,6 +71,7 @@ def get_player_stats(character, size):
     return temp_surface
 
 def character_selection(gameDisplay):
+    config.text1 = []
     print("selecting characters")
     w, h = pygame.display.get_surface().get_size()
     music_player = music.Music_Player()
@@ -116,6 +117,8 @@ def character_selection(gameDisplay):
                     if (char_rect.collidepoint(event.pos)):
                         print("character selected")
                         character = Character(character_types[index])
+                        print(index)
+                        config.characterselected = index;
                         player = Player(character)
                         save(player)
 

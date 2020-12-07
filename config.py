@@ -79,3 +79,6 @@ scroll_y = 0
 y_val = 20
 counter = 1
 storage = []
+
+#for gameover screen
+characterselected = 0

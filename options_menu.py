@@ -38,7 +38,7 @@ def options_menu(gameDisplay):
                Button("1280 x 768", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 200), gameDisplay),
                Button("1400 x 900", config.white, config.SPOOKY_SMALL_FONT, (config.display_width  / 2, config.display_height / 2 - 100), gameDisplay),
                Button("Save", config.white, config.SPOOKY_SMALL_FONT, (config.display_width / 2, config.display_height / 2 + 200), gameDisplay),
-               Button("Load", config.white, config.SPOOKY_SMALL_FONT,(config.display_width / 2, config.display_height / 2 + 300), gameDisplay)
+               # Button("Load", config.white, config.SPOOKY_SMALL_FONT,(config.display_width / 2, config.display_height / 2 + 300), gameDisplay)
 
               ]
 

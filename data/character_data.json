@@ -5,7 +5,7 @@
         "attack": "30",
         "defense": "1"
     },
-    "CSESophomore": {
+    "CSE Sophomore": {
         "actions": ["Throw class materials", "Study", "Caffienate", "Cry"],
         "items": ["Book"],
         "attack": "20",

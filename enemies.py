@@ -2,6 +2,7 @@ import json
 import os
 from actions import Action
 import pygame
+import config
 import random
 import encounter
 
@@ -33,6 +34,7 @@ class Enemy():
 
     def random_attack(self):
         i = random.randint(0, len(self.actions)-1)
+        config.text1.append(self.actions[i])
         return self.actions[i]
 
     def __str__(self):
